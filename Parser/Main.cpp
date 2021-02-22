@@ -1,7 +1,10 @@
 #include <iostream>
+#include "StringStream.h"
+#include "XmlParser.h"
 
 int main()
 {
-	std::cout << "Hello world";
+	StringStream* ss = new StringStream();
+	XmlParser xmlp = XmlParser(ss);
 	return 0;
 }
