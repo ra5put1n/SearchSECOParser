@@ -36,6 +36,7 @@ void XmlParser::ParseXML(StringStream* stringStream)
 		{
 			// New tag, so we add it and set it as our new current tag
 			Node* n = new Node(tagData.tag, current);
+			current->AddNode(n);
 			n->SetContents(tagData.textInTag);
 			current = n;
 		}
