@@ -58,6 +58,10 @@ TagData XmlParser::GetNextTag(StringStream* stringStream)
 		{
 			break;
 		}
+		if (next == ' ' || next == '\n' || next == '\r' || next == (char)9)
+		{
+			continue;
+		}
 		textBefore += next;
 	}
 	// Getting the actual tag, but without all the stuff behind it
@@ -65,7 +69,6 @@ TagData XmlParser::GetNextTag(StringStream* stringStream)
 	while (!stringStream->Stop())
 	{
 		char next = stringStream->NextChar();
-		// it for some reason sometimes puts a space after the <, so we just ignore it
 		//if (tag.length() == 0 && next == ' ') { continue; }
 		if (next == ' ')
 		{
