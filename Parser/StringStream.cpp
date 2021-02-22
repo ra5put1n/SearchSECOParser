@@ -19,7 +19,8 @@ char StringStream::NextChar()
 bool StringStream::Stop()
 {
 
-	return (dataEnded && (stringStream.tellp() == std::streampos(0)));
+	return (dataEnded && (stringStream.eof()));
+	//Stops 1 character too late
 }
 
 void StringStream::SetInputEnded(bool b)

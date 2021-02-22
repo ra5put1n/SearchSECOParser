@@ -5,5 +5,5 @@
 class SrcMLCaller
 {
 public:
-	static StringStream* StartSrcML(std::string path);
+	static StringStream* StartSrcML(const char* cmd);
 };
