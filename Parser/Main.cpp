@@ -1,5 +1,6 @@
 #include <iostream>
-
+#include "StringStream.h"
+#include "Node.h"
 
 void wrongArgs();
 
@@ -20,10 +21,32 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	
+	std::cout << "Sending files to srcML\n";
 
+
+	StringStream stream = srcML(path);
 	
-	std::cout << path << std::endl;
+	std::cout << "Received stream from srcML\n";
+
+	std::cout << "Sending stream to abstract syntax tree creator\n";
+
+	Node tree = createAbstractSyntax(stream);
+
+	std::cout << "Received abstract syntax tree from creator\n";
+
+	std::cout << "Sending abstract syntax tree to parser\n";
+
+	std::string hashable = abstractSyntaxTreeParser(tree);
+
+	std::cout << "Received hashable from abstract syntax tree\n";
+
+	std::cout << "Sending hashable to hasher\n";
+
+	std::string hash = hasher(hashable);
+
+	std::cout << "hash received from hasher, hash:\n";
+	
+	std::cout << hash <<std::endl;
 
 	system("pause");
 	return 0;
