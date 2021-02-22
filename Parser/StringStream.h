@@ -8,4 +8,5 @@ public:
 	void AddBuffer(char* buffer, int bufferSize);
 	char* NextChar();
 	std::string NextString(int size);
+	bool Stop();
 };
