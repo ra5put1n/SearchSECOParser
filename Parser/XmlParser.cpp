@@ -1,4 +1,5 @@
 #include "XmlParser.h"
+#include "AbstractSyntaxToHashable.h"
 
 XmlParser::XmlParser(StringStream* stringStream)
 {
@@ -24,6 +25,7 @@ void XmlParser::ParseXML(StringStream* stringStream)
 			if (current->GetTag()._Equal("function"))
 			{
 				// TODO: call the we abstraction + hash function.
+				std::string s = AbstractSyntaxToHashable::getHashable(*current);
 			}
 			current = current->GetPrevious();
 		}

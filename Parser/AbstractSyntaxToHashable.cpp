@@ -8,7 +8,7 @@
 // OUTPUT: string representation of abstract syntax tree
 std::string AbstractSyntaxToHashable::getHashable(Node nd)
 {
-	collapseNodes(nd);
+	return collapseNodes(nd);
 }
 
 
@@ -16,7 +16,7 @@ std::string AbstractSyntaxToHashable::getHashable(Node nd)
 std::string AbstractSyntaxToHashable::collapseNodes(Node nd)
 {
 	// Get the children
-	std::vector<Node> children = nd.GetBranches();
+	std::vector<Node*> children = nd.GetBranches();
 	// Find own value
 	std::string ownString = nodeToString(nd);
 
@@ -29,9 +29,9 @@ std::string AbstractSyntaxToHashable::collapseNodes(Node nd)
 	{
 		std::string childString = "";
 
-		for (Node n : children)
+		for (Node* n : children)
 		{
-			childString += collapseNodes(n);
+			childString += collapseNodes(*n);
 		}
 
 		return ownString + childString;
