@@ -17,10 +17,10 @@ struct TagData
 class XmlParser
 {
 public:
-	XmlParser(StringStream stringStream);
+	XmlParser(StringStream* stringStream);
 private:
-	void ParseXML(StringStream stringStream);
-	TagData GetNextTag(StringStream stringStream);
+	void ParseXML(StringStream* stringStream);
+	TagData GetNextTag(StringStream* stringStream);
 	Node* tree;
 
 };

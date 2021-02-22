@@ -1,11 +1,11 @@
 #include "XmlParser.h"
 
-XmlParser::XmlParser(StringStream stringStream)
+XmlParser::XmlParser(StringStream* stringStream)
 {
 	ParseXML(stringStream);
 }
 
-void XmlParser::ParseXML(StringStream stringStream)
+void XmlParser::ParseXML(StringStream* stringStream)
 {
 	tree = new Node("xml", nullptr);
 	// The first tag will always be the <?xml> tag, which we want to ignore
@@ -13,7 +13,7 @@ void XmlParser::ParseXML(StringStream stringStream)
 
 
 	Node* current = tree;
-	while (!stringStream.Stop())
+	while (!stringStream->Stop())
 	{
 		TagData tagData = GetNextTag(stringStream);
 		current->AddNode(new Node(tagData.textBefore));
@@ -30,7 +30,27 @@ void XmlParser::ParseXML(StringStream stringStream)
 	}
 }
 
-TagData XmlParser::GetNextTag(StringStream stringStream)
+TagData XmlParser::GetNextTag(StringStream* stringStream)
 {
-
+	std::string textBefore;
+	while (!stringStream->Stop())
+	{
+		char next = stringStream->NextChar();
+		if (next == '<')
+		{
+			break;
+		}
+		textBefore += next;
+	}
+	std::string tag;
+	while (!stringStream->Stop())
+	{
+		char next = stringStream->NextChar();
+		if (next == '>')
+		{
+			break;
+		}
+		tag += next;
+	}
+	return TagData(tag, textBefore);
 }

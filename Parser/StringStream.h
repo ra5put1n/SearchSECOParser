@@ -6,7 +6,7 @@ class StringStream
 public:
 	StringStream();
 	void AddBuffer(char* buffer, int bufferSize);
-	char* NextChar();
+	char NextChar();
 	std::string NextString(int size);
 	bool Stop();
 };
