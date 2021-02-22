@@ -9,7 +9,7 @@ Node::Node(std::string tag, Node* previous)
 
 Node::Node(std::string text)
 {
-	this->contents = contents;
+	this->contents = text;
 }
 
 std::vector<Node*> Node::GetBranches()

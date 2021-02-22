@@ -1,5 +1,6 @@
 #include "XmlParser.h"
 #include "AbstractSyntaxToHashable.h"
+#include <iostream>
 
 XmlParser::XmlParser(StringStream* stringStream)
 {
@@ -26,6 +27,7 @@ void XmlParser::ParseXML(StringStream* stringStream)
 			{
 				// TODO: call the we abstraction + hash function.
 				std::string s = AbstractSyntaxToHashable::getHashable(*current);
+				std::cout << s;
 			}
 			current = current->GetPrevious();
 		}
@@ -64,7 +66,7 @@ TagData XmlParser::GetNextTag(StringStream* stringStream)
 	{
 		char next = stringStream->NextChar();
 		// it for some reason sometimes puts a space after the <, so we just ignore it
-		if (tag.length() == 0 && next == ' ') { continue; }
+		//if (tag.length() == 0 && next == ' ') { continue; }
 		if (next == ' ')
 		{
 			break;
