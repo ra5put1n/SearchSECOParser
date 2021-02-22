@@ -42,5 +42,22 @@ std::string AbstractSyntaxToHashable::collapseNodes(Node nd)
 // Abstract the contents of a node and returns the abstracted value
 std::string AbstractSyntaxToHashable::nodeToString(Node nd)
 {
+	if (nd.GetBranches().size() > 0)
+		return "";
+
+	std::string content = nd.GetContents();
+	if (content == "")
+		return "";
+
+	Tag tag = nd.GetTag();
+
+	switch (tag)
+	{
+//	case unknown_tag:
+//		return "";
+
+	}
+		 
+
 	return nd.GetContents();
 }

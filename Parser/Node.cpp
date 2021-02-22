@@ -1,15 +1,18 @@
 #include "Node.h"
 
-Node::Node(std::string tag, Node* previous)
+
+Node::Node(Tag tag, Node* previous)
 {
 	this->tag = tag;
 	this->previous = previous;
 	childNodes = std::vector<Node*>();
 }
 
-Node::Node(std::string text)
+Node::Node(std::string text, Tag tag, Node* previous)
 {
-	this->contents = contents;
+	this->tag = tag;
+	this->contents = text;
+	this->previous = previous;
 }
 
 std::vector<Node*> Node::GetBranches()
@@ -22,7 +25,7 @@ std::string Node::GetContents()
 	return contents;
 }
 
-std::string Node::GetTag()
+Tag Node::GetTag()
 {
 	return tag;
 }

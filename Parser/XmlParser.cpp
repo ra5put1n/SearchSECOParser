@@ -1,5 +1,7 @@
 #include "XmlParser.h"
 #include "AbstractSyntaxToHashable.h"
+#include "Tag.h"
+#include <iostream>
 
 XmlParser::XmlParser(StringStream* stringStream)
 {
@@ -8,7 +10,7 @@ XmlParser::XmlParser(StringStream* stringStream)
 
 void XmlParser::ParseXML(StringStream* stringStream)
 {
-	tree = new Node("xml", nullptr);
+	tree = new Node(unknown_tag, nullptr);
 	// The first tag will always be the <?xml> tag, which we want to ignore
 	GetNextTag(stringStream);
 
@@ -17,15 +19,18 @@ void XmlParser::ParseXML(StringStream* stringStream)
 	while (!stringStream->Stop())
 	{
 		TagData tagData = GetNextTag(stringStream);
-		current->AddNode(new Node(tagData.textBefore));
+		current->AddNode(new Node(tagData.textBefore, current->GetTag(), current));
 
 		if (tagData.tag[0] == '/')
 		{
 			// Closing tag, so we go a tag back in our tree
-			if (current->GetTag()._Equal("function"))
+			if (current->GetTag() == function_tag)
 			{
 				// TODO: call the we abstraction + hash function.
 				std::string s = AbstractSyntaxToHashable::getHashable(*current);
+				std::cout << s << std::endl;
+				system("pause");
+
 			}
 			current = current->GetPrevious();
 		}
@@ -37,7 +42,7 @@ void XmlParser::ParseXML(StringStream* stringStream)
 		else
 		{
 			// New tag, so we add it and set it as our new current tag
-			Node* n = new Node(tagData.tag, current);
+			Node* n = new Node( TagMap::getTag(tagData.tag), current);
 			current->AddNode(n);
 			n->SetContents(tagData.textInTag);
 			current = n;
