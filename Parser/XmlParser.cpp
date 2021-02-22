@@ -27,6 +27,11 @@ void XmlParser::ParseXML(StringStream* stringStream)
 			// If we see a comment, we want to skip everything in it
 			GetNextTag(stringStream);
 		}
+		else
+		{
+			Node* n = new Node(tagData.tag, current);
+			current = n;
+		}
 	}
 }
 

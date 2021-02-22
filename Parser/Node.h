@@ -10,7 +10,11 @@ public:
 	Node(std::string text);
 	Node* GetBranches();
 	std::string GetContents();
+	std::string GetTag();
 	void AddNode(Node* node);
-	void SetConstents(std::string contents);
+	void SetContents(std::string contents);
 	Node* GetPrevious();
+private:
+	std::string tag, contents;
+	Node* previous;
 };
