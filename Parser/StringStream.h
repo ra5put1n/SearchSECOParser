@@ -10,7 +10,7 @@ public:
 	std::string NextString(int size);
 	bool Stop() { return pos >= data.length(); };
 private:
-	int pos;
+	int pos = 0;
 	std::string data = R"(<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 		< unit xmlns = "http://www.srcML.org/srcML/src" xmlns:cpp = "http://www.srcML.org/srcML/cpp" revision = "1.0.0" language = "C" filename = "C:\Users\ilan\Downloads\linux-master\linux-master\security\min_addr.c" > <comment type = "line">// SPDX-License-Identifier: GPL-2.0</comment>
 		<cpp:include>#<cpp:directive>include< / cpp:directive> <cpp:file> & lt; linux / init.h & gt; < / cpp:file>< / cpp:include>

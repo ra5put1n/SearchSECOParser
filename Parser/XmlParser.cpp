@@ -18,11 +18,11 @@ void XmlParser::ParseXML(StringStream* stringStream)
 		TagData tagData = GetNextTag(stringStream);
 		current->AddNode(new Node(tagData.textBefore));
 
-		if (tagData.tag[0] == '\\')
+		if (tagData.tag[0] == '/')
 		{
 			current = current->GetPrevious();
 		}
-		else if (tagData.tag._Equal("comment"))
+		else if (tagData.tag.substr(0, 7)._Equal("comment"))
 		{
 			// If we see a comment, we want to skip everything in it
 			GetNextTag(stringStream);
@@ -55,6 +55,7 @@ TagData XmlParser::GetNextTag(StringStream* stringStream)
 		{
 			break;
 		}
+		if (tag.length() == 0 && next == ' ') { continue; }
 		tag += next;
 	}
 	return TagData(tag, textBefore);
