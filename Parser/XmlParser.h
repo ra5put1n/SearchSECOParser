@@ -5,13 +5,14 @@
 struct TagData
 {
 
-	TagData(std::string tag, std::string textBefore)
+	TagData(std::string tag, std::string textInTag, std::string textBefore)
 	{
 		this->tag = tag;
 		this->textBefore = textBefore;
+		this->textInTag = textInTag;
 	};
 
-	std::string tag, textBefore;
+	std::string tag, textBefore, textInTag;
 };
 
 class XmlParser

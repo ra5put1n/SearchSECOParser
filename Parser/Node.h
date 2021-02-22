@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 class Node
 {
@@ -8,7 +9,7 @@ public:
 	Node(std::string tag, Node* previous);
 	// For a only text node
 	Node(std::string text);
-	Node* GetBranches();
+	std::vector<Node*> GetBranches();
 	std::string GetContents();
 	std::string GetTag();
 	void AddNode(Node* node);
@@ -16,5 +17,6 @@ public:
 	Node* GetPrevious();
 private:
 	std::string tag, contents;
+	std::vector<Node*> childNodes;
 	Node* previous;
 };
