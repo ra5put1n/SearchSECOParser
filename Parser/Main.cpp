@@ -1,6 +1,8 @@
 #include <iostream>
+#include <vector>
 #include "StringStream.h"
-#include "Node.h"
+#include "SrcMLCaller.h"
+#include "XmlParser.h"
 
 void wrongArgs();
 
@@ -24,29 +26,20 @@ int main(int argc, char* argv[])
 	std::cout << "Sending files to srcML\n";
 
 
-	StringStream stream = srcML(path);
+	StringStream* stream = SrcMLCaller::StartSrcML(path);
 	
 	std::cout << "Received stream from srcML\n";
 
-	std::cout << "Sending stream to abstract syntax tree creator\n";
+	std::cout << "Sending stream to Xml Parser\n";
 
-	Node tree = createAbstractSyntax(stream);
+	std::vector<std::string> hashes = XmlParser::XmlParser(stream);
 
-	std::cout << "Received abstract syntax tree from creator\n";
-
-	std::cout << "Sending abstract syntax tree to parser\n";
-
-	std::string hashable = abstractSyntaxTreeParser(tree);
-
-	std::cout << "Received hashable from abstract syntax tree\n";
-
-	std::cout << "Sending hashable to hasher\n";
-
-	std::string hash = hasher(hashable);
-
-	std::cout << "hash received from hasher, hash:\n";
+	std::cout << "hashes received from Parser, hashes:\n";
 	
-	std::cout << hash <<std::endl;
+	for (std::string h : hashes) 
+	{
+		std::cout << h << std::endl;
+	}
 
 	system("pause");
 	return 0;
