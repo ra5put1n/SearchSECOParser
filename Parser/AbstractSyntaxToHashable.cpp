@@ -1,6 +1,4 @@
 #include <vector>
-
-#include "Node.h"
 #include "AbstractSyntaxToHashable.h"
 
 
@@ -48,10 +46,6 @@ std::string AbstractSyntaxToHashable::nodeToString(Node nd)
 	std::string content = nd.GetContents();
 	if (content == "")
 		return "";
-	else if (content == "proc_doulongvec_minmax")
-	{
-		return "test";
-	}
 
 	Tag tag = nd.GetTag();
 
