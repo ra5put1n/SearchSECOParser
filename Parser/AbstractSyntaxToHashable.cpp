@@ -1,6 +1,4 @@
 #include <vector>
-
-#include "Node.h"
 #include "AbstractSyntaxToHashable.h"
 
 
@@ -48,10 +46,6 @@ std::string AbstractSyntaxToHashable::nodeToString(Node nd)
 	std::string content = nd.GetContents();
 	if (content == "")
 		return "";
-	else if (content == "proc_doulongvec_minmax")
-	{
-		return "test";
-	}
 
 	Tag tag = nd.GetTag();
 
@@ -59,19 +53,26 @@ std::string AbstractSyntaxToHashable::nodeToString(Node nd)
 	{
 	case name_tag:
 		Node* parent = nd.GetPrevious();
-		while (parent->GetTag() == name_tag)
-			parent = parent->GetPrevious();
 
-		if (parent->GetTag() == type_tag)
+		if (parent != nullptr) 
 		{
-			return "type";
+			while (parent->GetTag() == name_tag)
+				parent = parent->GetPrevious();
+
+			if (parent->GetTag() == type_tag)
+			{
+				return "type";
+			}
+			else if (parent->GetTag() == call_tag)
+			{
+				return "funccall";
+			}
+			else
+			{
+				return "var";
+			}
 		}
-		else if (parent->GetTag() == call_tag)
-		{
-			return "funccall";
-		}
-		else
-		{
+		else {
 			return "var";
 		}
 
