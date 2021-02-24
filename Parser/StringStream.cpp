@@ -1,12 +1,16 @@
 #include "StringStream.h"
 
+int size;
+
 StringStream::StringStream()
 {
+	size = 0;
 }
 
-void StringStream::AddBuffer(char* buffer)
+void StringStream::AddBuffer(char* buffer, int length)
 {
 	stringStream << buffer;
+	size += length;
 }
 
 char StringStream::NextChar()
@@ -19,8 +23,7 @@ char StringStream::NextChar()
 bool StringStream::Stop()
 {
 
-	return (dataEnded && (stringStream.eof()));
-	//Stops 1 character too late
+	return (dataEnded && size == 0);
 }
 
 void StringStream::SetInputEnded(bool b)

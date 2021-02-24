@@ -19,7 +19,7 @@ StringStream* SrcMLCaller::StartSrcML(const char* cmd)
     }
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
         //result += buffer.data();
-        stream->AddBuffer(buffer.data());
+        stream->AddBuffer(buffer.data(), buffer.size());
     }
     stream->SetInputEnded(true);
     return stream;

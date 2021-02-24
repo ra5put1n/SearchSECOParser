@@ -6,7 +6,7 @@ class StringStream
 {
 public:
 	StringStream();
-	void AddBuffer(char* buffer);
+	void AddBuffer(char* buffer, int size);
 	char NextChar();
 	bool Stop();
 	void SetInputEnded(bool b);
