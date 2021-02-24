@@ -48,13 +48,32 @@ std::string AbstractSyntaxToHashable::nodeToString(Node nd)
 	std::string content = nd.GetContents();
 	if (content == "")
 		return "";
+	else if (content == "proc_doulongvec_minmax")
+	{
+		return "test";
+	}
 
 	Tag tag = nd.GetTag();
 
 	switch (tag)
 	{
-//	case unknown_tag:
-//		return "";
+	case name_tag:
+		Node* parent = nd.GetPrevious();
+		while (parent->GetTag() == name_tag)
+			parent = parent->GetPrevious();
+
+		if (parent->GetTag() == type_tag)
+		{
+			return "type";
+		}
+		else if (parent->GetTag() == call_tag)
+		{
+			return "funccall";
+		}
+		else
+		{
+			return "var";
+		}
 
 	}
 		 
