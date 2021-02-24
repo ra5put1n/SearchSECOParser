@@ -1,5 +1,5 @@
 #include "Node.h"
-
+#include <iostream>
 
 Node::Node(Tag tag, Node* previous)
 {
@@ -43,4 +43,20 @@ void Node::SetContents(std::string contents)
 Node* Node::GetPrevious()
 {
 	return previous;
+}
+
+bool Node::equal(Node* n)
+{
+	if (n->childNodes.size() != childNodes.size())
+	{
+		return false;
+	}
+	for (int i = 0; i < childNodes.size(); i++)
+	{
+		if (!childNodes[i]->equal(n->childNodes[i]))
+		{
+			return false;
+		}
+	}
+	return tag == n->tag && contents._Equal(n->contents);
 }

@@ -5,24 +5,37 @@
 
 XmlParser::XmlParser(StringStream* stringStream)
 {
-	ParseXML(stringStream);
+	ParseXML(stringStream, true);
 }
 
-void XmlParser::ParseXML(StringStream* stringStream)
+void XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
 {
 	tree = new Node(unknown_tag, nullptr);
-	// The first tag will always be the <?xml> tag, which we want to ignore
-	GetNextTag(stringStream);
+	// The first tag should always be the <?xml> tag, which we want to ignore
+	if (!GetNextTag(stringStream).tag._Equal("?xml"))
+	{
+		tree = nullptr;
+		return;
+	}
 
 
 	Node* current = tree;
 	while (!stringStream->Stop())
 	{
 		TagData tagData = GetNextTag(stringStream);
-		current->AddNode(new Node(tagData.textBefore, current->GetTag(), current));
+		if (!tagData.textBefore._Equal(""))
+		{
+			current->AddNode(new Node(tagData.textBefore, current->GetTag(), current));
+		}
 
 		if (tagData.tag[0] == '/')
 		{
+			if (TagMap::getTag(tagData.tag.substr(1)) != current->GetTag())
+			{
+				std::cout << "Closing tags don't line up";
+				tree = nullptr;
+				return;
+			}
 			// Closing tag, so we go a tag back in our tree
 			if (current->GetTag() == function_tag)
 			{

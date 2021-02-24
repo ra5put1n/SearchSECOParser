@@ -16,6 +16,7 @@ public:
 	void AddNode(Node* node);
 	void SetContents(std::string contents);
 	Node* GetPrevious();
+	bool equal(Node* n);
 private:
 	std::string contents;
 	Tag tag;

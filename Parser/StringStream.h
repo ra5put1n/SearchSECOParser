@@ -6,9 +6,9 @@ class StringStream
 public:
 	StringStream() {};
 	void AddBuffer(char* buffer, int bufferSize);
-	char NextChar() { return data[pos++]; };
+	virtual char NextChar() { return data[pos++]; };
 	std::string NextString(int size);
-	bool Stop() { return pos >= data.length(); };
+	virtual bool Stop() { return pos >= data.length(); };
 private:
 	int pos = 0;
 	// Test string, will be replaces with an actual implementation at some point.
