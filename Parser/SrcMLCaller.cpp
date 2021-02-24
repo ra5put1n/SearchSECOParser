@@ -1,3 +1,8 @@
+/*
+This program has been developed by students from the bachelor Computer Science at
+Utrecht University within the Software Project course.
+© Copyright Utrecht University (Department of Information and Computing Sciences)
+*/
 #include <cstdio>
 #include <iostream>
 #include <memory>
@@ -7,6 +12,7 @@
 #include "SrcMLCaller.h"
 
 /*
+* Partially copied and edited from:
 * https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po
 */
 StringStream* SrcMLCaller::StartSrcML(const char* cmd)
@@ -18,7 +24,6 @@ StringStream* SrcMLCaller::StartSrcML(const char* cmd)
         throw std::runtime_error("popen() failed!");
     }
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-        //result += buffer.data();
         stream->AddBuffer(buffer.data(), buffer.size());
     }
     stream->SetInputEnded(true);
