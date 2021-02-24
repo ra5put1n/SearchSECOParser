@@ -2,9 +2,6 @@
 #include "StringStreamMock.h"
 #include "../Parser/XmlParser.h"
 #include "../Parser/XmlParser.cpp"
-#include "../Parser/Node.cpp"
-#include "../Parser/AbstractSyntaxToHashable.cpp"
-#include "../Parser/Tag.cpp"
 
 TEST(GetNextTagTests, BasicInput)
 {
