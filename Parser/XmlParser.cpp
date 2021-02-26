@@ -36,7 +36,7 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 		{
 			if (TagMap::getTag(tagData.tag.substr(1)) != current->GetTag())
 			{
-				std::cout << "Closing tags don't line up";
+				std::cout << "Closing tags don't line up in: " << tree->GetBranches()[tree->GetBranches().size()-1]->GetContents() << std::endl;
 				tree = nullptr;
 				return hashes;
 			}
@@ -60,7 +60,10 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 			Node* n = new Node( TagMap::getTag(tagData.tag), current);
 			current->AddNode(n);
 			n->SetContents(tagData.textInTag);
-			current = n;
+			if (!((tagData.textInTag.size() > 0 && tagData.textInTag[tagData.textInTag.size() - 1] == '/') || tagData.tag[tagData.tag.size() - 1] == '/'))
+			{
+				current = n;
+			}
 		}
 	}
 	return hashes;

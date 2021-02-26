@@ -12,7 +12,7 @@ void wrongArgs();
 
 int main(int argc, char* argv[])
 {
-	std::string path = "srcml C:\\Users\\ilan\\Downloads\\linux-master\\linux-master\\arch\\arm\\mach-socfpga\\pm.c";
+	std::string path = "srcml C:\\Users\\ilan\\Downloads\\linux-master\\linux-master\\arch";
 
 	/*if (argc > 1)
 	{
