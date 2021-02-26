@@ -1,12 +1,28 @@
+/*This program has been developed by students from the bachelor Computer Science at
+Utrecht University within the Software Project course.
+© Copyright Utrecht University(Department of Informationand Computing Sciences)*/
 #pragma once
 #include <string>
+#include <vector>
+#include "Tag.h"
 
 class Node
 {
 public:
-	Node();
-	Node* GetBranches();
+	// For a node with a tag
+	Node(Tag tag, Node* previous);
+	// For a only text node
+	Node(std::string text, Tag tag, Node* previous);
+	std::vector<Node*> GetBranches();
 	std::string GetContents();
+	Tag GetTag();
 	void AddNode(Node* node);
-	void SetConstents(std::string contents);
+	void SetContents(std::string contents);
+	Node* GetPrevious();
+	bool equal(Node* n);
+private:
+	std::string contents;
+	Tag tag;
+	std::vector<Node*> childNodes;
+	Node* previous;
 };
