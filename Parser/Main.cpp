@@ -1,12 +1,10 @@
-﻿/*This program has been developed by students from the bachelor Computer Science at
-Utrecht University within the Software Project course.
-� Copyright Utrecht University(Department of Informationand Computing Sciences)*/
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include "StringStream.h"
 #include "XmlParser.h"
 #include "Node.h"
 #include "SrcMLCaller.h"
+#include "StringStream.h"
 
 void wrongArgs();
 

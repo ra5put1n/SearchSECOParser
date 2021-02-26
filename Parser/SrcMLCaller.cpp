@@ -1,86 +1,32 @@
-#include "SrcMLCaller.h"
+/*
+This program has been developed by students from the bachelor Computer Science at
+Utrecht University within the Software Project course.
+© Copyright Utrecht University (Department of Information and Computing Sciences)
+*/
+#include <cstdio>
 #include <iostream>
-#include <filesystem>
-#include <windows.h>
-#include <atlstr.h>
-namespace fs = std::filesystem;
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <array>
+#include "SrcMLCaller.h"
 
-#define bufferSize 2
-
-/// <summary>
-/// based on a response in this thread
-/// https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po
-/// </summary>
-StringStream* SrcMLCaller::StartSrcML(std::string path)
+/*
+* Partially copied and edited from:
+* https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po
+*/
+StringStream* SrcMLCaller::StartSrcML(const char* cmd)
 {
-    StringStream* ss = new StringStream();
-
-    HANDLE hPipeRead, hPipeWrite;
-
-    SECURITY_ATTRIBUTES saAttr = { sizeof(SECURITY_ATTRIBUTES) };
-    saAttr.bInheritHandle = TRUE; // Pipe handles are inherited by child process.
-    saAttr.lpSecurityDescriptor = NULL;
-
-    // Create a pipe to get results from child's stdout.
-    if (!CreatePipe(&hPipeRead, &hPipeWrite, &saAttr, 0))
-        return nullptr;
-
-    STARTUPINFOA si = { sizeof(STARTUPINFOA) };
-    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-    si.hStdOutput = hPipeWrite;
-    si.hStdError = hPipeWrite;
-    si.wShowWindow = SW_HIDE; // Prevents cmd window from flashing.
-                              // Requires STARTF_USESHOWWINDOW in dwFlags.
-
-    PROCESS_INFORMATION pi = { 0 };
-
-    std::string cmdCommand = "srcml " + path;
-    auto a = (LPSTR)cmdCommand.c_str();
-    BOOL fSuccess = CreateProcessA(NULL, (LPSTR)cmdCommand.c_str(), NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi);
-    if (!fSuccess)
-    {
-        CloseHandle(hPipeWrite);
-        CloseHandle(hPipeRead);
-        return nullptr;
+    std::array<char, 128> buffer;
+    StringStream* stream = new StringStream();
+    std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd, "r"), _pclose);
+    if (!pipe) {
+        throw std::runtime_error("popen() failed!");
     }
-
-    bool bProcessEnded = false;
-    for (; !bProcessEnded;)
-    {
-        // Give some timeslice (50 ms), so we won't waste 100% CPU.
-        bProcessEnded = WaitForSingleObject(pi.hProcess, 0) == WAIT_OBJECT_0;
-
-        // Even if process exited - we continue reading, if
-        // there is some data available over pipe.
-        for (;;)
-        {
-            char buf[bufferSize];
-            DWORD dwRead = 0;
-            DWORD dwAvail = 0;
-
-            if (!::PeekNamedPipe(hPipeRead, NULL, 0, NULL, &dwAvail, NULL))
-                std::cout << "hallo2";
-                break;
-
-            if (!dwAvail) // No data available, return
-                std::cout << "hallo3";
-                break;
-
-            if (!::ReadFile(hPipeRead, buf, min(sizeof(buf) - 1, dwAvail), &dwRead, NULL) || !dwRead)
-                std::cout << "hallo4";
-                // Error, the child process might ended
-                break;
-
-            buf[dwRead] = 0;
-            ss->AddBuffer(buf);
-            std::cout << buf;
-        }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        stream->AddBuffer(buffer.data(), buffer.size());
     }
-    ss->SetInputEnded(true);
-    CloseHandle(hPipeWrite);
-    CloseHandle(hPipeRead);
-    CloseHandle(pi.hProcess);
-    CloseHandle(pi.hThread);
-    std::cout << "test";
-    return ss;
+    stream->SetInputEnded(true);
+    return stream;
 }
+
