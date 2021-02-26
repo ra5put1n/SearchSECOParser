@@ -21,7 +21,8 @@ void StringStream::AddBuffer(char* buffer, int length)
 char StringStream::NextChar()
 {
 	char c;
-	stringStream >> c;
+	stringStream.read(&c, 1);
+	size--;
 	return c;
 }
 

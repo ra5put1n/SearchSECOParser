@@ -5,6 +5,7 @@ Utrecht University within the Software Project course.
 #include "AbstractSyntaxToHashable.h"
 #include "Tag.h"
 #include <iostream>
+#include "md5.h"
 
 XmlParser::XmlParser()
 {
@@ -13,14 +14,14 @@ XmlParser::XmlParser()
 
 std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
 {
+	std::vector<std::string> hashes;
 	tree = new Node(unknown_tag, nullptr);
 	// The first tag should always be the <?xml> tag, which we want to ignore
 	if (!GetNextTag(stringStream).tag._Equal("?xml"))
 	{
 		tree = nullptr;
-		return std::vector<std::string>();
+		return hashes;
 	}
-
 
 	Node* current = tree;
 	while (!stringStream->Stop())
@@ -37,15 +38,14 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 			{
 				std::cout << "Closing tags don't line up";
 				tree = nullptr;
-				return std::vector<std::string>();
+				return hashes;
 			}
 			// Closing tag, so we go a tag back in our tree
-			if (current->GetTag() == function_tag)
+			if (current->GetTag() == function_tag && ParseFurther)
 			{
 				// TODO: call the we abstraction + hash function.
 				std::string s = AbstractSyntaxToHashable::getHashable(*current);
-				std::cout << s << std::endl;
-				system("pause");
+				hashes.push_back(md5(s));
 			}
 			current = current->GetPrevious();
 		}
@@ -63,7 +63,7 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 			current = n;
 		}
 	}
-	return std::vector<std::string>();
+	return hashes;
 }
 
 TagData XmlParser::GetNextTag(StringStream* stringStream)
