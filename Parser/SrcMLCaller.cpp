@@ -25,7 +25,7 @@ StringStream* SrcMLCaller::StartSrcML(const char* cmd)
 */
 void SrcMLCaller::exec(const char* cmd, StringStream* stream)
 {
-    std::array<char, 128> buffer;
+    std::array<char, 1024> buffer;
     std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd, "r"), _pclose);
     if (!pipe)
     {

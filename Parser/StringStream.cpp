@@ -22,6 +22,20 @@ void StringStream::AddBuffer(char* buffer, int length)
 
 char StringStream::NextChar()
 {
+	int s = 0;
+	{
+		std::unique_lock<std::mutex> l(lock);
+		s = size;
+	}
+	while (s <= 0)
+	{
+		std::unique_lock<std::mutex> l(lock);
+		if (dataEnded)
+		{
+			return '\0';
+		}
+		s = size;
+	}
 	std::unique_lock<std::mutex> l(lock);
 	char c;
 	stringStream.read(&c, 1);
@@ -31,8 +45,7 @@ char StringStream::NextChar()
 
 bool StringStream::Stop()
 {
-
-	return (dataEnded && size == 0);
+	return (dataEnded && size <= 0);
 }
 
 void StringStream::SetInputEnded(bool b)
