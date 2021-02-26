@@ -44,9 +44,9 @@ char StringStream::NextChar()
 		s = sizeWrite;
 	} //block totdat sizeWrite > 0
 	std::unique_lock<std::mutex> l(lock);
-	std::stringstream* temp = writeStream;
-	writeStream = readStream;
-	readStream = temp;
+	delete readStream;
+	readStream = writeStream;
+	writeStream = new std::stringstream();
 	sizeRead = sizeWrite;
 	sizeWrite = 0;
 
