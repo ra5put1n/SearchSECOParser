@@ -39,10 +39,11 @@ int main(int argc, char* argv[])
 
 	std::cout << "hashes received from Parser, hashes:\n";
 	
-	for (std::string h : hashes) 
+	std::cout << "Hash amount: " << hashes.size() << std::endl;
+	/*for (std::string h : hashes) 
 	{
 		std::cout << h << std::endl;
-	}
+	}*/
 
 	system("pause");
 	return 0;

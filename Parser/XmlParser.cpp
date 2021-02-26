@@ -40,8 +40,13 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 			if (TagMap::getTag(tagData.tag.substr(1)) != current->GetTag())
 			{
 				std::cout << "Closing tags don't line up";
-				tree = nullptr;
-				return hashes;
+				//tree = nullptr;
+				//return hashes;
+				delete tree;
+				tree = new Node(unknown_tag, nullptr);
+				current = tree;
+				inFunction = false;
+				continue;
 			}
 			// Closing tag, so we go a tag back in our tree
 			Node* prev = current->GetPrevious();

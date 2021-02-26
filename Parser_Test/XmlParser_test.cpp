@@ -93,6 +93,7 @@ TEST(ParseXMLTests, WrongClosingTags)
 	StringStreamMock* ssm = new StringStreamMock(R"(<?xml><function><type><name>int</type></name></function>)");
 	XmlParser xmlParser = XmlParser();
 	xmlParser.ParseXML(ssm, false);
+	Node* type = new Node(unknown_tag, nullptr);
 
-	EXPECT_EQ(xmlParser.GetTree(), nullptr);
+	EXPECT_TRUE(xmlParser.GetTree()->equal(type));
 }
