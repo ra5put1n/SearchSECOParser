@@ -68,4 +68,5 @@ class TagMap
 public:
 	static std::map<std::string, Tag> getMap();
 	static Tag getTag(std::string text);
+	static std::map<std::string, Tag> map;
 };

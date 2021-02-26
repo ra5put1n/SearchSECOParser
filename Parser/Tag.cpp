@@ -6,7 +6,7 @@ Utrecht University within the Software Project course.
 #include "Tag.h"
 
 
-
+std::map<std::string, Tag> TagMap::map = TagMap::getMap();
 
 std::map<std::string, Tag> TagMap::getMap()
 {
@@ -69,9 +69,9 @@ std::map<std::string, Tag> TagMap::getMap()
 
 Tag TagMap::getTag(std::string text)
 {
-	std::map<std::string, Tag> m = getMap();
-	auto it = m.find(text);
-	if (it == m.end())
+	//std::map<std::string, Tag> m = getMap();
+	auto it = map.find(text);
+	if (it == map.end())
 		return unknown_tag;
 	return it->second;
 }

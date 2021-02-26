@@ -28,9 +28,6 @@ TEST_P(ParameterizedStringStreamTests, TestName) {
 	int size = testable.length();
 	s->AddBuffer(stringpointer, size);
 	for (int i = 0; i < size; i++) {
-		while (testable[i] == ' ') { //NOTE: the implementation used in StringStream for NextChar uses >> which removes whitespaces.
-			i++;
-		}
 		ASSERT_EQ(testable[i], s->NextChar());
 	}
 }
