@@ -12,6 +12,8 @@ Utrecht University within the Software Project course.
 #include "SrcMLCaller.h"
 #include <thread>
 
+#define bufferSize 1024
+
 
 StringStream* SrcMLCaller::StartSrcML(const char* cmd)
 {
@@ -25,16 +27,18 @@ StringStream* SrcMLCaller::StartSrcML(const char* cmd)
 */
 void SrcMLCaller::exec(const char* cmd, StringStream* stream)
 {
-    std::array<char, 1024> buffer;
+    std::array<char, bufferSize> buffer;
     std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd, "r"), _pclose);
     if (!pipe)
     {
         throw std::runtime_error("popen() failed!");
     }
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
+    size_t bytesRead;
+    while ((bytesRead = fread(buffer.data(), 1, bufferSize, pipe.get())) > 0)
     {
-        stream->AddBuffer(buffer.data(), buffer.size());
+        stream->AddBuffer(buffer.data(), bytesRead);
     }
+
     stream->SetInputEnded(true);
 }
 

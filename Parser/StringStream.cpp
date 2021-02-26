@@ -6,49 +6,64 @@ Utrecht University within the Software Project course.
 #include "StringStream.h"
 #include <iostream>
 
-int size;
+
 
 StringStream::StringStream()
 {
-	size = 0;
 }
 
 void StringStream::AddBuffer(char* buffer, int length)
 {
 	std::unique_lock<std::mutex> l(lock);
-	stringStream << buffer;
-	size += length;
+	writeStream->write(buffer, length);
+	sizeWrite += length;
 }
 
 char StringStream::NextChar()
 {
+	if (sizeRead > 0)
+	{
+		char c;
+		readStream->read(&c, 1);
+		sizeRead--;
+		//std::cout << c << sizeRead;
+		return c;
+	}
 	int s = 0;
 	{
 		std::unique_lock<std::mutex> l(lock);
-		s = size;
+		s = sizeWrite;
 	}
 	while (s <= 0)
 	{
 		std::unique_lock<std::mutex> l(lock);
-		if (dataEnded)
+		if (dataEnded && sizeWrite <= 0)
 		{
 			return '\0';
 		}
-		s = size;
-	}
+		s = sizeWrite;
+	} //block totdat sizeWrite > 0
 	std::unique_lock<std::mutex> l(lock);
+	std::stringstream* temp = writeStream;
+	writeStream = readStream;
+	readStream = temp;
+	sizeRead = sizeWrite;
+	sizeWrite = 0;
+
 	char c;
-	stringStream.read(&c, 1);
-	size--;
+	readStream->read(&c, 1);
+	sizeRead--;
 	return c;
 }
 
 bool StringStream::Stop()
 {
-	return (dataEnded && size <= 0);
+	std::unique_lock<std::mutex> l(lock);
+	return (dataEnded && sizeRead <= 0 && sizeWrite <= 0);
 }
 
 void StringStream::SetInputEnded(bool b)
 {
+	std::unique_lock<std::mutex> l(lock);
 	dataEnded = b;
 }
