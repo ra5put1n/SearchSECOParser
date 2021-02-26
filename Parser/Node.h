@@ -15,6 +15,7 @@ public:
 	Node(Tag tag, Node* previous);
 	// For a only text node
 	Node(std::string text, Tag tag, Node* previous);
+	~Node();
 	std::vector<Node*> GetBranches();
 	std::string GetContents();
 	Tag GetTag();
@@ -22,6 +23,7 @@ public:
 	void SetContents(std::string contents);
 	Node* GetPrevious();
 	bool equal(Node* n);
+	void RemoveNode(Node* node);
 private:
 	std::string contents;
 	Tag tag;

@@ -9,19 +9,19 @@ Utrecht University within the Software Project course.
 // getHashable function
 TEST(AbstractSyntaxToHashable_getHashable, oneNodeEmpty) {
 	Node* n = new Node("", unknown_tag, nullptr);
-	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(*n), "");
+	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n), "");
 }
 
 TEST(AbstractSyntaxToHashable_getHashable, oneNodeNotEmpty) {
 	std::string s = "test";
 	Node* n = new Node(s, unknown_tag, nullptr);
-	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(*n), s);
+	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n), s);
 }
 
 TEST(AbstractSyntaxToHashable_getHashable, oneNodeNotEmptyAbstracted) {
 	std::string s = "test";
 	Node* n = new Node(s, name_tag, nullptr);
-	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(*n), "var");
+	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n), "var");
 }
 
 
@@ -54,5 +54,5 @@ TEST(AbstractSyntaxToHashable_getHashable, manyNodesAbstraction) {
 	Node* n7 = new Node(s7, name_tag, n5);
 	n5->AddNode(n7);
 
-	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(*n1), s2 + "type" + "var" + "funccall" + s6);
+	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n1), s2 + "type" + "var" + "funccall" + s6);
 }

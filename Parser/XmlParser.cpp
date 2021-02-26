@@ -22,32 +22,37 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 		tree = nullptr;
 		return hashes;
 	}
+	bool inFunction = false;
 
 	Node* current = tree;
 	while (!stringStream->Stop())
 	{
 		TagData tagData = GetNextTag(stringStream);
-		if (!tagData.textBefore._Equal(""))
+		if (!tagData.textBefore._Equal("") && inFunction)
 		{
 			current->AddNode(new Node(tagData.textBefore, current->GetTag(), current));
 		}
 
-		if (tagData.tag[0] == '/')
+		if (tagData.tag[0] == '/' && inFunction)
 		{
 			if (TagMap::getTag(tagData.tag.substr(1)) != current->GetTag())
 			{
-				std::cout << "Closing tags don't line up in: " << tree->GetBranches()[tree->GetBranches().size()-1]->GetContents() << std::endl;
+				std::cout << "Closing tags don't line up";
 				tree = nullptr;
 				return hashes;
 			}
 			// Closing tag, so we go a tag back in our tree
+			Node* prev = current->GetPrevious();
 			if (current->GetTag() == function_tag && ParseFurther)
 			{
 				// TODO: call the we abstraction + hash function.
-				std::string s = AbstractSyntaxToHashable::getHashable(*current);
+				std::string s = AbstractSyntaxToHashable::getHashable(current);
 				hashes.push_back(md5(s));
+				prev->RemoveNode(current);
+				inFunction = false;
+				delete current;
 			}
-			current = current->GetPrevious();
+			current = prev;
 		}
 		else if (tagData.tag.substr(0, 7)._Equal("comment"))
 		{
@@ -56,6 +61,14 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 		}
 		else
 		{
+			if (TagMap::getTag(tagData.tag) != function_tag && !inFunction)
+			{
+				continue;
+			}
+			else if (TagMap::getTag(tagData.tag) == function_tag)
+			{
+				inFunction = true;
+			}
 			// New tag, so we add it and set it as our new current tag
 			Node* n = new Node( TagMap::getTag(tagData.tag), current);
 			current->AddNode(n);

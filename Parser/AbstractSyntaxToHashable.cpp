@@ -7,17 +7,17 @@ Utrecht University within the Software Project course.
 
 // INPUT: top most node of abstract syntax tree. 
 // OUTPUT: string representation of abstract syntax tree
-std::string AbstractSyntaxToHashable::getHashable(Node nd)
+std::string AbstractSyntaxToHashable::getHashable(Node* nd)
 {
 	return collapseNodes(nd);
 }
 
 
 // Collapse a node and all it's children recursively
-std::string AbstractSyntaxToHashable::collapseNodes(Node nd)
+std::string AbstractSyntaxToHashable::collapseNodes(Node* nd)
 {
 	// Get the children
-	std::vector<Node*> children = nd.GetBranches();
+	std::vector<Node*> children = nd->GetBranches();
 	// Find own value
 	std::string ownString = nodeToString(nd);
 
@@ -32,7 +32,7 @@ std::string AbstractSyntaxToHashable::collapseNodes(Node nd)
 
 		for (Node* n : children)
 		{
-			childString += collapseNodes(*n);
+			childString += collapseNodes(n);
 		}
 
 		return ownString + childString;
@@ -41,21 +41,21 @@ std::string AbstractSyntaxToHashable::collapseNodes(Node nd)
 
 
 // Abstract the contents of a node and returns the abstracted value
-std::string AbstractSyntaxToHashable::nodeToString(Node nd)
+std::string AbstractSyntaxToHashable::nodeToString(Node* nd)
 {
-	if (nd.GetBranches().size() > 0)
+	if (nd->GetBranches().size() > 0)
 		return "";
 
-	std::string content = nd.GetContents();
+	std::string content = nd->GetContents();
 	if (content == "")
 		return "";
 
-	Tag tag = nd.GetTag();
+	Tag tag = nd->GetTag();
 
 	switch (tag)
 	{
 	case name_tag:
-		Node* parent = nd.GetPrevious();
+		Node* parent = nd->GetPrevious();
 
 		if (parent != nullptr) 
 		{
@@ -82,5 +82,5 @@ std::string AbstractSyntaxToHashable::nodeToString(Node nd)
 	}
 		 
 
-	return nd.GetContents();
+	return nd->GetContents();
 }

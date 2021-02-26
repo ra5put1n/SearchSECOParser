@@ -18,6 +18,15 @@ Node::Node(std::string text, Tag tag, Node* previous)
 	this->previous = previous;
 }
 
+Node::~Node()
+{
+	for (int i = 0; i < childNodes.size(); i++)
+	{
+		delete childNodes[i];
+	}
+	//childNodes.clear();
+}
+
 std::vector<Node*> Node::GetBranches()
 {
 	return childNodes;
@@ -36,6 +45,18 @@ Tag Node::GetTag()
 void Node::AddNode(Node* node)
 {
 	childNodes.push_back(node);
+}
+
+void Node::RemoveNode(Node* node)
+{
+	for (int i = 0; i < childNodes.size(); i++)
+	{
+		if (childNodes[i] == node)
+		{
+			childNodes.erase(childNodes.begin() + i, childNodes.begin() + i + 1);
+			return;
+		}
+	}
 }
 
 void Node::SetContents(std::string contents)
