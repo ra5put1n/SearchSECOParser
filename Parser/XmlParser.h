@@ -22,8 +22,8 @@ public:
 class XmlParser
 {
 public:
-	XmlParser(StringStream* stringStream);
-	void ParseXML(StringStream* stringStream, bool ParseFurther);
+	XmlParser();
+	std::vector<std::string> ParseXML(StringStream* stringStream, bool ParseFurther);
 	TagData GetNextTag(StringStream* stringStream);
 	Node* GetTree() { return tree; };
 private:

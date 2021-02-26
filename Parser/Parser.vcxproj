@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,6 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +145,8 @@
   <ItemGroup>
     <ClCompile Include="AbstractSyntaxToHashable.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SrcMLCaller.cpp" />
+    <ClCompile Include="StringStream.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Tag.cpp" />
     <ClCompile Include="XmlParser.cpp" />
@@ -148,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractSyntaxToHashable.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="SrcMLCaller.h" />
     <ClInclude Include="StringStream.h" />
     <ClInclude Include="Tag.h" />
     <ClInclude Include="XmlParser.h" />

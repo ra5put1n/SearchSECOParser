@@ -1,12 +1,10 @@
-﻿/*This program has been developed by students from the bachelor Computer Science at
-Utrecht University within the Software Project course.
-� Copyright Utrecht University(Department of Informationand Computing Sciences)*/
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include "StringStream.h"
 #include "XmlParser.h"
 #include "Node.h"
 #include "SrcMLCaller.h"
+#include "StringStream.h"
 
 void wrongArgs();
 
@@ -30,13 +28,14 @@ int main(int argc, char* argv[])
 	std::cout << "Sending files to srcML\n";
 
 
-	StringStream* stream = SrcMLCaller::StartSrcML(path);
+	StringStream* stream = SrcMLCaller::StartSrcML(path.c_str());
 	
 	std::cout << "Received stream from srcML\n";
 
 	std::cout << "Sending stream to Xml Parser\n";
 
-	std::vector<std::string> hashes = XmlParser::XmlParser(stream);
+	XmlParser xmlParser = XmlParser();
+	std::vector<std::string> hashes = xmlParser.ParseXML(stream, true);
 
 	std::cout << "hashes received from Parser, hashes:\n";
 	

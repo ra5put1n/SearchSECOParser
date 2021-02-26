@@ -6,19 +6,19 @@ Utrecht University within the Software Project course.
 #include "Tag.h"
 #include <iostream>
 
-XmlParser::XmlParser(StringStream* stringStream)
+XmlParser::XmlParser()
 {
-	ParseXML(stringStream, true);
+	
 }
 
-void XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
+std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
 {
 	tree = new Node(unknown_tag, nullptr);
 	// The first tag should always be the <?xml> tag, which we want to ignore
 	if (!GetNextTag(stringStream).tag._Equal("?xml"))
 	{
 		tree = nullptr;
-		return;
+		return std::vector<std::string>();
 	}
 
 
@@ -37,7 +37,7 @@ void XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
 			{
 				std::cout << "Closing tags don't line up";
 				tree = nullptr;
-				return;
+				return std::vector<std::string>();
 			}
 			// Closing tag, so we go a tag back in our tree
 			if (current->GetTag() == function_tag)
@@ -63,6 +63,7 @@ void XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
 			current = n;
 		}
 	}
+	return std::vector<std::string>();
 }
 
 TagData XmlParser::GetNextTag(StringStream* stringStream)
