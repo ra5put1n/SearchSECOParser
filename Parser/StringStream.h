@@ -12,8 +12,8 @@ class StringStream
 public:
 	StringStream();
 	void AddBuffer(char* buffer, int size);
-	char NextChar();
-	bool Stop();
+	virtual char NextChar();
+	virtual bool Stop();
 	void SetInputEnded(bool b);
 	//std::string NextString(int size);
 private:

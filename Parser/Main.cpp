@@ -28,13 +28,14 @@ int main(int argc, char* argv[])
 	std::cout << "Sending files to srcML\n";
 
 
-	StringStream* stream = SrcMLCaller::StartSrcML(path);
+	StringStream* stream = SrcMLCaller::StartSrcML(path.c_str());
 	
 	std::cout << "Received stream from srcML\n";
 
 	std::cout << "Sending stream to Xml Parser\n";
 
-	std::vector<std::string> hashes = XmlParser::XmlParser(stream);
+	XmlParser xmlParser = XmlParser();
+	std::vector<std::string> hashes = xmlParser.ParseXML(stream, true);
 
 	std::cout << "hashes received from Parser, hashes:\n";
 	
