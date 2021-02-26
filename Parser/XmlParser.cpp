@@ -17,9 +17,11 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 	std::vector<std::string> hashes;
 	tree = new Node(unknown_tag, nullptr);
 	// The first tag should always be the <?xml> tag, which we want to ignore
-	if (!GetNextTag(stringStream).tag._Equal("?xml"))
+	TagData td = GetNextTag(stringStream);
+	if (!td.tag._Equal("?xml"))
 	{
 		tree = nullptr;
+		std::cout << "wrong first tag, tag in doc was: " << td.tag << std::endl;
 		return hashes;
 	}
 	bool inFunction = false;

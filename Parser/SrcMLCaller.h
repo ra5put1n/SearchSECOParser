@@ -11,4 +11,6 @@ class SrcMLCaller
 {
 public:
 	static StringStream* StartSrcML(const char* cmd);
+private:
+	static void exec(const char* cmd, StringStream* stream);
 };

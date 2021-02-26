@@ -6,6 +6,7 @@ Utrecht University within the Software Project course.
 #pragma once
 #include <string>
 #include <sstream>
+#include <mutex>
 
 class StringStream
 {
@@ -19,4 +20,5 @@ public:
 private:
 	std::stringstream stringStream = std::stringstream();
 	bool dataEnded = false;
+	std::mutex lock;
 };
