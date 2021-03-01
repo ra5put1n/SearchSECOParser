@@ -5,6 +5,7 @@ Utrecht University within the Software Project course.
 #include "StringStreamMock.h"
 #include "../Parser/XmlParser.h"
 #include "../Parser/XmlParser.cpp"
+#include "../Parser/md5.cpp"
 
 TEST(GetNextTagTests, BasicInput)
 {
@@ -48,9 +49,9 @@ TEST(GetNextTagTests, RemoveWhiteSpace)
 
 TEST(ParseXMLTests, SimpleFile)
 {
-	StringStreamMock* ssm = new StringStreamMock(R"(<?xml version="1.0" encoding="UTF - 8" standalone="yes"?><type><name>int</name></type>)");
+	StringStreamMock* ssm = new StringStreamMock(R"(<?xml version="1.0" encoding="UTF - 8" standalone="yes"?><function><name>int</name></function>)");
 	Node* xml = new Node(unknown_tag, nullptr);
-	Node* type = new Node(TagMap::getTag("type"), xml);
+	Node* type = new Node(TagMap::getTag("function"), xml);
 	Node* name = new Node(TagMap::getTag("name"), type);
 	xml->AddNode(type);
 	type->AddNode(name);
@@ -65,13 +66,11 @@ TEST(ParseXMLTests, SimpleFile2)
 {
 	StringStreamMock* ssm = new StringStreamMock(R"(<?xml version="1.0" encoding="UTF - 8" standalone="yes"?><comment>SomeTextHere</comment><unit><function someArgs><type>int</type></function><function someArgs><type>int</type></function></unit>)");
 	Node* xml = new Node(unknown_tag, nullptr);
-	Node* unit = new Node(TagMap::getTag("unit"), xml);
-	Node* function = new Node(TagMap::getTag("function"), unit);
+	Node* function = new Node(TagMap::getTag("function"), nullptr);
 	function->SetContents("someArgs");
 	Node* type = new Node(TagMap::getTag("type"), function);
-	xml->AddNode(unit);
-	unit->AddNode(function);
-	unit->AddNode(function);
+	xml->AddNode(function);
+	xml->AddNode(function);
 	function->AddNode(type);
 	type->AddNode(new Node("int", TagMap::getTag("type"), type));
 	XmlParser xmlParser = XmlParser();
@@ -91,9 +90,10 @@ TEST(ParseXMLTests, NoXML)
 
 TEST(ParseXMLTests, WrongClosingTags)
 {
-	StringStreamMock* ssm = new StringStreamMock(R"(<?xml><type><name>int</type></name>)");
+	StringStreamMock* ssm = new StringStreamMock(R"(<?xml><function><type><name>int</type></name></function>)");
 	XmlParser xmlParser = XmlParser();
 	xmlParser.ParseXML(ssm, false);
+	Node* type = new Node(unknown_tag, nullptr);
 
-	EXPECT_EQ(xmlParser.GetTree(), nullptr);
+	EXPECT_TRUE(xmlParser.GetTree()->equal(type));
 }

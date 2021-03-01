@@ -6,6 +6,7 @@ Utrecht University within the Software Project course.
 #pragma once
 #include <string>
 #include <sstream>
+#include <mutex>
 
 class StringStream
 {
@@ -17,6 +18,10 @@ public:
 	void SetInputEnded(bool b);
 	//std::string NextString(int size);
 private:
-	std::stringstream stringStream = std::stringstream();
+	std::stringstream* writeStream = new std::stringstream();
+	std::stringstream* readStream = new std::stringstream();
 	bool dataEnded = false;
+	std::mutex lock;
+	int sizeWrite = 0;
+	int sizeRead = 0;
 };
