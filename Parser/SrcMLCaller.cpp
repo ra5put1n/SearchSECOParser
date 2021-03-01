@@ -15,20 +15,21 @@ Utrecht University within the Software Project course.
 #define bufferSize 1024
 
 
-StringStream* SrcMLCaller::StartSrcML(const char* cmd)
+StringStream* SrcMLCaller::StartSrcML(std::string cmd)
 {
     StringStream* stream = new StringStream();
-    new std::thread(exec, cmd, stream);
+    new std::thread(exec, "srcml " + cmd, stream);
+
     return stream;
 }
 /*
 * Partially copied and edited from:
 * https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po
 */
-void SrcMLCaller::exec(const char* cmd, StringStream* stream)
+void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 {
     std::array<char, bufferSize> buffer;
-    std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd, "r"), _pclose);
+    std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd.c_str(), "r"), _pclose);
     if (!pipe)
     {
         throw std::runtime_error("popen() failed!");

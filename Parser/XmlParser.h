@@ -22,11 +22,12 @@ public:
 class XmlParser
 {
 public:
-	XmlParser();
+	XmlParser(int pathPrefixLength);
 	std::vector<std::string> ParseXML(StringStream* stringStream, bool ParseFurther);
 	TagData GetNextTag(StringStream* stringStream);
 	Node* GetTree() { return tree; };
 private:
 	Node* tree;
+	int pathPrefixLength;
 
 };

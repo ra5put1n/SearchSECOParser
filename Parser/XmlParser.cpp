@@ -7,14 +7,15 @@ Utrecht University within the Software Project course.
 #include <iostream>
 #include "md5.h"
 
-XmlParser::XmlParser()
+XmlParser::XmlParser(int pathPrefixLength)
 {
-	
+	this->pathPrefixLength = pathPrefixLength;
 }
 
 std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
 {
 	std::vector<std::string> hashes;
+	std::map<std::string, int> clones = std::map<std::string, int>();
 	tree = new Node(unknown_tag, nullptr);
 	// The first tag should always be the <?xml> tag, which we want to ignore
 	TagData td = GetNextTag(stringStream);
@@ -25,6 +26,7 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 		return hashes;
 	}
 	bool inFunction = false;
+	std::string currentFileName = "";
 
 	Node* current = tree;
 	while (!stringStream->Stop())
@@ -39,7 +41,7 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 		{
 			if (TagMap::getTag(tagData.tag.substr(1)) != current->GetTag())
 			{
-				std::cout << "Closing tags don't line up";
+				std::cout << "Closing tags don't line up in " << currentFileName;
 				//tree = nullptr;
 				//return hashes;
 				delete tree;
@@ -54,7 +56,16 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 			{
 				// TODO: call the we abstraction + hash function.
 				std::string s = AbstractSyntaxToHashable::getHashable(current);
-				hashes.push_back(md5(s));
+				std::string mdHash = md5(s);
+				hashes.push_back(mdHash + " " + currentFileName);
+				if (s.length() > 500)
+				{
+					clones[mdHash] = clones[mdHash] + 1;
+					if (clones[mdHash] > 1)
+					{
+						std::cout << "Hash " << mdHash << " found " << clones[mdHash] << " times\n" << s << "\n";
+					}
+				}
 				prev->RemoveNode(current);
 				inFunction = false;
 				delete current;
@@ -64,12 +75,21 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 		else if (tagData.tag.substr(0, 7)._Equal("comment"))
 		{
 			// If we see a comment, we want to skip everything in it
-			GetNextTag(stringStream);
+			while(!GetNextTag(stringStream).tag._Equal("/comment"));
 		}
 		else
 		{
 			if (TagMap::getTag(tagData.tag) != function_tag && !inFunction)
 			{
+				if (tagData.tag._Equal("unit"))
+				{
+					size_t filenamePosition = tagData.textInTag.find("filename=") + 10;
+					if (filenamePosition != std::string::npos)
+					{
+						size_t filenameEnd = tagData.textInTag.find('/"', filenamePosition);
+						currentFileName = tagData.textInTag.substr(filenamePosition + pathPrefixLength, filenameEnd - filenamePosition - pathPrefixLength);
+					}
+				}
 				continue;
 			}
 			else if (TagMap::getTag(tagData.tag) == function_tag)

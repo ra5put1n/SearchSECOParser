@@ -12,9 +12,9 @@ void wrongArgs();
 
 int main(int argc, char* argv[])
 {
-	std::string path;
+	std::string path = "C:\\Users\\ilan\\Downloads\\linux-master\\linux-master";
 
-	if (argc > 1)
+	/*if (argc > 1)
 	{
 		path = argv[1];
     }
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 		wrongArgs();
 		system("pause");
 		return 0;
-	}
+	}*/
 
 	std::cout << "Sending files to srcML\n";
 
@@ -34,18 +34,18 @@ int main(int argc, char* argv[])
 
 	std::cout << "Sending stream to Xml Parser\n";
 
-	XmlParser xmlParser = XmlParser();
+	// plus one to get rid of the extra / at the beginning
+	XmlParser xmlParser = XmlParser(path.length() + 1);
 	std::vector<std::string> hashes = xmlParser.ParseXML(stream, true);
 
 	std::cout << "hashes received from Parser, hashes:\n";
 	
-	std::cout << "Hash amount: " << hashes.size() << std::endl;
-	/*for (std::string h : hashes) 
+	//std::cout << "Hash amount: " << hashes.size() << std::endl;
+	for (std::string h : hashes) 
 	{
 		std::cout << h << std::endl;
-	}*/
-
-	system("pause");
+	}
+	
 	return 0;
 }
 
