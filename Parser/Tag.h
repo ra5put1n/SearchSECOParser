@@ -66,7 +66,21 @@ enum Tag
 class TagMap
 {
 public:
+	/// <summary>
+	/// Create new map from all available tags
+	/// </summary>
+	/// <returns>A map containing all tags</returns>
 	static std::map<std::string, Tag> getMap();
+
+	/// <summary>
+	/// Find the tag which matches to a string
+	/// </summary>
+	/// <param name="text">The string for which a tag needs to be found</param>
+	/// <returns>The found tag or unkwnon_tag if not found</returns>
 	static Tag getTag(std::string text);
+
+	/// <summary>
+	/// A map containing all tags mapped to string of the tag they represent
+	/// </summary>
 	static std::map<std::string, Tag> map;
 };

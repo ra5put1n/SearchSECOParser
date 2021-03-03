@@ -21,19 +21,23 @@ void StringStream::AddBuffer(char* buffer, int length)
 
 char StringStream::NextChar()
 {
+	// If there is something to read, read and return the value
 	if (sizeRead > 0)
 	{
 		char c;
 		readStream->read(&c, 1);
 		sizeRead--;
-		//std::cout << c << sizeRead;
 		return c;
 	}
+
+	// Check the whether the write stream is empty
 	int s = 0;
 	{
 		std::unique_lock<std::mutex> l(lock);
 		s = sizeWrite;
 	}
+
+	// Keep waiting until there is something in the write stream or the data has ended
 	while (s <= 0)
 	{
 		std::unique_lock<std::mutex> l(lock);
@@ -42,7 +46,9 @@ char StringStream::NextChar()
 			return '\0';
 		}
 		s = sizeWrite;
-	} //block totdat sizeWrite > 0
+	}
+
+	// Swap the read and write streams and read the next character
 	std::unique_lock<std::mutex> l(lock);
 	delete readStream;
 	readStream = writeStream;
@@ -59,6 +65,7 @@ char StringStream::NextChar()
 bool StringStream::Stop()
 {
 	std::unique_lock<std::mutex> l(lock);
+	// The stringstream is done when the input is done and both streams are empty
 	return (dataEnded && sizeRead <= 0 && sizeWrite <= 0);
 }
 

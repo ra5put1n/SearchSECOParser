@@ -12,6 +12,8 @@ void wrongArgs();
 
 int main(int argc, char* argv[])
 {
+
+	// Retrieve the given path from the arguments
 	std::string path;
 
 	if (argc > 1)
@@ -36,7 +38,7 @@ int main(int argc, char* argv[])
 
 	// plus one to get rid of the extra / at the beginning
 	XmlParser xmlParser = XmlParser(path.length() + 1);
-	std::vector<std::string> hashes = xmlParser.ParseXML(stream, true);
+	std::vector<std::string> hashes = xmlParser.ParseXML(stream);
 
 	std::cout << "hashes received from Parser, hashes:\n";
 	

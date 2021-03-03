@@ -11,12 +11,33 @@ Utrecht University within the Software Project course.
 class StringStream
 {
 public:
+	/// Constructor	
 	StringStream();
+
+	/// <summary>
+	/// Insert char* into Stringstream
+	/// </summary>
+	/// <param name="buffer">Char* to enter into Stringstream</param>
+	/// <param name="size">The amount of character to read</param>
 	void AddBuffer(char* buffer, int size);
+
+	/// <summary>
+	/// Removes the next character from the stream and returns it
+	/// </summary>
+	/// <returns>The next character of the stream</returns>
 	virtual char NextChar();
+
+	/// <summary>
+	/// Returns whether the Stringstream is busy or full
+	/// </summary>
+	/// <returns>Only true if the Stringstream is empty and done receiving data</returns>
 	virtual bool Stop();
+
+	/// <summary>
+	/// Set whether the input of the Stringstream has ended
+	/// </summary>
+	/// <param name="b">True if the input has ended, false otherwise</param>
 	void SetInputEnded(bool b);
-	//std::string NextString(int size);
 private:
 	std::stringstream* writeStream = new std::stringstream();
 	std::stringstream* readStream = new std::stringstream();
