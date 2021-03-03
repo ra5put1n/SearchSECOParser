@@ -28,6 +28,6 @@ public:
 	Node* GetTree() { return tree; };
 private:
 	Node* tree;
-	int pathPrefixLength;
+	int pathPrefixLength, lineNumber = 0;
 
 };

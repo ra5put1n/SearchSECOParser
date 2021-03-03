@@ -27,6 +27,7 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 	}
 	bool inFunction = false;
 	std::string currentFileName = "";
+	int startLastFunction = 0;
 
 	Node* current = tree;
 	while (!stringStream->Stop())
@@ -57,7 +58,7 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 				// TODO: call the we abstraction + hash function.
 				std::string s = AbstractSyntaxToHashable::getHashable(current);
 				std::string mdHash = md5(s);
-				hashes.push_back(mdHash + " " + currentFileName);
+				hashes.push_back(mdHash + " " + currentFileName + " " + std::to_string(startLastFunction));
 				if (s.length() > 500)
 				{
 					clones[mdHash] = clones[mdHash] + 1;
@@ -88,6 +89,7 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 					{
 						size_t filenameEnd = tagData.textInTag.find('/"', filenamePosition);
 						currentFileName = tagData.textInTag.substr(filenamePosition + pathPrefixLength, filenameEnd - filenamePosition - pathPrefixLength);
+						lineNumber = 1;
 					}
 				}
 				continue;
@@ -95,6 +97,7 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 			else if (TagMap::getTag(tagData.tag) == function_tag)
 			{
 				inFunction = true;
+				startLastFunction = lineNumber;
 			}
 			// New tag, so we add it and set it as our new current tag
 			Node* n = new Node( TagMap::getTag(tagData.tag), current);
@@ -120,7 +123,12 @@ TagData XmlParser::GetNextTag(StringStream* stringStream)
 		{
 			break;
 		}
-		if (next == ' ' || next == '\n' || next == '\r' || next == (char)9)
+		if (next == '\n')
+		{
+			lineNumber++;
+			continue;
+		}
+		if (next == ' ' || next == '\r' || next == (char)9)
 		{
 			continue;
 		}

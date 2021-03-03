@@ -12,9 +12,9 @@ void wrongArgs();
 
 int main(int argc, char* argv[])
 {
-	std::string path = "C:\\Users\\ilan\\Downloads\\linux-master\\linux-master";
+	std::string path;
 
-	/*if (argc > 1)
+	if (argc > 1)
 	{
 		path = argv[1];
     }
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 		wrongArgs();
 		system("pause");
 		return 0;
-	}*/
+	}
 
 	std::cout << "Sending files to srcML\n";
 
