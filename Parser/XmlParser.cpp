@@ -15,7 +15,6 @@ XmlParser::XmlParser(int pathPrefixLength)
 std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
 {
 	std::vector<std::string> hashes;
-	std::map<std::string, int> clones = std::map<std::string, int>();
 	tree = new Node(unknown_tag, nullptr);
 	// The first tag should always be the <?xml> tag, which we want to ignore
 	TagData td = GetNextTag(stringStream);
@@ -59,14 +58,6 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 				std::string s = AbstractSyntaxToHashable::getHashable(current);
 				std::string mdHash = md5(s);
 				hashes.push_back(mdHash + " " + currentFileName + " " + std::to_string(startLastFunction));
-				if (s.length() > 500)
-				{
-					clones[mdHash] = clones[mdHash] + 1;
-					if (clones[mdHash] > 1)
-					{
-						std::cout << "Hash " << mdHash << " found " << clones[mdHash] << " times\n" << s << "\n";
-					}
-				}
 				prev->RemoveNode(current);
 				inFunction = false;
 				delete current;
