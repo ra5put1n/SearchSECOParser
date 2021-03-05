@@ -55,4 +55,7 @@ TEST(AbstractSyntaxToHashable_getHashable, manyNodesAbstraction) {
 	n5->AddNode(n7);
 
 	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n1), s2 + "type" + "var" + "funccall" + s6);
+	n1->RemoveNode(n6);
+	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n1), s2 + "type" + "var" + "funccall");
+
 }
