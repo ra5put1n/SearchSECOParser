@@ -1,4 +1,9 @@
-﻿#include <iostream>
+﻿/*
+This program has been developed by students from the bachelor Computer Science at
+Utrecht University within the Software Project course.
+© Copyright Utrecht University (Department of Information and Computing Sciences)
+*/
+#include <iostream>
 #include <vector>
 #include "StringStream.h"
 #include "XmlParser.h"
@@ -12,6 +17,8 @@ void wrongArgs();
 
 int main(int argc, char* argv[])
 {
+
+	// Retrieve the given path from the arguments
 	std::string path;
 
 	if (argc > 1)
@@ -34,18 +41,18 @@ int main(int argc, char* argv[])
 
 	std::cout << "Sending stream to Xml Parser\n";
 
-	XmlParser xmlParser = XmlParser();
-	std::vector<std::string> hashes = xmlParser.ParseXML(stream, true);
+	// plus one to get rid of the extra / at the beginning
+	XmlParser xmlParser = XmlParser(path.length() + 1);
+	std::vector<std::string> hashes = xmlParser.ParseXML(stream);
 
 	std::cout << "hashes received from Parser, hashes:\n";
 	
-	std::cout << "Hash amount: " << hashes.size() << std::endl;
-	/*for (std::string h : hashes) 
+	//std::cout << "Hash amount: " << hashes.size() << std::endl;
+	for (std::string h : hashes) 
 	{
 		std::cout << h << std::endl;
-	}*/
-
-	system("pause");
+	}
+	
 	return 0;
 }
 

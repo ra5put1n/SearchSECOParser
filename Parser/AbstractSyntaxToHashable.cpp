@@ -43,6 +43,7 @@ std::string AbstractSyntaxToHashable::collapseNodes(Node* nd)
 // Abstract the contents of a node and returns the abstracted value
 std::string AbstractSyntaxToHashable::nodeToString(Node* nd)
 {
+	// Only give content if an end Node
 	if (nd->GetBranches().size() > 0)
 		return "";
 
@@ -52,8 +53,10 @@ std::string AbstractSyntaxToHashable::nodeToString(Node* nd)
 
 	Tag tag = nd->GetTag();
 
+	// Do proper abstraction for every tag
 	switch (tag)
 	{
+		// Name tag can be a variable, functioncall or type. Look at parent to find out which
 	case name_tag:
 		Node* parent = nd->GetPrevious();
 
@@ -81,6 +84,6 @@ std::string AbstractSyntaxToHashable::nodeToString(Node* nd)
 
 	}
 		 
-
+	// If no abstraction required, just return the content
 	return nd->GetContents();
 }

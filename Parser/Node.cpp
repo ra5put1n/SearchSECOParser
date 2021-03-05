@@ -2,7 +2,6 @@
 Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)*/
 #include "Node.h"
-#include <iostream>
 
 Node::Node(Tag tag, Node* previous)
 {
@@ -20,11 +19,11 @@ Node::Node(std::string text, Tag tag, Node* previous)
 
 Node::~Node()
 {
+	// Destroy children when node is deleted
 	for (int i = 0; i < childNodes.size(); i++)
 	{
 		delete childNodes[i];
 	}
-	//childNodes.clear();
 }
 
 std::vector<Node*> Node::GetBranches()
@@ -49,6 +48,7 @@ void Node::AddNode(Node* node)
 
 void Node::RemoveNode(Node* node)
 {
+	// Search for Node in children
 	for (int i = 0; i < childNodes.size(); i++)
 	{
 		if (childNodes[i] == node)
@@ -71,6 +71,7 @@ Node* Node::GetPrevious()
 
 bool Node::equal(Node* n)
 {
+	// For equality children need to be equal
 	if (n->childNodes.size() != childNodes.size())
 	{
 		return false;
@@ -82,5 +83,6 @@ bool Node::equal(Node* n)
 			return false;
 		}
 	}
+	// For equality content (tag, content) needs to be equal
 	return tag == n->tag && contents._Equal(n->contents);
 }

@@ -9,8 +9,11 @@ Utrecht University within the Software Project course.
 class AbstractSyntaxToHashable
 {
 public:
-	// INPUT: top most node of abstract syntax tree. 
-	// OUTPUT: string representation of abstract syntax tree
+	/// <summary>
+	/// Create string representation from abract syntax tree, also abstracts
+	/// </summary>
+	/// <param name="nd">The top most node of an abstract syntax tree</param>
+	/// <returns>string representation of abstract syntax tree</returns>
 	static std::string getHashable(Node* nd);
 private:
 	static std::string collapseNodes(Node* nd);

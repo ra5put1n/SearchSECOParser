@@ -10,7 +10,12 @@ Utrecht University within the Software Project course.
 class SrcMLCaller
 {
 public:
-	static StringStream* StartSrcML(const char* cmd);
+	/// <summary>
+	/// Start srcMl op een gegeven path
+	/// </summary>
+	/// <param name="cmd">Path waarvanuit srcML moet werken</param>
+	/// <returns>Stringstream met de output van srcML</returns>
+	static StringStream* StartSrcML(std::string cmd);
 private:
-	static void exec(const char* cmd, StringStream* stream);
+	static void exec(std::string cmd, StringStream* stream);
 };
