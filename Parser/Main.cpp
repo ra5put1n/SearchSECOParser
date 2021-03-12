@@ -9,7 +9,6 @@ Utrecht University within the Software Project course.
 #include "XmlParser.h"
 #include "Node.h"
 #include "SrcMLCaller.h"
-#include "StringStream.h"
 
 void wrongArgs();
 
@@ -17,7 +16,6 @@ void wrongArgs();
 
 int main(int argc, char* argv[])
 {
-
 	// Retrieve the given path from the arguments
 	std::string path;
 

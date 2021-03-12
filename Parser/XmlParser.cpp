@@ -6,6 +6,7 @@ Utrecht University within the Software Project course.
 #include "Tag.h"
 #include <iostream>
 #include "md5.h"
+#include <unordered_set>
 
 XmlParser::XmlParser(int pathPrefixLength)
 {
@@ -35,6 +36,9 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 	std::string currentFileName = "";
 	int startLastFunction = 0;
 	Node* current = tree;
+
+	std::unordered_set<std::string>* unknownTags = new std::unordered_set<std::string>();
+
 
 	// Keep looping for as long as the input has not yet ended
 	while (!stringStream->Stop())
@@ -113,6 +117,11 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 
 			// New tag, so we add it and set it as our new current tag
 			Node* n = new Node( TagMap::getTag(tagData.tag), current);
+			if (n->GetTag() == unknown_tag)
+			{
+				unknownTags->insert(tagData.tag);
+			}
+
 			current->AddNode(n);
 			n->SetContents(tagData.textInTag);
 
@@ -122,6 +131,11 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 				current = n;
 			}
 		}
+	}
+	std::cout << "Unknown tags found: " << std::endl;
+	for (std::string s : *unknownTags)
+	{
+		std::cout << s << std::endl;
 	}
 	return hashes;
 }
