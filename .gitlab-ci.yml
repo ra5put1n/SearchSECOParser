@@ -1,0 +1,9 @@
+job:
+  before_script:
+    - apt update && apt -y install cmake autoconf
+  script:
+    - mkdir parser_build
+    - cd parser_build
+    - cmake ../Parser_Test
+    - cmake --build
+    - parser_tests --gtest_output="xml:report.xml"
