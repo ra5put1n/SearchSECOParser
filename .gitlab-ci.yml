@@ -9,4 +9,4 @@ job:
     - cd parser_build
     - cmake ../Parser_Test
     - cmake --build .
-    - parser_tests --gtest_output="xml:report.xml"
+    - ./parser_tests --gtest_output="xml:report.xml"
