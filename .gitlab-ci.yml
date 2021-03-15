@@ -8,5 +8,5 @@ job:
     - mkdir parser_build
     - cd parser_build
     - cmake ../Parser_Test
-    - cmake --build
+    - cmake --build .
     - parser_tests --gtest_output="xml:report.xml"
