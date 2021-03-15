@@ -84,5 +84,5 @@ bool Node::equal(Node* n)
 		}
 	}
 	// For equality content (tag, content) needs to be equal
-	return tag == n->tag && contents._Equal(n->contents);
+	return tag == n->tag && contents == n->contents;
 }
