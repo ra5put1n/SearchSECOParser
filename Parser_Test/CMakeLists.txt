@@ -16,7 +16,7 @@ endif()
 
 set(CMAKE_CXX_STANDARD 11)
 set(TEST_NAME parser_tests)
-add_executable(${TEST_NAME} StringStream_test.cpp Tag_test.cpp XmlParser_test.cpp AbstractSyntaxToHashable_test.cpp)
+add_executable(${TEST_NAME} StringStream_test.cpp Tag_test.cpp AbstractSyntaxToHashable_test.cpp)
 target_link_libraries(${TEST_NAME} gtest_main)
 
 enable_testing()
