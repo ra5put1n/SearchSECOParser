@@ -135,35 +135,40 @@ std::map<std::string, Tag> TagMap::getMap()
 	m["unsafe"] = unsafe_tag;
 	m["using"] = using_tag;
 	m["where"] = where_tag;
-	/* TO DO: include these
-	m["omp:argument"] = omp:argument_tag;
-	m["omp:argument_list"] = omp:argument_list_tag;
-	m["omp:clause"] = omp:clause_tag;
-	m["omp:directive"] = omp:directive_tag;
-	m["omp:expr"] = omp:expr_tag;
-	m["omp:name"] = omp:name_tag;
-	m["cpp:define"] = cpp:define_tag;
-	m["cpp:directive"] = cpp:directive_tag;
-	m["cpp:elif"] = cpp:elif_tag;
-	m["cpp:else"] = cpp:else_tag;
-	m["cpp:empty"] = cpp:empty_tag;
-	m["cpp:endif"] = cpp:endif_tag;
-	m["cpp:endregion"] = cpp:endregion_tag;
-	m["cpp:error"] = cpp:error_tag;
-	m["cpp:file"] = cpp:file_tag;
-	m["cpp:if"] = cpp:if_tag;
-	m["cpp:ifdef"] = cpp:ifdef_tag;
-	m["cpp:ifndef"] = cpp:ifndef_tag;
-	m["cpp:include"] = cpp:include_tag;
-	m["cpp:line"] = cpp:line_tag;
-	m["cpp:macro"] = cpp:macro_tag;
-	m["cpp:number"] = cpp:number_tag;
-	m["cpp:pragma"] = cpp:pragma_tag;
-	m["cpp:region"] = cpp:region_tag;
-	m["cpp:undef"] = cpp:undef_tag;
-	m["cpp:value"] = cpp:value_tag;
-	m["cpp:warning"] = cpp:warning_tag"*/
-
+	// TO DO: see if these require special treatment
+	m["omp:argument"] = omp_argument_tag;
+	m["omp:argument_list"] = omp_argument_list_tag;
+	m["omp:clause"] = omp_clause_tag;
+	m["omp:directive"] = omp_directive_tag;
+	m["omp:expr"] = omp_expr_tag;
+	m["omp:name"] = omp_name_tag;
+	m["cpp:define"] = cpp_define_tag;
+	m["cpp:directive"] = cpp_directive_tag;
+	m["cpp:elif"] = cpp_elif_tag;
+	m["cpp:else"] = cpp_else_tag;
+	m["cpp:empty"] = cpp_empty_tag;
+	m["cpp:endif"] = cpp_endif_tag;
+	m["cpp:endregion"] = cpp_endregion_tag;
+	m["cpp:error"] = cpp_error_tag;
+	m["cpp:file"] = cpp_file_tag;
+	m["cpp:if"] = cpp_if_tag;
+	m["cpp:ifdef"] = cpp_ifdef_tag;
+	m["cpp:ifndef"] = cpp_ifndef_tag;
+	m["cpp:include"] = cpp_include_tag;
+	m["cpp:line"] = cpp_line_tag;
+	m["cpp:literal"] = cpp_literal_tag;
+	m["cpp:macro"] = cpp_macro_tag;
+	m["cpp:number"] = cpp_number_tag;
+	m["cpp:pragma"] = cpp_pragma_tag;
+	m["cpp:region"] = cpp_region_tag;
+	m["cpp:undef"] = cpp_undef_tag;
+	m["cpp:value"] = cpp_value_tag;
+	m["cpp:warning"] = cpp_warning_tag;
+	// Some miscellanaos tags, possibly needs some investigating
+	m["argument_list"] = argument_list_tag;
+	m["parameter"] = parameter_tag;
+	m["argument"] = argument_tag;
+	m["macro"] = macro_tag;
 	return m;
 }
 
