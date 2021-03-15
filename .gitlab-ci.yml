@@ -1,3 +1,5 @@
+image: gcc
+
 job:
   before_script:
     - apt update && apt -y install cmake autoconf
