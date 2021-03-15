@@ -12,10 +12,10 @@ XmlParser::XmlParser(int pathPrefixLength)
 	this->pathPrefixLength = pathPrefixLength;
 }
 
-std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
+std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
 {
 	// The output list which will contain the hashes that we find
-	std::vector<std::string> hashes;
+	std::vector<HashData> hashes;
 
 	// The base node of the tree
 	tree = new Node(unknown_tag, nullptr);
@@ -71,7 +71,7 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 				// meaning we can go ahead and hash it.
 				std::string s = AbstractSyntaxToHashable::getHashable(current);
 				std::string mdHash = md5(s);
-				hashes.push_back(mdHash + " " + currentFileName + " " + std::to_string(startLastFunction));
+				hashes.push_back(HashData(mdHash, "<functionNamePlaceholder>", currentFileName, startLastFunction));
 				// Removing the tree after we've hashed it to free up memory.
 				prev->RemoveNode(current);
 				inFunction = false;
@@ -110,19 +110,29 @@ std::vector<std::string> XmlParser::ParseXML(StringStream* stringStream, bool Pa
 				inFunction = true;
 				startLastFunction = lineNumber;
 			}
+			
+			// If the tag is a closing tag without space, move the closing tag inside
+			if (tagData.tag[tagData.tag.size() - 1] == '/')
+			{
+				tagData.tag.pop_back();
+				tagData.textInTag.append(" /");
+			}
 
 			// New tag, so we add it and set it as our new current tag
 			Node* n = new Node( TagMap::getTag(tagData.tag), current);
+
+
 			current->AddNode(n);
 			n->SetContents(tagData.textInTag);
 
 			// Checking if the tag was a self closing tag
-			if (!((tagData.textInTag.size() > 0 && tagData.textInTag[tagData.textInTag.size() - 1] == '/') || tagData.tag[tagData.tag.size() - 1] == '/'))
+			if ( !(tagData.textInTag.size() > 0 && tagData.textInTag[tagData.textInTag.size() - 1] == '/') )
 			{
 				current = n;
 			}
 		}
 	}
+
 	return hashes;
 }
 
