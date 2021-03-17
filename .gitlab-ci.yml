@@ -27,7 +27,7 @@ linting:
 #    - make
   script:
     - cd Parser
-    - clang-tidy *.cpp --config=
+    - clang-tidy Main.cpp --config=
     - clang *.cpp -fsyntax-only
     - make check-clang
     
