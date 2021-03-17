@@ -1,6 +1,7 @@
 image: gcc
 
-job:
+build:
+  stage: build
   before_script:
     - apt-get update
     - apt-get -y install cmake autoconf
@@ -9,4 +10,16 @@ job:
     - cd parser_build
     - cmake ../Parser_Test
     - cmake --build .
+
+test:
+  stage: test
+  script:
     - ./parser_tests --gtest_output="xml:report.xml"
+
+linting:
+  stage: linting
+  before_script:
+    - apt-get -y install clang-12 lldb-12 lld-12
+  script:
+    - echo "succes"
+    
