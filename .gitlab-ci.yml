@@ -26,5 +26,7 @@ linting:
 #    - cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
 #    - make
   script:
-    - clang Parser/Main.cpp -fsyntax-only
+    - cd Parser
+    - clang *.cpp -fsyntax-only
+    - make check-clang
     
