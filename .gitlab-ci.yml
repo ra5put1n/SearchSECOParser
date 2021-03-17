@@ -16,8 +16,14 @@ google-tests:
 linting:
   stage: test
   before_script:
-    - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add -
-    - apt-get -y install clang-12 lldb-12 lld-12
+    - git clone https://github.com/llvm/llvm-project.git
+    - cd llvm-project
+    - mkdir build
+    - cd build
+    - cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
+    - make
   script:
     - echo "succes"
+#    - cd ..
+#    - llvm/build/bin/clang Parser/Main.cpp -fsyntax-only
     
