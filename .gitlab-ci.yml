@@ -18,7 +18,7 @@ linting:
   before_script:
     - apt-get update
     - apt-get -y install cmake autoconf
-    - apt-get -y install clang
+    - apt-get -y install clang clang-tidy clang-format
 #    - git clone https://github.com/llvm/llvm-project.git
 #    - cd llvm-project
 #    - mkdir build
