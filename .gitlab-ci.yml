@@ -18,12 +18,13 @@ linting:
   before_script:
     - apt-get update
     - apt-get -y install cmake autoconf
-    - git clone https://github.com/llvm/llvm-project.git
-    - cd llvm-project
-    - mkdir build
-    - cd build
-    - cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
-    - make
+    - apt-get -y install clang-12 lldb-12 lld-12
+#    - git clone https://github.com/llvm/llvm-project.git
+#    - cd llvm-project
+#    - mkdir build
+#    - cd build
+#    - cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
+#    - make
   script:
     - echo "succes"
 #    - cd ..
