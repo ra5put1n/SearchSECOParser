@@ -1,7 +1,7 @@
 image: gcc
 
-build:
-  stage: build
+google-tests:
+  stage: test
   before_script:
     - apt-get update
     - apt-get -y install cmake autoconf
@@ -10,17 +10,13 @@ build:
     - cd parser_build
     - cmake ../Parser_Test
     - cmake --build .
-
-test:
-  stage: test
-  script:
-    - cd parser_build
     - ./parser_tests --gtest_output="xml:report.xml"
+
 
 linting:
   stage: test
   before_script:
-    - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+    - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add -
     - apt-get -y install clang-12 lldb-12 lld-12
   script:
     - echo "succes"
