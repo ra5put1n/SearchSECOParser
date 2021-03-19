@@ -22,7 +22,7 @@ StringStream* SrcMLCaller::StartSrcML(std::string cmd, int numberThreads)
     std::string threads = "";
     if (numberThreads != -1)
     {
-        threads = "-p " + numberThreads + ' ';
+        threads = "-p " + std::to_string(numberThreads) + " ";
     }
 
     // Start srcML in new thread so the output can be read while it is being made

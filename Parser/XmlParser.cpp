@@ -95,9 +95,9 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 				if (tagData.tag == "unit")
 				{
 					size_t filenamePosition = tagData.textInTag.find("filename=") + 10;
-					if (filenamePosition != std::string::npos)
+					if (filenamePosition >= 10)
 					{
-						size_t filenameEnd = tagData.textInTag.find('/"', filenamePosition);
+						size_t filenameEnd = tagData.textInTag.find('"', filenamePosition);
 						currentFileName = tagData.textInTag.substr(filenamePosition + pathPrefixLength, filenameEnd - filenamePosition - pathPrefixLength);
 						lineNumber = 1;
 					}
