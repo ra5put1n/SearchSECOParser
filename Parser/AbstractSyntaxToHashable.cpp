@@ -57,11 +57,12 @@ std::string AbstractSyntaxToHashable::nodeToString(Node* nd)
 	switch (tag)
 	{
 		// Name tag can be a variable, functioncall or type. Look at parent to find out which
-	case name_tag:
-		Node* parent = nd->GetPrevious();
-
-		if (parent != nullptr) 
+		case name_tag: 
 		{
+			Node *parent = nd->GetPrevious();
+
+			if (parent != nullptr)
+			{
 			while (parent->GetTag() == name_tag)
 				parent = parent->GetPrevious();
 
@@ -77,15 +78,17 @@ std::string AbstractSyntaxToHashable::nodeToString(Node* nd)
 			{
 				return "var";
 			}
-		}
-		else {
+			}
+			else
+			{
 			return "var";
-		}
-		break;
-	default:
-	    // If no abstraction required, just return the content
-	    return nd->GetContents();
+			}
+			break;
+		}		
+		default:
+		{
+			// If no abstraction required, just return the content
+			return nd->GetContents();
+		}	    
 	}
-		 
-	
 }
