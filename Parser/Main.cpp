@@ -6,7 +6,7 @@ Utrecht University within the Software Project course.
 #include "Parser.h"
 
 
-void wrongArgs();
+void WrongArgs();
 
 
 int main(int argc, char* argv[])
@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
     }
 	else
 	{
-		wrongArgs();
+		WrongArgs();
 		system("pause");
 		return 0;
 	}
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 
 
 // To be called when invalid arguments are given
-void wrongArgs()
+void WrongArgs()
 {
 	std::cout << "\nUsage is as follows: Parser.exe <path> \n <path> - Path to the directory which contains the files which need parsing" << std::endl;
 }

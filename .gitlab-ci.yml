@@ -21,6 +21,6 @@ linting:
     - apt-get -y install clang clang-tidy clang-format
   script:
     - cd Parser
-    - clang-tidy Main.cpp --
-    - clang AbstractSyntaxToHashable.cpp -fsyntax-only
+    - clang-tidy *.cpp --
+    - clang *.cpp -fsyntax-only
     
