@@ -81,6 +81,7 @@ std::string AbstractSyntaxToHashable::nodeToString(Node* nd)
 		else {
 			return "var";
 		}
+		break;
 	default:
 	    // If no abstraction required, just return the content
 	    return nd->GetContents();

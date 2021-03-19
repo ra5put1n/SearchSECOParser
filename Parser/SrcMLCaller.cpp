@@ -41,7 +41,11 @@ void SrcMLCaller::exec(std::string cmd, StringStream* stream)
     std::array<char, bufferSize> buffer;
 
     // Open console to interact with srcML
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
     std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd.c_str(), "r"), _pclose);
+#else
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+#endif
     if (!pipe)
     {
         throw std::runtime_error("popen() failed!");
