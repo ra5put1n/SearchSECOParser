@@ -5,7 +5,7 @@ Utrecht University within the Software Project course.
 #include "AbstractSyntaxToHashable.h"
 #include "Tag.h"
 #include <iostream>
-#include "md5.h"
+#include "md5/md5.h"
 
 XmlParser::XmlParser(int pathPrefixLength)
 {

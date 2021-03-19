@@ -5,7 +5,7 @@ Utrecht University within the Software Project course.
 #include "StringStreamMock.h"
 #include "../Parser/XmlParser.h"
 #include "../Parser/XmlParser.cpp"
-#include "../Parser/md5.cpp"
+#include "../Parser/md5/md5.cpp"
 
 TEST(GetNextTagTests, BasicInput)
 {
