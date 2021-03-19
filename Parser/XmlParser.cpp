@@ -22,7 +22,7 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 
 	// The first tag should always be the <?xml> tag, which we want to ignore
 	TagData td = GetNextTag(stringStream);
-	if (!td.tag._Equal("?xml"))
+	if (!(td.tag == "?xml"))
 	{
 		// Received invalid input
 		tree = nullptr;
@@ -42,7 +42,7 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 		TagData tagData = GetNextTag(stringStream);
 
 		// Adding the text the getNextTag function found, assuming it is not empty and we are actually in a function
-		if (!tagData.textBefore._Equal("") && inFunction)
+		if (!(tagData.textBefore == "") && inFunction)
 		{
 			current->AddNode(new Node(tagData.textBefore, current->GetTag(), current));
 		}
@@ -79,10 +79,10 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 			}
 			current = prev;
 		}
-		else if (tagData.tag.substr(0, 7)._Equal("comment"))
+		else if (tagData.tag.substr(0, 7) == "comment")
 		{
 			// If we see a comment, we want to skip everything in it
-			while(!GetNextTag(stringStream).tag._Equal("/comment"));
+			while(!(GetNextTag(stringStream).tag == "/comment"));
 		}
 		else
 		{
@@ -92,7 +92,7 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 			// in which file the functions are that we find, and the unit contains that info.
 			if (TagMap::getTag(tagData.tag) != function_tag && !inFunction)
 			{
-				if (tagData.tag._Equal("unit"))
+				if (tagData.tag == "unit")
 				{
 					size_t filenamePosition = tagData.textInTag.find("filename=") + 10;
 					if (filenamePosition != std::string::npos)

@@ -18,13 +18,6 @@ linting:
   before_script:
     - apt-get update
     - apt-get -y install cmake autoconf
-    - apt-get -y install clang clang-tidy clang-format
-#    - git clone https://github.com/llvm/llvm-project.git
-#    - cd llvm-project
-#    - mkdir build
-#    - cd build
-#    - cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
-#    - make
   script:
     - cd Parser
     - clang-tidy Main.cpp --
