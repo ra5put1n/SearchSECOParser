@@ -57,10 +57,10 @@ void SrcMLCaller::exec(std::string cmd, StringStream* stream)
     // Read until there is nothing more to read, insert chunks into stream
     while ((bytesRead = fread(buffer.data(), 1, bufferSize, pipe.get())) > 0)
     {
-        stream->AddBuffer(buffer.data(), bytesRead);
+        stream->addBuffer(buffer.data(), bytesRead);
     }
 
     // Let stream know there won't be more data
-    stream->SetInputEnded(true);
+    stream->setInputEnded(true);
 }
 

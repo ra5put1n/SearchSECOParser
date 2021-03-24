@@ -12,14 +12,14 @@ StringStream::StringStream()
 {
 }
 
-void StringStream::AddBuffer(char* buffer, int length)
+void StringStream::addBuffer(char* buffer, int length)
 {
 	std::unique_lock<std::mutex> l(lock);
 	writeStream->write(buffer, length);
 	sizeWrite += length;
 }
 
-char StringStream::NextChar()
+char StringStream::nextChar()
 {
 	// If there is something to read, read and return the value
 	if (sizeRead > 0)
@@ -62,14 +62,14 @@ char StringStream::NextChar()
 	return c;
 }
 
-bool StringStream::Stop()
+bool StringStream::stop()
 {
 	std::unique_lock<std::mutex> l(lock);
 	// The stringstream is done when the input is done and both streams are empty
 	return (dataEnded && sizeRead <= 0 && sizeWrite <= 0);
 }
 
-void StringStream::SetInputEnded(bool b)
+void StringStream::setInputEnded(bool b)
 {
 	std::unique_lock<std::mutex> l(lock);
 	dataEnded = b;

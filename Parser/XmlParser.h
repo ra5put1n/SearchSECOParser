@@ -60,20 +60,20 @@ public:
 	/// <param name="stringStream">Stream containing the XML</param>
 	/// <param name="ParseFurther">For testing purposes, default true</param>
 	/// <returns>Vector containing the hashes from found methods</returns>
-	std::vector<HashData> ParseXML(StringStream* stringStream, bool ParseFurther = true);
+	std::vector<HashData> parseXML(StringStream* stringStream, bool ParseFurther = true);
 	
 	/// <summary>
 	/// Find next tag, including contents and anything before it
 	/// </summary>
 	/// <param name="stringStream">Stream to search for next tag</param>
 	/// <returns>TagData concerning the found tag</returns>
-	TagData GetNextTag(StringStream* stringStream);
+	TagData getNextTag(StringStream* stringStream);
 
 	/// <summary>
 	/// Returns the current tree, for testing only
 	/// </summary>
 	/// <returns>The top node of the current Tree</returns>
-	Node* GetTree() { return tree; };
+	Node* getTree() { return tree; };
 private:
 	Node* tree;
 	int pathPrefixLength, lineNumber = 0;

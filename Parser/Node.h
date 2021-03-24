@@ -18,21 +18,21 @@ public:
 	/// Destructor
 	~Node();
 	/// Get child nodes of this node
-	std::vector<Node*> GetBranches();
+	std::vector<Node*> getBranches();
 	/// Get (string) content of this node
-	std::string GetContents();
+	std::string getContents();
 	/// Get Tag of this Node
-	Tag GetTag();
+	Tag getTag();
 	/// Add a Child node to this node
-	void AddNode(Node* node);
+	void addNode(Node* node);
 	/// Set the (string) content of this node
-	void SetContents(std::string contents);
+	void setContents(std::string contents);
 	/// Get this nodes parent
-	Node* GetPrevious();
+	Node* getPrevious();
 	/// Check equality to this node
 	bool equal(Node* n);
 	/// Remove node from this nodes children
-	void RemoveNode(Node* node);
+	void removeNode(Node* node);
 private:
 	std::string contents;
 	Tag tag;

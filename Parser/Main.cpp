@@ -6,7 +6,7 @@ Utrecht University within the Software Project course.
 #include "Parser.h"
 
 
-void WrongArgs();
+void wrongArgs();
 
 
 int main(int argc, char* argv[])
@@ -20,12 +20,12 @@ int main(int argc, char* argv[])
     }
 	else
 	{
-		WrongArgs();
+		wrongArgs();
 		system("pause");
 		return 0;
 	}
 
-	std::vector<HashData> hashes = Parser::Parse(path);
+	std::vector<HashData> hashes = Parser::parse(path);
 	
 	//std::cout << "Hash amount: " << hashes.size() << std::endl;
 	for (HashData h : hashes)
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 
 
 // To be called when invalid arguments are given
-void WrongArgs()
+void wrongArgs()
 {
 	std::cout << "\nUsage is as follows: Parser.exe <path> \n <path> - Path to the directory which contains the files which need parsing" << std::endl;
 }

@@ -26,14 +26,14 @@ TEST_P(ParameterizedStringStreamTests, TestName) {
 	std::string testable = GetParam();
 	char* stringpointer = strdup(testable.c_str());
 	int size = testable.length();
-	s->AddBuffer(stringpointer, size);
+	s->addBuffer(stringpointer, size);
 	for (int i = 0; i < size; i++) {
-		ASSERT_EQ(testable[i], s->NextChar());
+		ASSERT_EQ(testable[i], s->nextChar());
 	}
 }
 
 TEST(StopConditionCheck, TestName) {
 	StringStream* s = new StringStream();
-	s->SetInputEnded(true);
-	ASSERT_EQ(true, s->Stop());
+	s->setInputEnded(true);
+	ASSERT_EQ(true, s->stop());
 }
