@@ -26,13 +26,12 @@ int main(int argc, char* argv[])
 	}
 
 	std::vector<HashData> hashes = Parser::parse(path);
-	
-	//std::cout << "Hash amount: " << hashes.size() << std::endl;
+
 	for (HashData h : hashes)
 	{
 		std::cout << h.hash << " " << h.functionName << " " << h.fileName << " " << h.lineNumber << std::endl;
 	}
-	
+
 	return 0;
 }
 

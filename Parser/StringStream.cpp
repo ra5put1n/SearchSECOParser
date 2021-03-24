@@ -56,10 +56,7 @@ char StringStream::nextChar()
 	sizeRead = sizeWrite;
 	sizeWrite = 0;
 
-	char c;
-	readStream->read(&c, 1);
-	sizeRead--;
-	return c;
+    return this->nextChar();
 }
 
 bool StringStream::stop()

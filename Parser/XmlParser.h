@@ -60,7 +60,7 @@ public:
 	/// <param name="stringStream">Stream containing the XML</param>
 	/// <param name="ParseFurther">For testing purposes, default true</param>
 	/// <returns>Vector containing the hashes from found methods</returns>
-	std::vector<HashData> parseXML(StringStream* stringStream, bool ParseFurther = true);
+	std::vector<HashData> parseXML(StringStream* stringStream, bool parseFurther = true);
 	
 	/// <summary>
 	/// Find next tag, including contents and anything before it

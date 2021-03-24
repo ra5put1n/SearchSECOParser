@@ -12,7 +12,7 @@ XmlParser::XmlParser(int pathPrefixLength)
 	this->pathPrefixLength = pathPrefixLength;
 }
 
-std::vector<HashData> XmlParser::parseXML(StringStream* stringStream, bool ParseFurther)
+std::vector<HashData> XmlParser::parseXML(StringStream* stringStream, bool parseFurther)
 {
 	// The output list which will contain the hashes that we find
 	std::vector<HashData> hashes;
@@ -65,7 +65,7 @@ std::vector<HashData> XmlParser::parseXML(StringStream* stringStream, bool Parse
 
 			// Going back one node in our tree
 			Node* prev = current->getPrevious();
-			if (current->getTag() == function_tag && ParseFurther)
+			if (current->getTag() == function_tag && parseFurther)
 			{
 				// If we close a function tag, then we know that function is parsed fully,
 				// meaning we can go ahead and hash it.

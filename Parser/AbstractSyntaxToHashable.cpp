@@ -71,21 +71,14 @@ std::string AbstractSyntaxToHashable::nodeToString(Node* nd)
 				{
 					return "funccall";
 				}
-				else
-				{
-					return "var";
-				}
-			}
-			else
-			{
-				return "var";
-			}
+			}			
+			return "var";
 			break;
 		}		
 		default:
 		{
 			// If no abstraction required, just return the content
 			return nd->getContents();
-		}	    
+		}
 	}
 }
