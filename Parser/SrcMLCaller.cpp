@@ -15,7 +15,7 @@ Utrecht University within the Software Project course.
 #define bufferSize 1024
 
 
-StringStream* SrcMLCaller::StartSrcML(std::string cmd, int numberThreads)
+StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 {
     StringStream* stream = new StringStream();
 

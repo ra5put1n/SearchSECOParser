@@ -12,7 +12,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 
 	std::cout << "Sending files to srcML\n";
 
-	StringStream* stream = SrcMLCaller::StartSrcML(path.c_str(), numberThreads);
+	StringStream* stream = SrcMLCaller::startSrcML(path.c_str(), numberThreads);
 
 	std::cout << "Received stream from srcML\n";
 
