@@ -5,14 +5,14 @@ Utrecht University within the Software Project course.
 #include "AbstractSyntaxToHashable.h"
 #include "Tag.h"
 #include <iostream>
-#include "md5.h"
+#include "md5/md5.h"
 
 XmlParser::XmlParser(int pathPrefixLength)
 {
 	this->pathPrefixLength = pathPrefixLength;
 }
 
-std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool ParseFurther)
+std::vector<HashData> XmlParser::parseXML(StringStream* stringStream, bool parseFurther)
 {
 	// The output list which will contain the hashes that we find
 	std::vector<HashData> hashes;
@@ -21,8 +21,8 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 	tree = new Node(unknown_tag, nullptr);
 
 	// The first tag should always be the <?xml> tag, which we want to ignore
-	TagData td = GetNextTag(stringStream);
-	if (!td.tag._Equal("?xml"))
+	TagData td = getNextTag(stringStream);
+	if (!(td.tag == "?xml"))
 	{
 		// Received invalid input
 		tree = nullptr;
@@ -37,21 +37,21 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 	Node* current = tree;
 
 	// Keep looping for as long as the input has not yet ended
-	while (!stringStream->Stop())
+	while (!stringStream->stop())
 	{
-		TagData tagData = GetNextTag(stringStream);
+		TagData tagData = getNextTag(stringStream);
 
 		// Adding the text the getNextTag function found, assuming it is not empty and we are actually in a function
-		if (!tagData.textBefore._Equal("") && inFunction)
+		if (!(tagData.textBefore == "") && inFunction)
 		{
-			current->AddNode(new Node(tagData.textBefore, current->GetTag(), current));
+			current->addNode(new Node(tagData.textBefore, current->getTag(), current));
 		}
 
 		// Check if we find a closing tag. Only relevant if we are in a function
 		if (tagData.tag[0] == '/' && inFunction)
 		{
 			// Checking if the node we close actually has the same tag as the closing tag we just found
-			if (TagMap::getTag(tagData.tag.substr(1)) != current->GetTag())
+			if (TagMap::getTag(tagData.tag.substr(1)) != current->getTag())
 			{
 				std::cout << "Closing tags don't line up in " << currentFileName;
 				// In case the closing tags don't line up, we will just give up on this function
@@ -64,8 +64,8 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 			}
 
 			// Going back one node in our tree
-			Node* prev = current->GetPrevious();
-			if (current->GetTag() == function_tag && ParseFurther)
+			Node* prev = current->getPrevious();
+			if (current->getTag() == function_tag && parseFurther)
 			{
 				// If we close a function tag, then we know that function is parsed fully,
 				// meaning we can go ahead and hash it.
@@ -73,16 +73,16 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 				std::string mdHash = md5(s);
 				hashes.push_back(HashData(mdHash, "<functionNamePlaceholder>", currentFileName, startLastFunction));
 				// Removing the tree after we've hashed it to free up memory.
-				prev->RemoveNode(current);
+				prev->removeNode(current);
 				inFunction = false;
 				delete current;
 			}
 			current = prev;
 		}
-		else if (tagData.tag.substr(0, 7)._Equal("comment"))
+		else if (tagData.tag.substr(0, 7) == "comment")
 		{
 			// If we see a comment, we want to skip everything in it
-			while(!GetNextTag(stringStream).tag._Equal("/comment"));
+			while(!(getNextTag(stringStream).tag == "/comment"));
 		}
 		else
 		{
@@ -92,12 +92,12 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 			// in which file the functions are that we find, and the unit contains that info.
 			if (TagMap::getTag(tagData.tag) != function_tag && !inFunction)
 			{
-				if (tagData.tag._Equal("unit"))
+				if (tagData.tag == "unit")
 				{
 					size_t filenamePosition = tagData.textInTag.find("filename=") + 10;
-					if (filenamePosition != std::string::npos)
+					if (filenamePosition >= 10)
 					{
-						size_t filenameEnd = tagData.textInTag.find('/"', filenamePosition);
+						size_t filenameEnd = tagData.textInTag.find('"', filenamePosition);
 						currentFileName = tagData.textInTag.substr(filenamePosition + pathPrefixLength, filenameEnd - filenamePosition - pathPrefixLength);
 						lineNumber = 1;
 					}
@@ -122,8 +122,8 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 			Node* n = new Node( TagMap::getTag(tagData.tag), current);
 
 
-			current->AddNode(n);
-			n->SetContents(tagData.textInTag);
+			current->addNode(n);
+			n->setContents(tagData.textInTag);
 
 			// Checking if the tag was a self closing tag
 			if ( !(tagData.textInTag.size() > 0 && tagData.textInTag[tagData.textInTag.size() - 1] == '/') )
@@ -136,13 +136,13 @@ std::vector<HashData> XmlParser::ParseXML(StringStream* stringStream, bool Parse
 	return hashes;
 }
 
-TagData XmlParser::GetNextTag(StringStream* stringStream)
+TagData XmlParser::getNextTag(StringStream* stringStream)
 {
 	// Getting the text before the next tag
 	std::string textBefore;
-	while (!stringStream->Stop())
+	while (!stringStream->stop())
 	{
-		char next = stringStream->NextChar();
+		char next = stringStream->nextChar();
 		if (next == '<')
 		{
 			break;
@@ -162,9 +162,9 @@ TagData XmlParser::GetNextTag(StringStream* stringStream)
 	}
 	// Getting the actual tag, but without all the stuff behind it
 	std::string tag;
-	while (!stringStream->Stop())
+	while (!stringStream->stop())
 	{
-		char next = stringStream->NextChar();
+		char next = stringStream->nextChar();
 		if (next == ' ')
 		{
 			break;
@@ -179,9 +179,9 @@ TagData XmlParser::GetNextTag(StringStream* stringStream)
 	}
 	// Getting the stuff behind the tag thats still in the <>
 	std::string textInTag;
-	while (!stringStream->Stop())
+	while (!stringStream->stop())
 	{
-		char next = stringStream->NextChar();
+		char next = stringStream->nextChar();
 		if (next == '>')
 		{
 			break;

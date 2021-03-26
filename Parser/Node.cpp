@@ -26,27 +26,27 @@ Node::~Node()
 	}
 }
 
-std::vector<Node*> Node::GetBranches()
+std::vector<Node*> Node::getBranches()
 {
 	return childNodes;
 }
 
-std::string Node::GetContents()
+std::string Node::getContents()
 {
 	return contents;
 }
 
-Tag Node::GetTag()
+Tag Node::getTag()
 {
 	return tag;
 }
 
-void Node::AddNode(Node* node)
+void Node::addNode(Node* node)
 {
 	childNodes.push_back(node);
 }
 
-void Node::RemoveNode(Node* node)
+void Node::removeNode(Node* node)
 {
 	// Search for Node in children
 	for (int i = 0; i < childNodes.size(); i++)
@@ -59,12 +59,12 @@ void Node::RemoveNode(Node* node)
 	}
 }
 
-void Node::SetContents(std::string contents)
+void Node::setContents(std::string contents)
 {
 	this->contents = contents;
 }
 
-Node* Node::GetPrevious()
+Node* Node::getPrevious()
 {
 	return previous;
 }
@@ -84,5 +84,5 @@ bool Node::equal(Node* n)
 		}
 	}
 	// For equality content (tag, content) needs to be equal
-	return tag == n->tag && contents._Equal(n->contents);
+	return tag == n->tag && contents == n->contents;
 }

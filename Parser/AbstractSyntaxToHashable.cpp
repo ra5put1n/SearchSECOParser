@@ -12,13 +12,10 @@ std::string AbstractSyntaxToHashable::getHashable(Node* nd)
 	return collapseNodes(nd);
 }
 
-
 // Collapse a node and all it's children recursively
 std::string AbstractSyntaxToHashable::collapseNodes(Node* nd)
 {
-	// Get the children
-	std::vector<Node*> children = nd->GetBranches();
-	// Find own value
+	std::vector<Node*> children = nd->getBranches();
 	std::string ownString = nodeToString(nd);
 
 	// Return own value if end node
@@ -44,46 +41,44 @@ std::string AbstractSyntaxToHashable::collapseNodes(Node* nd)
 std::string AbstractSyntaxToHashable::nodeToString(Node* nd)
 {
 	// Only give content if an end Node
-	if (nd->GetBranches().size() > 0)
+	if (nd->getBranches().size() > 0)
 		return "";
 
-	std::string content = nd->GetContents();
+	std::string content = nd->getContents();
 	if (content == "")
 		return "";
 
-	Tag tag = nd->GetTag();
+	Tag tag = nd->getTag();
 
 	// Do proper abstraction for every tag
 	switch (tag)
 	{
 		// Name tag can be a variable, functioncall or type. Look at parent to find out which
-	case name_tag:
-		Node* parent = nd->GetPrevious();
-
-		if (parent != nullptr) 
+		case name_tag: 
 		{
-			while (parent->GetTag() == name_tag)
-				parent = parent->GetPrevious();
+			Node *parent = nd->getPrevious();
 
-			if (parent->GetTag() == type_tag)
+			if (parent != nullptr)
 			{
-				return "type";
-			}
-			else if (parent->GetTag() == call_tag)
-			{
-				return "funccall";
-			}
-			else
-			{
-				return "var";
-			}
-		}
-		else {
+				while (parent->getTag() == name_tag)
+					parent = parent->getPrevious();
+
+				if (parent->getTag() == type_tag)
+				{
+					return "type";
+				}
+				else if (parent->getTag() == call_tag)
+				{
+					return "funccall";
+				}
+			}			
 			return "var";
+			break;
+		}		
+		default:
+		{
+			// If no abstraction required, just return the content
+			return nd->getContents();
 		}
-
 	}
-		 
-	// If no abstraction required, just return the content
-	return nd->GetContents();
 }

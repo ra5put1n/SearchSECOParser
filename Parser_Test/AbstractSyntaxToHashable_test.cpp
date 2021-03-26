@@ -37,25 +37,24 @@ TEST(AbstractSyntaxToHashable_getHashable, manyNodesAbstraction) {
 	Node* n1 = new Node(unknown_tag, nullptr);
 
 	Node* n2 = new Node(s2, type_tag, n1);
-	n1->AddNode(n2);
+	n1->addNode(n2);
 
 	Node* n3 = new Node(s3, name_tag, n2);
-	n2->AddNode(n3);
+	n2->addNode(n3);
 
 	Node* n4 = new Node(s4, name_tag, n1);
-	n1->AddNode(n4);
+	n1->addNode(n4);
 
 	Node* n5 = new Node(s5, call_tag, n1);
-	n1->AddNode(n5);
+	n1->addNode(n5);
 
 	Node* n6 = new Node(s6, decl_tag, n1);
-	n1->AddNode(n6);
+	n1->addNode(n6);
 
 	Node* n7 = new Node(s7, name_tag, n5);
-	n5->AddNode(n7);
+	n5->addNode(n7);
 
 	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n1), s2 + "type" + "var" + "funccall" + s6);
-	n1->RemoveNode(n6);
+	n1->removeNode(n6);
 	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n1), s2 + "type" + "var" + "funccall");
-
 }

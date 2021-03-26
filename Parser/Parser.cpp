@@ -7,12 +7,12 @@ Utrecht University within the Software Project course.
 #include "Parser.h"
 
 
-std::vector<HashData> Parser::Parse(std::string path, int numberThreads)
+std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {
 
 	std::cout << "Sending files to srcML\n";
 
-	StringStream* stream = SrcMLCaller::StartSrcML(path.c_str(), numberThreads);
+	StringStream* stream = SrcMLCaller::startSrcML(path.c_str(), numberThreads);
 
 	std::cout << "Received stream from srcML\n";
 
@@ -20,7 +20,7 @@ std::vector<HashData> Parser::Parse(std::string path, int numberThreads)
 
 	// plus one to get rid of the extra / at the beginning
 	XmlParser xmlParser = XmlParser(path.length() + 1);
-	std::vector<HashData> hashes = xmlParser.ParseXML(stream);
+	std::vector<HashData> hashes = xmlParser.parseXML(stream);
 
 	std::cout << "hashes received from Parser, returning\n";
 
