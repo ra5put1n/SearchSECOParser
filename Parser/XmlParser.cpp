@@ -69,9 +69,9 @@ std::vector<HashData> XmlParser::parseXML(StringStream* stringStream, bool parse
 			{
 				// If we close a function tag, then we know that function is parsed fully,
 				// meaning we can go ahead and hash it.
-				std::string s = AbstractSyntaxToHashable::getHashable(current);
-				std::string mdHash = md5(s);
-				hashes.push_back(HashData(mdHash, "<functionNamePlaceholder>", currentFileName, startLastFunction));
+				AbstractionData* s = AbstractSyntaxToHashable::getHashable(current);
+				std::string mdHash = md5(s->string);
+				hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction));
 				// Removing the tree after we've hashed it to free up memory.
 				prev->removeNode(current);
 				inFunction = false;
