@@ -6,9 +6,9 @@ Utrecht University within the Software Project course.
 
 
 
-//#define ABSTRACT_FUNCCALL
-//#define ABSTRACT_TYPE
-//#define ABSTRACT_VARIABLE
+#define ABSTRACT_FUNCCALL
+#define ABSTRACT_TYPE
+#define ABSTRACT_VARIABLE
 
 
 // INPUT: top most node of abstract syntax tree. 
