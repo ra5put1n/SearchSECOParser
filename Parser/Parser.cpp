@@ -9,6 +9,7 @@ Utrecht University within the Software Project course.
 #include "Parser.h"
 #include "StringStream.h"
 #include "SrcMLCaller.h"
+#include "XmlParser.h"
 
 std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {
