@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractSyntaxToHashable.h" />
+    <ClInclude Include="HashData.h" />
     <ClInclude Include="md5\md5.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Parser.h" />
