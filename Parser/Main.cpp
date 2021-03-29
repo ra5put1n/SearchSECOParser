@@ -3,8 +3,9 @@ This program has been developed by students from the bachelor Computer Science a
 Utrecht University within the Software Project course.
 © Copyright Utrecht University (Department of Information and Computing Sciences)
 */
-#include "Parser.h"
 
+#include <iostream>
+#include "Parser.h"
 
 void wrongArgs();
 
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
 
 	for (HashData h : hashes)
 	{
-		std::cout << h.hash << " " << h.functionName << " " << h.fileName << " " << h.lineNumber << std::endl;
+		std::cout << h.hash << " " << h.functionName << " " << h.fileName << " " << h.lineNumber << " - " << h.lineNumberEnd << std::endl;
 	}
 
 	return 0;

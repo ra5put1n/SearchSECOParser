@@ -1,10 +1,12 @@
 /*This program has been developed by students from the bachelor Computer Science at
 Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)*/
+
+#include <iostream>
+
 #include "XmlParser.h"
 #include "AbstractSyntaxToHashable.h"
 #include "Tag.h"
-#include <iostream>
 #include "md5/md5.h"
 
 XmlParser::XmlParser(int pathPrefixLength)
@@ -71,7 +73,7 @@ std::vector<HashData> XmlParser::parseXML(StringStream* stringStream, bool parse
 				// meaning we can go ahead and hash it.
 				AbstractionData* s = AbstractSyntaxToHashable::getHashable(current);
 				std::string mdHash = md5(s->string);
-				hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction));
+				hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction, lineNumber));
 				// Removing the tree after we've hashed it to free up memory.
 				prev->removeNode(current);
 				inFunction = false;

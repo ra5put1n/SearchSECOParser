@@ -4,8 +4,11 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University (Department of Information and Computing Sciences)
 */
 
-#include "Parser.h"
+#include <iostream>
 
+#include "Parser.h"
+#include "StringStream.h"
+#include "SrcMLCaller.h"
 
 std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {

@@ -4,11 +4,10 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University (Department of Information and Computing Sciences)
 */
 #pragma once
-#include <iostream>
+
 #include <vector>
-#include "StringStream.h"
+
 #include "XmlParser.h"
-#include "SrcMLCaller.h"
 
 
 

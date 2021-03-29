@@ -2,6 +2,7 @@
 Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)*/
 #pragma once
+
 #include "StringStream.h"
 #include "Node.h"
 
@@ -15,15 +16,17 @@ public:
 	/// <param name="functionName">Name of function</param>
 	/// <param name="fileName">File where function can be found</param>
 	/// <param name="lineNumber">Line number on which function starts</param>
-	HashData(std::string hash, std::string functionName, std::string fileName, int lineNumber)
+	/// <param name="lineNumberEnd">Line number on which function ends</param>
+	HashData(std::string hash, std::string functionName, std::string fileName, int lineNumber, int lineNumberEnd)
 	{
 		this->hash = hash;
 		this->fileName = fileName;
 		this->functionName = functionName;
 		this->lineNumber = lineNumber;
+        this->lineNumberEnd = lineNumberEnd;
 	};
 	std::string hash, fileName, functionName;
-	int lineNumber;
+    int lineNumber, lineNumberEnd;
 };
 
 struct TagData
