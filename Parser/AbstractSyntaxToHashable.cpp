@@ -95,7 +95,7 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
             }
             else if (parent->getTag() == function_tag)
             {
-                ad->string += content;
+                ad->string += "funcname";
                 ad->funcName = content;
                 return;
             }
