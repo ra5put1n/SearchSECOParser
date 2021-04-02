@@ -6,18 +6,18 @@ This is the Parser used by the SearchSECO project, it uses [srcML](https://www.s
 
 ## Dependencies
 
-[srcML](https://www.srcml.org/#home)
+* [srcML.](https://www.srcml.org/#home)
 Make sure srcML is installed and registered in your path
 
 
 ## Building
 
-<TODO>
+TODO
 
 # Usage
 
 ## Stand-alone
-'..\path\to\parser\Parser.exe "\location\of\files\to\parse"'
+    C:\path\to\parser>Parser.exe location\of\files\to\parse
 
 Simply give the Parser either a directory, or compressed file containing the files you want parsed. 
 It will return a list of found methods with for each method:
@@ -28,7 +28,7 @@ It will return a list of found methods with for each method:
 
 ## Library
 
-<TODO>
+TODO
 
 
 # Copyright
