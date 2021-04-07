@@ -8,11 +8,31 @@ Utrecht University within the Software Project course.
 #include <sstream>
 #include <mutex>
 
+class StringBuffer
+{
+public:
+    StringBuffer(int bufferSize);
+	~StringBuffer()
+	{
+		delete[] buffers;
+	};
+	void addBuffer(char* buffer);
+    char readNextChar();
+
+private:
+    char **buffers;
+	int bufferSize;
+    int currentIndex = 0;
+    int bufferIndex = 0;
+	int bufferAmount;
+    int bufferCap;
+};
+
 class StringStream
 {
 public:
 	/// Constructor	
-	StringStream();
+	StringStream(int bufferSize);
 
 	/// <summary>
 	/// Insert char* into Stringstream
@@ -39,10 +59,11 @@ public:
 	/// <param name="b">True if the input has ended, false otherwise</param>
 	void setInputEnded(bool b);
 private:
-	std::stringstream* writeStream = new std::stringstream();
-	std::stringstream* readStream = new std::stringstream();
+	StringBuffer* writeStream;
+	StringBuffer* readStream;
 	bool dataEnded = false;
 	std::mutex lock;
 	int sizeWrite = 0;
 	int sizeRead = 0;
+    int buffersSize;
 };

@@ -17,12 +17,12 @@ Utrecht University within the Software Project course.
 
 StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 {
-    StringStream* stream = new StringStream();
+    StringStream *stream = new StringStream(bufferSize);
 
     std::string threads = "";
     if (numberThreads != -1)
     {
-        threads = "-p " + std::to_string(numberThreads) + " ";
+        threads = "-j " + std::to_string(numberThreads) + " ";
     }
 
     // Start srcML in new thread so the output can be read while it is being made
@@ -38,7 +38,7 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 {
     // Buffer to read into and then put into stream
-    std::array<char, bufferSize> buffer;
+    std::array<char, bufferSize>* buffer = new std::array<char, bufferSize>();
 
     // Open console to interact with srcML, use proper open function depending on operating system
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
@@ -56,9 +56,11 @@ void SrcMLCaller::exec(std::string cmd, StringStream* stream)
     size_t bytesRead;
 
     // Read until there is nothing more to read, insert chunks into stream
-    while ((bytesRead = fread(buffer.data(), 1, bufferSize, pipe.get())) > 0)
+
+    while ((bytesRead = fread(buffer->data(), 1, bufferSize, pipe.get())) > 0)
     {
-        stream->addBuffer(buffer.data(), bytesRead);
+        stream->addBuffer(buffer->data(), bytesRead);
+        buffer = new std::array<char, bufferSize>();
     }
 
     // Let stream know there won't be more data
