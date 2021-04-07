@@ -2,8 +2,8 @@
 Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)*/
 #include "pch.h"
-#include "../Parser/AbstractSyntaxToHashable.cpp"
-#include "../Parser/Node.cpp"
+#include "AbstractSyntaxToHashable.h"
+#include "Node.h"
 
 
 // getHashable function
