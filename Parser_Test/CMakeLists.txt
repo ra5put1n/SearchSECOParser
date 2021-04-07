@@ -2,6 +2,8 @@
 cmake_minimum_required(VERSION 3.13)
 project(parser)
 
+add_subdirectory(../Parser ../Parser)
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -14,10 +16,12 @@ if(NOT googletest_POPULATED)
   add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 endif()
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 20)
 set(TEST_NAME parser_tests)
 add_executable(${TEST_NAME} StringStream_test.cpp Tag_test.cpp AbstractSyntaxToHashable_test.cpp XmlParser_test.cpp)
-target_link_libraries(${TEST_NAME} gtest_main)
+target_link_libraries(${TEST_NAME} gtest_main parser)
+
+target_include_directories(${TEST_NAME} PUBLIC "${PROJECT_BINARY_DIR}" ../Parser)
 
 enable_testing()
 include(GoogleTest)
