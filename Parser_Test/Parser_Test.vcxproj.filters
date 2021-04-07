@@ -5,12 +5,14 @@
     <ClCompile Include="AbstractSyntaxToHashable_test.cpp" />
     <ClCompile Include="Tag_test.cpp" />
     <ClCompile Include="XmlParser_test.cpp" />
+    <ClCompile Include="StringStream_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="StringStreamMock.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -19,5 +21,8 @@
     <Filter Include="Mocks">
       <UniqueIdentifier>{c2b1314a-fd28-4834-94e9-db6d49322c87}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Parser_Test.rc" />
   </ItemGroup>
 </Project>

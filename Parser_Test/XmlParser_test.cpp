@@ -3,9 +3,8 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)*/
 #include "pch.h"
 #include "StringStreamMock.h"
-#include "../Parser/XmlParser.h"
-#include "../Parser/XmlParser.cpp"
-#include "../Parser/md5/md5.cpp"
+#include "XmlParser.h"
+//#include "../Parser/md5/md5.cpp"
 
 TEST(GetNextTagTests, BasicInput)
 {

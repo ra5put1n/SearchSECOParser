@@ -5,7 +5,7 @@ Utrecht University within the Software Project course.
 */
 #include "pch.h"
 #include <gtest/gtest.h>
-#include "../Parser/StringStream.cpp"
+#include "StringStream.h"
 
 // Basic format of tests: (add your's in individual files for each individual file, Node_test.cpp for Node.cpp)
 

@@ -2,7 +2,7 @@
 Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)*/
 #include "pch.h"
-#include "../Parser/Tag.cpp"
+#include "Tag.h"
 
 
 
