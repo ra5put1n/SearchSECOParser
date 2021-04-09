@@ -62,6 +62,8 @@ char StringStream::nextChar()
 
 bool StringStream::stop()
 {
+	// We want to make sure we don't lock the thread if it is not necessary,
+	// so we check this first.
     if (sizeRead > 0)
     {
         return false;
@@ -108,7 +110,7 @@ char StringBuffer::readNextChar()
     if (currentIndex >= bufferSize)
     {
         currentIndex = 0;
-        delete buffers[bufferIndex];
+        delete[] buffers[bufferIndex];
         bufferIndex++;
 	}
     return c;

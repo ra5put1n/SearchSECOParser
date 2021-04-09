@@ -11,12 +11,26 @@ Utrecht University within the Software Project course.
 class StringBuffer
 {
 public:
+    /// <summary>
+    /// Basic constructor.
+    /// </summary>
     StringBuffer(int bufferSize);
 	~StringBuffer()
 	{
 		delete[] buffers;
 	};
+	/// <summary>
+	/// Adds the given buffer to this string buffer.
+	/// It is assumed that the buffer given is the same size as the bufferSize that
+	/// was given in the constructor.
+	/// </summary>
 	void addBuffer(char* buffer);
+    /// <summary>
+    /// Will read the next char in the buffer.
+	/// There is no check in place to see if we still have data left,
+	/// it is assumed you do that yourself.
+	/// In our stringstream inplementation that is the case.
+    /// </summary>
     char readNextChar();
 
 private:
