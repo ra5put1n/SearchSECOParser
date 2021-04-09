@@ -5,7 +5,7 @@ Utrecht University within the Software Project course.
 #include <string>
 #include "Tag.h"
 
-// Create map and save it
+// Create map and save it.
 std::map<std::string, Tag> TagMap::map = TagMap::getMap();
 
 std::map<std::string, Tag> TagMap::getMap()
@@ -164,7 +164,7 @@ std::map<std::string, Tag> TagMap::getMap()
 	m["cpp:undef"] = cpp_undef_tag;
 	m["cpp:value"] = cpp_value_tag;
 	m["cpp:warning"] = cpp_warning_tag;
-	// Some miscellanaos tags, possibly needs some investigating
+	// Some miscellanaos tags, possibly needs some investigating.
 	m["argument_list"] = argument_list_tag;
 	m["parameter"] = parameter_tag;
 	m["argument"] = argument_tag;
@@ -176,7 +176,7 @@ Tag TagMap::getTag(std::string text)
 {
 	auto it = map.find(text);
 
-	// it points to map.end() if entry is not found
+	// it points to map.end() if entry is not found.
 	if (it == map.end())
 		return unknown_tag;
 

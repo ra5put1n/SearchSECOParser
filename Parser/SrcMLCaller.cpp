@@ -25,7 +25,7 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
         threads = "-p " + std::to_string(numberThreads) + " ";
     }
 
-    // Start srcML in new thread so the output can be read while it is being made
+    // Start srcML in new thread so the output can be read while it is being made.
     new std::thread(exec, "srcml " + threads + cmd, stream);
 
     return stream;
@@ -37,10 +37,10 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 */
 void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 {
-    // Buffer to read into and then put into stream
+    // Buffer to read into and then put into stream.
     std::array<char, bufferSize> buffer;
 
-    // Open console to interact with srcML, use proper open function depending on operating system
+    // Open console to interact with srcML, use proper open function depending on operating system.
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
     std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd.c_str(), "r"), _pclose);
 #else
@@ -52,16 +52,16 @@ void SrcMLCaller::exec(std::string cmd, StringStream* stream)
         throw std::runtime_error("popen() failed!");
     }
 
-    // Amount of data read, is less then bufferSize if output ends
+    // Amount of data read, is less then bufferSize if output ends.
     size_t bytesRead;
 
-    // Read until there is nothing more to read, insert chunks into stream
+    // Read until there is nothing more to read, insert chunks into stream.
     while ((bytesRead = fread(buffer.data(), 1, bufferSize, pipe.get())) > 0)
     {
         stream->addBuffer(buffer.data(), bytesRead);
     }
 
-    // Let stream know there won't be more data
+    // Let stream know there won't be more data.
     stream->setInputEnded(true);
 }
 
