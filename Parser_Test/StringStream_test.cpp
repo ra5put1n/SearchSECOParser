@@ -22,10 +22,10 @@ INSTANTIATE_TEST_CASE_P(
 	));
 
 TEST_P(ParameterizedStringStreamTests, TestName) {
-	StringStream* s = new StringStream();
 	std::string testable = GetParam();
 	char* stringpointer = strdup(testable.c_str());
-	int size = testable.length();
+    int size = testable.length();
+    StringStream *s = new StringStream(size);
 	s->addBuffer(stringpointer, size);
 	for (int i = 0; i < size; i++) {
 		ASSERT_EQ(testable[i], s->nextChar());
@@ -33,7 +33,7 @@ TEST_P(ParameterizedStringStreamTests, TestName) {
 }
 
 TEST(StopConditionCheck, TestName) {
-	StringStream* s = new StringStream();
+	StringStream* s = new StringStream(1);
 	s->setInputEnded(true);
 	ASSERT_EQ(true, s->stop());
 }
