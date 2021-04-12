@@ -8,11 +8,45 @@ Utrecht University within the Software Project course.
 #include <sstream>
 #include <mutex>
 
+class StringBuffer
+{
+public:
+    /// <summary>
+    /// Basic constructor.
+    /// </summary>
+    StringBuffer(int bufferSize);
+	~StringBuffer()
+	{
+		delete[] buffers;
+	};
+	/// <summary>
+	/// Adds the given buffer to this string buffer.
+	/// It is assumed that the buffer given is the same size as the bufferSize that
+	/// was given in the constructor.
+	/// </summary>
+	void addBuffer(char* buffer);
+    /// <summary>
+    /// Will read the next char in the buffer.
+	/// There is no check in place to see if we still have data left,
+	/// it is assumed you do that yourself.
+	/// In our stringstream inplementation that is the case.
+    /// </summary>
+    char readNextChar();
+
+private:
+    char **buffers;
+	int bufferSize;
+    int currentIndex = 0;
+    int bufferIndex = 0;
+	int bufferAmount;
+    int bufferCap;
+};
+
 class StringStream
 {
 public:
 	/// Constructor	
-	StringStream();
+	StringStream(int bufferSize);
 
 	/// <summary>
 	/// Insert char* into Stringstream
@@ -39,10 +73,11 @@ public:
 	/// <param name="b">True if the input has ended, false otherwise</param>
 	void setInputEnded(bool b);
 private:
-	std::stringstream* writeStream = new std::stringstream();
-	std::stringstream* readStream = new std::stringstream();
+	StringBuffer* writeStream;
+	StringBuffer* readStream;
 	bool dataEnded = false;
 	std::mutex lock;
 	int sizeWrite = 0;
 	int sizeRead = 0;
+    int buffersSize;
 };

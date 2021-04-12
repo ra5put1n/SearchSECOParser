@@ -7,7 +7,7 @@ Utrecht University within the Software Project course.
 class StringStreamMock : public StringStream
 {
 public:
-	StringStreamMock(std::string data) { this->data = data; };
+	StringStreamMock(std::string data) : StringStream(3) { this->data = data; };
 	char nextChar() override { return data[pos++]; };
 	bool stop() override { return pos >= data.length(); };
 private:

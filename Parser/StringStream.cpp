@@ -8,14 +8,17 @@ Utrecht University within the Software Project course.
 
 
 
-StringStream::StringStream()
+StringStream::StringStream(int bufferSize)
 {
+    readStream = new StringBuffer(bufferSize);
+    writeStream = new StringBuffer(bufferSize);
+    this->buffersSize = bufferSize;
 }
 
 void StringStream::addBuffer(char* buffer, int length)
 {
 	std::unique_lock<std::mutex> l(lock);
-	writeStream->write(buffer, length);
+	writeStream->addBuffer(buffer);
 	sizeWrite += length;
 }
 
@@ -24,10 +27,8 @@ char StringStream::nextChar()
 	// If there is something to read, read and return the value
 	if (sizeRead > 0)
 	{
-		char c;
-		readStream->read(&c, 1);
 		sizeRead--;
-		return c;
+        return readStream->readNextChar();
 	}
 
 	// Check the whether the write stream is empty
@@ -52,7 +53,7 @@ char StringStream::nextChar()
 	std::unique_lock<std::mutex> l(lock);
 	delete readStream;
 	readStream = writeStream;
-	writeStream = new std::stringstream();
+	writeStream = new StringBuffer(buffersSize);
 	sizeRead = sizeWrite;
 	sizeWrite = 0;
 
@@ -61,13 +62,56 @@ char StringStream::nextChar()
 
 bool StringStream::stop()
 {
+	// We want to make sure we don't lock the thread if it is not necessary,
+	// so we check this first.
+    if (sizeRead > 0)
+    {
+        return false;
+	}
 	std::unique_lock<std::mutex> l(lock);
 	// The stringstream is done when the input is done and both streams are empty
-	return (dataEnded && sizeRead <= 0 && sizeWrite <= 0);
+	return (dataEnded && sizeWrite <= 0);
 }
 
 void StringStream::setInputEnded(bool b)
 {
 	std::unique_lock<std::mutex> l(lock);
 	dataEnded = b;
+}
+
+StringBuffer::StringBuffer(int bufferSize)
+{
+    bufferCap = 10;
+    buffers = new char*[bufferCap];
+    bufferAmount = 0;
+    this->bufferSize = bufferSize;
+}
+
+void StringBuffer::addBuffer(char *buffer)
+{
+    if (bufferAmount == bufferCap)
+    {
+        char **old = buffers;
+        buffers = new char *[bufferCap * 2];
+        for (int i = 0; i < bufferCap; i++)
+        {
+            buffers[i] = old[i];
+		}
+        bufferCap *= 2;
+        delete[] old;
+	}
+    buffers[bufferAmount++] = buffer;
+}
+
+char StringBuffer::readNextChar()
+{
+    char c = buffers[bufferIndex][currentIndex];
+    currentIndex++;
+    if (currentIndex >= bufferSize)
+    {
+        currentIndex = 0;
+        delete[] buffers[bufferIndex];
+        bufferIndex++;
+	}
+    return c;
 }
