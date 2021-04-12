@@ -1,0 +1,17 @@
+# This program has been developed by students from the bachelor Computer Science at
+# Utrecht University within the Software Project course.
+# © Copyright Utrecht University (Department of Information and Computing Sciences)
+
+cmake_minimum_required(VERSION 3.13)
+
+project(parser)
+
+add_subdirectory(../Parser ./Parser)
+
+
+set(CMAKE_CXX_STANDARD 20)      
+set(EXE_NAME parser_standalone)
+add_executable(${EXE_NAME} Main.cpp)
+target_link_libraries(${EXE_NAME} parser)
+
+target_include_directories(${EXE_NAME} PUBLIC "${PROJECT_BINARY_DIR}" ../Parser)
