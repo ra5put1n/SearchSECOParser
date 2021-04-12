@@ -6,6 +6,7 @@ This is the Parser used by the SearchSECO project, it uses [srcML](https://www.s
 
 ## Dependencies
 
+* Windows 10+, Ubuntu 18.04. Might work on older Windows versions or other UNIX systems but has not been tested.
 * [srcML.](https://www.srcml.org/#home)
 Make sure srcML is installed and registered in your path
 
@@ -13,9 +14,13 @@ Make sure srcML is installed and registered in your path
 ## Building
 
 ### Stand-alone
+#### Visual-Studio
+Open solution and simply build the project
+#### Cmake
+Run Cmake and build in the StandAlone folder.
 
 ### Library
-Use Cmake to include the Parser folder, link the parser library, and reference the header files in the folder.
+Use Cmake to include the Parser folder, link the parser library, and reference the header files in the folder. Or use cmake in Parser folder to build library.
 
 # Usage
 
