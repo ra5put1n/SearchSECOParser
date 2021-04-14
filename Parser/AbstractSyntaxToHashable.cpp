@@ -54,11 +54,16 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
     }
     // Only give content if an end Node.
     if (nd->getBranches().size() > 0)
+    {
         return;
+    }        
 
     std::string content = nd->getContents();
     if (content == "")
+    {
         return;
+    }
+        
 
     Tag tag = nd->getTag();
 
@@ -73,7 +78,9 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
         if (parent != nullptr)
         {
             while (parent->getTag() == name_tag)
+            {
                 parent = parent->getPrevious();
+            }
 
             if (parent->getTag() == type_tag)
             {

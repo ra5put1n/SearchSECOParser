@@ -8,6 +8,9 @@ Utrecht University within the Software Project course.
 // Create map and save it.
 std::map<std::string, Tag> TagMap::map = TagMap::getMap();
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreadability-function-size"
+
 std::map<std::string, Tag> TagMap::getMap()
 {
 	std::map<std::string, Tag> m;
@@ -172,14 +175,17 @@ std::map<std::string, Tag> TagMap::getMap()
 	return m;
 }
 
+#pragma clang diagnostic pop
+
 Tag TagMap::getTag(std::string text)
 {
 	auto it = map.find(text);
 
 	// it points to map.end() if entry is not found.
-	if (it == map.end())
-		return unknown_tag;
-
+    if (it == map.end())
+    {
+        return unknown_tag;
+    }
 	return it->second;
 }
 

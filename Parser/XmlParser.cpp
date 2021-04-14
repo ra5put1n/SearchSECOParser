@@ -51,7 +51,9 @@ std::vector<HashData> XmlParser::parseXML(StringStream *stringStream, bool parse
         else if (tagData.tag.substr(0, 7) == "comment")
         {
             // If we see a comment, we want to skip everything in it.
-            while (!(getNextTag(stringStream).tag == "/comment"));
+            while (!(getNextTag(stringStream).tag == "/comment"))
+            {
+            };
         }
         else
         {
