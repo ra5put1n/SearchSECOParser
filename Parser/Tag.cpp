@@ -8,9 +8,7 @@ Utrecht University within the Software Project course.
 // Create map and save it.
 std::map<std::string, Tag> TagMap::map = TagMap::getMap();
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreadability-function-size"
-
+// NOLINTNEXTLINE
 std::map<std::string, Tag> TagMap::getMap()
 {
 	std::map<std::string, Tag> m;
@@ -175,7 +173,6 @@ std::map<std::string, Tag> TagMap::getMap()
 	return m;
 }
 
-#pragma clang diagnostic pop
 
 Tag TagMap::getTag(std::string text)
 {

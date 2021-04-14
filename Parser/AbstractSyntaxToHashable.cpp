@@ -48,22 +48,17 @@ void AbstractSyntaxToHashable::collapseNodes(Node *nd, AbstractionData* ad)
 // Abstract the contents of a node and returns the abstracted value.
 void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
 {
-    if (nd->getTag() == function_decl_tag)
-    {
-        int x = 5;
-    }
     // Only give content if an end Node.
     if (nd->getBranches().size() > 0)
     {
         return;
-    }        
+    }
 
     std::string content = nd->getContents();
     if (content == "")
     {
         return;
     }
-        
 
     Tag tag = nd->getTag();
 

@@ -12,12 +12,12 @@ Utrecht University within the Software Project course.
 #include "SrcMLCaller.h"
 #include <thread>
 
-#define bufferSize 1024
+#define BUFFER_SIZE 1024
 
 
 StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 {
-    StringStream *stream = new StringStream(bufferSize);
+    StringStream *stream = new StringStream(BUFFER_SIZE);
 
     std::string threads = "";
     if (numberThreads != -1)
@@ -38,7 +38,7 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 {
     // Buffer to read into and then put into stream.
-    std::array<char, bufferSize>* buffer = new std::array<char, bufferSize>();
+    std::array<char, BUFFER_SIZE>* buffer = new std::array<char, BUFFER_SIZE>();
 
     // Open console to interact with srcML, use proper open function depending on operating system.
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
@@ -57,10 +57,10 @@ void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 
     // Read until there is nothing more to read, insert chunks into stream.
 
-    while ((bytesRead = fread(buffer->data(), 1, bufferSize, pipe.get())) > 0)
+    while ((bytesRead = fread(buffer->data(), 1, BUFFER_SIZE, pipe.get())) > 0)
     {
         stream->addBuffer(buffer->data(), bytesRead);
-        buffer = new std::array<char, bufferSize>();
+        buffer = new std::array<char, BUFFER_SIZE>();
     }
 
     // Let stream know there won't be more data.
