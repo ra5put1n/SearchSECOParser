@@ -34,7 +34,7 @@ public:
 	/// Constructor
 	/// </summary>
 	/// <param name="pathPrefixLength">length of the path used</param>
-	XmlParser(int pathPrefixLength);
+	XmlParser(std::string pathPrefixLength);
 
 	/// <summary>
 	/// Find methods in XML, abstract, and hash them
@@ -58,6 +58,7 @@ public:
 	Node* getTree() { return tree; };
 private:
 	Node* tree;
-	int pathPrefixLength, lineNumber = 0;
+	int lineNumber = 0;
+    std::string path;
 
 };

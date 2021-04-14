@@ -9,7 +9,7 @@ Utrecht University within the Software Project course.
 TEST(GetNextTagTests, BasicInput)
 {
 	StringStreamMock* ssm = new StringStreamMock("dataBefore<Tag extra arguments>");
-	XmlParser xmlParser = XmlParser(1);
+	XmlParser xmlParser = XmlParser("_");
 	TagData out = xmlParser.getNextTag(ssm);
 	EXPECT_EQ(out.tag, "Tag");
 	EXPECT_EQ(out.textInTag, "extra arguments");
@@ -27,7 +27,7 @@ TEST(GetNextTagTests, BasicInput)
 TEST(GetNextTagTests, IncompleteInput)
 {
 	StringStreamMock* ssm = new StringStreamMock("dataBefore<Tag");
-	XmlParser xmlParser = XmlParser(1);
+	XmlParser xmlParser = XmlParser("_");
 	TagData out = xmlParser.getNextTag(ssm);
 	EXPECT_EQ(out.tag, "Tag");
 	EXPECT_EQ(out.textInTag, "");
@@ -38,7 +38,7 @@ TEST(GetNextTagTests, IncompleteInput)
 TEST(GetNextTagTests, RemoveWhiteSpace)
 {
 	StringStreamMock* ssm = new StringStreamMock("d a t a B e f o r e		\r\n<Tag A R G S>");
-	XmlParser xmlParser = XmlParser(1);
+	XmlParser xmlParser = XmlParser("_");
 	TagData out = xmlParser.getNextTag(ssm);
 	EXPECT_EQ(out.tag, "Tag");
 	EXPECT_EQ(out.textInTag, "A R G S");
@@ -55,7 +55,7 @@ TEST(ParseXMLTests, SimpleFile)
 	xml->addNode(type);
 	type->addNode(name);
 	name->addNode(new Node("int", TagMap::getTag("name"), name));
-	XmlParser xmlParser = XmlParser(1);
+	XmlParser xmlParser = XmlParser("_");
 	xmlParser.parseXML(ssm, false);
 	
 	EXPECT_TRUE(xmlParser.getTree()->equal(xml));
@@ -72,7 +72,7 @@ TEST(ParseXMLTests, SimpleFile2)
 	xml->addNode(function);
 	function->addNode(type);
 	type->addNode(new Node("int", TagMap::getTag("type"), type));
-	XmlParser xmlParser = XmlParser(1);
+	XmlParser xmlParser = XmlParser("_");
 	xmlParser.parseXML(ssm, false);
 
 	EXPECT_TRUE(xmlParser.getTree()->equal(xml));
@@ -81,7 +81,7 @@ TEST(ParseXMLTests, SimpleFile2)
 TEST(ParseXMLTests, NoXML)
 {
 	StringStreamMock* ssm = new StringStreamMock(R"(<type><name>int</name></type>)");
-	XmlParser xmlParser = XmlParser(1);
+	XmlParser xmlParser = XmlParser("_");
 	xmlParser.parseXML(ssm, false);
 
 	EXPECT_EQ(xmlParser.getTree(), nullptr);
@@ -90,7 +90,7 @@ TEST(ParseXMLTests, NoXML)
 TEST(ParseXMLTests, WrongClosingTags)
 {
 	StringStreamMock* ssm = new StringStreamMock(R"(<?xml><function><type><name>int</type></name></function>)");
-	XmlParser xmlParser = XmlParser(1);
+	XmlParser xmlParser = XmlParser("_");
 	xmlParser.parseXML(ssm, false);
 	Node* type = new Node(unknown_tag, nullptr);
 
