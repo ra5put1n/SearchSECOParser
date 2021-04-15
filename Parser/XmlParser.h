@@ -33,8 +33,8 @@ public:
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	/// <param name="pathPrefixLength">length of the path used.</param>
-	XmlParser(int pathPrefixLength);
+	/// <param name="pathPrefixLength">Path to parse.</param>
+	XmlParser(std::string pathPrefixLength);
 
 	/// <summary>
 	/// Find methods in XML, abstract, and hash them.
@@ -95,14 +95,12 @@ private:
 	/// <param name="breakOn">The character on which it stops.</param>
 	/// <param name="removeWhiteSpace">Remove white space yes or no.</param>
     std::string getDataUntil(StringStream *stringStream, char breakOn, bool removeWhiteSpace);
-	Node* tree;
-    int pathPrefixLength, lineNumber = 0;
-
-
+    Node* tree;
+    std::string path;
+    int lineNumber = 0;
     bool inFunction = false;
     std::string currentFileName = "";
     int startLastFunction = 0;
     Node *current;
     std::vector<HashData> hashes;
-
 };

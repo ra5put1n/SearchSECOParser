@@ -5,6 +5,7 @@ Utrecht University within the Software Project course.
 */
 
 #include <iostream>
+#include <algorithm>
 
 #include "Parser.h"
 #include "StringStream.h"
@@ -22,8 +23,10 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 
 	std::cout << "Sending stream to Xml Parser\n";
 
-	// plus one to get rid of the extra / at the beginning.
-	XmlParser xmlParser = XmlParser(path.length() + 1);
+	// Give XmlParser the path with / instead of \ for finding files.
+	std::replace(path.begin(), path.end(), '\\', '/');
+	XmlParser xmlParser = XmlParser(path);
+
 	std::vector<HashData> hashes = xmlParser.parseXML(stream);
 
 	std::cout << "hashes received from Parser, returning\n";

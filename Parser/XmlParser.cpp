@@ -9,9 +9,9 @@ Utrecht University within the Software Project course.
 #include "XmlParser.h"
 #include "md5/md5.h"
 
-XmlParser::XmlParser(int pathPrefixLength)
+XmlParser::XmlParser(std::string path)
 {
-    this->pathPrefixLength = pathPrefixLength;
+	this->path = path;
 }
 
 std::vector<HashData> XmlParser::parseXML(StringStream *stringStream, bool parseFurther)
@@ -142,10 +142,16 @@ void XmlParser::handleUnitTag(TagData tagData)
     size_t filenamePosition = tagData.textInTag.find("filename=") + 10;
     if (filenamePosition >= 10)
     {
+        int filenameBuffer = 0;
+        // If the filename is a full path, remove the path prefix
+        if (tagData.textInTag.find(path) != std::string::npos)
+        {
+            filenameBuffer = path.length() + 1;
+        }
+
         size_t filenameEnd = tagData.textInTag.find('"', filenamePosition);
-        currentFileName = tagData.textInTag.substr(filenamePosition + pathPrefixLength,
-                                                   filenameEnd - filenamePosition - pathPrefixLength);
-        lineNumber = 1;
+        currentFileName = tagData.textInTag.substr(filenamePosition + filenameBuffer, filenameEnd - filenamePosition - filenameBuffer);
+        lineNumber = 1;    
     }
 }
 
