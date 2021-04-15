@@ -13,11 +13,12 @@ class SrcMLCaller
 {
 public:
 	/// <summary>
-	/// Start srcMl op een gegeven path
+	/// Starts srcMl for a given path.
 	/// </summary>
-	/// <param name="cmd">Path waarvanuit srcML moet werken</param>
-	/// <returns>Stringstream met de output van srcML</returns>
 	static StringStream* startSrcML(std::string cmd, int numberThreads = -1);
 private:
+	/// <summary>
+	/// Executes the given command and puts the output in the given string stream.
+	/// </summary>
 	static void exec(std::string cmd, StringStream* stream);
 };

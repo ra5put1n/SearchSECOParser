@@ -11,27 +11,27 @@ Utrecht University within the Software Project course.
 class Node
 {
 public:
-	/// For node that may contain children
+	/// For node that may contain children.
 	Node(Tag tag, Node* previous);
-	/// For an end node (no children)
+	/// For an end node (no children).
 	Node(std::string text, Tag tag, Node* previous);
-	/// Destructor
+	/// Destructor.
 	~Node();
-	/// Get child nodes of this node
+	/// Get child nodes of this node.
 	std::vector<Node*> getBranches();
-	/// Get (string) content of this node
+	/// Get (string) content of this node.
 	std::string getContents();
-	/// Get Tag of this Node
+	/// Get Tag of this Node.
 	Tag getTag();
-	/// Add a Child node to this node
+	/// Add a Child node to this node.
 	void addNode(Node* node);
-	/// Set the (string) content of this node
+	/// Set the (string) content of this node.
 	void setContents(std::string contents);
-	/// Get this nodes parent
+	/// Get this nodes parent.
 	Node* getPrevious();
-	/// Check equality to this node
+	/// Check equality to this node.
 	bool equal(Node* n);
-	/// Remove node from this nodes children
+	/// Remove node from this nodes children.
 	void removeNode(Node* node);
 private:
 	std::string contents;

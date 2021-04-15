@@ -131,7 +131,7 @@ enum Tag
 	unsafe_tag,
 	using_tag,
 	where_tag,
-	// TO DO: see if these require special treatment
+	// TO DO: see if these require special treatment.
 	omp_argument_tag,
 	omp_argument_list_tag,
 	omp_clause_tag,
@@ -161,7 +161,7 @@ enum Tag
 	cpp_value_tag,
 	cpp_warning_tag,
 
-	// Some miscellanaos tags, possibly needs some investigating
+	// Some miscellanaos tags, possibly needs some investigating.
 	argument_list_tag,
 	parameter_tag,
 	argument_tag,
@@ -172,20 +172,20 @@ class TagMap
 {
 public:
 	/// <summary>
-	/// Create new map from all available tags
+	/// Create new map from all available tags.
 	/// </summary>
-	/// <returns>A map containing all tags</returns>
+	/// <returns>A map containing all tags.</returns>
 	static std::map<std::string, Tag> getMap();
 
 	/// <summary>
-	/// Find the tag which matches to a string
+	/// Find the tag which matches to a string.
 	/// </summary>
-	/// <param name="text">The string for which a tag needs to be found</param>
-	/// <returns>The found tag or unkwnon_tag if not found</returns>
+	/// <param name="text">The string for which a tag needs to be found.</param>
+	/// <returns>The found tag or unkwnon_tag if not found.</returns>
 	static Tag getTag(std::string text);
 
 	/// <summary>
-	/// A map containing all tags mapped to string of the tag they represent
+	/// A map containing all tags mapped to string of the tag they represent.
 	/// </summary>
 	static std::map<std::string, Tag> map;
 };

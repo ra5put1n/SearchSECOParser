@@ -19,7 +19,7 @@ Node::Node(std::string text, Tag tag, Node* previous)
 
 Node::~Node()
 {
-	// Destroy children when node is deleted
+	// Destroy children when node is deleted.
 	for (int i = 0; i < childNodes.size(); i++)
 	{
 		delete childNodes[i];
@@ -48,7 +48,7 @@ void Node::addNode(Node* node)
 
 void Node::removeNode(Node* node)
 {
-	// Search for Node in children
+	// Search for Node in children.
 	for (int i = 0; i < childNodes.size(); i++)
 	{
 		if (childNodes[i] == node)
@@ -71,7 +71,7 @@ Node* Node::getPrevious()
 
 bool Node::equal(Node* n)
 {
-	// For equality children need to be equal
+	// For equality children need to be equal.
 	if (n->childNodes.size() != childNodes.size())
 	{
 		return false;
@@ -83,6 +83,6 @@ bool Node::equal(Node* n)
 			return false;
 		}
 	}
-	// For equality content (tag, content) needs to be equal
+	// For equality content (tag, content) needs to be equal.
 	return tag == n->tag && contents == n->contents;
 }
