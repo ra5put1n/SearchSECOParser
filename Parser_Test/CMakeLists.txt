@@ -1,8 +1,12 @@
+# This program has been developed by students from the bachelor Computer Science at
+# Utrecht University within the Software Project course.
+# © Copyright Utrecht University (Department of Information and Computing Sciences)
+
 # Required by FetchContent_MakeAvailable
 cmake_minimum_required(VERSION 3.13)
 project(parser)
 
-add_subdirectory(../Parser ../Parser)
+add_subdirectory(../Parser ./Parser)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -11,6 +15,7 @@ FetchContent_Declare(
   GIT_TAG        release-1.10.0
 )
 FetchContent_GetProperties(googletest)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 if(NOT googletest_POPULATED)
   FetchContent_Populate(googletest)
   add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})

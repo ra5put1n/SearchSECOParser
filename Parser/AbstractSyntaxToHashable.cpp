@@ -12,7 +12,7 @@ Utrecht University within the Software Project course.
 
 
 // INPUT: top most node of abstract syntax tree. 
-// OUTPUT: string representation of abstract syntax tree
+// OUTPUT: string representation of abstract syntax tree.
 AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd)
 {
     AbstractionData *ad = new AbstractionData("", "");
@@ -20,18 +20,18 @@ AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd)
 	return ad;
 }
 
-// Collapse a node and all it's children recursively
+// Collapse a node and all it's children recursively.
 void AbstractSyntaxToHashable::collapseNodes(Node *nd, AbstractionData* ad)
 {
 	std::vector<Node*> children = nd->getBranches();
 	nodeToString(nd, ad);
 
-	// Return if end node
+	// Return if end node.
 	if (children.size() == 0)
 	{
 		return;
 	}
-	else // Otherwise collapse children and return own + children value
+	else // Otherwise collapse children and return own + children value.
 	{
 		std::string childString = "";
 
@@ -45,27 +45,27 @@ void AbstractSyntaxToHashable::collapseNodes(Node *nd, AbstractionData* ad)
 }
 
 
-// Abstract the contents of a node and returns the abstracted value
+// Abstract the contents of a node and returns the abstracted value.
 void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
 {
-    if (nd->getTag() == function_decl_tag)
-    {
-        int x = 5;
-    }
-    // Only give content if an end Node
+    // Only give content if an end Node.
     if (nd->getBranches().size() > 0)
+    {
         return;
+    }
 
     std::string content = nd->getContents();
     if (content == "")
+    {
         return;
+    }
 
     Tag tag = nd->getTag();
 
-    // Do proper abstraction for every tag
+    // Do proper abstraction for every tag.
     switch (tag)
     {
-    // Name tag can be a variable, functioncall or type. Look at parent to find out which
+    // Name tag can be a variable, functioncall or type. Look at parent to find out which.
     case name_tag:
     {
         Node *parent = nd->getPrevious();
@@ -73,7 +73,9 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
         if (parent != nullptr)
         {
             while (parent->getTag() == name_tag)
+            {
                 parent = parent->getPrevious();
+            }
 
             if (parent->getTag() == type_tag)
             {
@@ -110,7 +112,7 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
     }
     default:
     {
-        // If no abstraction required, just return the content
+        // If no abstraction required, just return the content.
         ad->string += content;
         return;
     }
