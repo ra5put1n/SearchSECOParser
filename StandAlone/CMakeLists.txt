@@ -8,6 +8,9 @@ project(parser)
 
 add_subdirectory(../Parser ./Parser)
 
+if (UNIX)
+  list(APPEND CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
+endif(UNIX)
 
 set(CMAKE_CXX_STANDARD 20)      
 set(EXE_NAME parser_standalone)

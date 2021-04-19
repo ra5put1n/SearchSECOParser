@@ -10,9 +10,6 @@ set(PARSER_HEADER_LIST
    ./md5/md5.h
 )
 
-if (UNIX)
-  list(APPEND CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
-endif(UNIX)
 
 add_library(parser
   AbstractSyntaxToHashable.cpp
