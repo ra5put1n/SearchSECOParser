@@ -6,6 +6,10 @@
 cmake_minimum_required(VERSION 3.13)
 project(parser_integration)
 
+if (UNIX)
+  list(APPEND CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
+endif(UNIX)
+
 add_subdirectory(../../Parser ./Parser)
 
 include(FetchContent)

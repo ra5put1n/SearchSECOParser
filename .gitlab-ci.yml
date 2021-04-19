@@ -14,8 +14,7 @@ integration:
     - cmake ../
     - cmake --build .
     - ./parser_standalone ../../tools
-    - cd Parser_Test
-    - cd Integration
+    - cd ../../Parser_Test/Integration
     - mkdir parser_integration
     - cd parser_integration
     - cmake ../
