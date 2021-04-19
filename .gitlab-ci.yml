@@ -1,5 +1,24 @@
 image: gcc
 
+integration:
+  stage: test
+  before_script:
+    - apt-get update
+    - apt-get -y install cmake autoconf
+    - wget http://131.123.42.38/lmcrs/v1.0.0/srcml_1.0.0-1_ubuntu20.04.tar.gz
+    - tar xvzf srcml_1.0.0-1_ubuntu20.04.tar.gz -C /srcml
+    - cd srcml
+    - ./configure
+    - make
+    - make install
+  script:
+    - cd StandAlone
+    - mkdir build
+    - cd build
+    - cmake ../
+    - cmake --build .
+    - ./parser_standalone
+
 google-tests:
   stage: test
   before_script:
@@ -24,21 +43,3 @@ linting:
     - clang-tidy *.cpp --
     - clang *.cpp -fsyntax-only
 
-integration:
-  stage: test
-  before_script:
-    - apt-get update
-    - apt-get -y install cmake autoconf
-    - wget http://131.123.42.38/lmcrs/v1.0.0/srcml_1.0.0-1_ubuntu20.04.tar.gz
-    - tar xvzf srcml_1.0.0-1_ubuntu20.04.tar.gz
-    - cd srcml_1.0.0-1_ubuntu20.04
-    - ./configure
-    - make
-    - make install
-  script:
-    - cd StandAlone
-    - mkdir build
-    - cd build
-    - cmake ../
-    - cmake --build .
-    - ./parser_standalone
