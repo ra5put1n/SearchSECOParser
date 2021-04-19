@@ -9,7 +9,7 @@ Utrecht University within the Software Project course.
 // GetTag function
 TEST(integration, integration)
 {
-	std::vector<HashData> hds = Parser::parse("../../tools");
+	std::vector<HashData> hds = Parser::parse("tools");
 
 	HashData hd1 = hds[0];
 	ASSERT_EQ(hd1.hash, "d1bf75492e51b358191be78df4a097ea");

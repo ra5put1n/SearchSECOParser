@@ -15,9 +15,7 @@ integration:
     - cmake --build .
     - ./parser_standalone ../../tools
     - cd ../../Parser_Test/Integration
-    - mkdir parser_integration
-    - cd parser_integration
-    - cmake ../
+    - cmake .
     - cmake --build .
     - ./parser_tests_integration --gtest_output="xml:report.xml"
 
