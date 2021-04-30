@@ -8,7 +8,7 @@ Utrecht University within the Software Project course.
 
 #define ABSTRACT_FUNCCALL
 #define ABSTRACT_TYPE
-#define ABSTRACT_VARIABLE
+#define abstract_variable
 
 
 // INPUT: top most node of abstract syntax tree. 
@@ -102,7 +102,7 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
                 return;
             }
         }
-#ifdef ABSTRACT_VARIABLE
+#ifdef abstract_variable
         ad->string += "var";        
 #else
         ad->string += content;
