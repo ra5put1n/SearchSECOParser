@@ -13,7 +13,7 @@ Utrecht University within the Software Project course.
 
 // INPUT: top most node of abstract syntax tree. 
 // OUTPUT: string representation of abstract syntax tree.
-AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd)
+AbstractionData* jfSDLKFe_fELfE__AbstractSyntaxToHashable::getHashable(Node *nd)
 {
     AbstractionData *ad = new AbstractionData("", "");
     collapseNodes(nd, ad);
