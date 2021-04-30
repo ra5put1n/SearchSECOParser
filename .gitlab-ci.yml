@@ -42,5 +42,5 @@ linting:
     - apt-get -y install clang clang-tidy clang-format
   script:
     - cd Parser
-    - clang-tidy *.cpp -- -Werror -Wno-error=readability-function-size
-    - clang *.cpp -fsyntax-only
+    - clang-tidy *.cpp -- 
+    - clang *.cpp -fsyntax-only -Werror
