@@ -1,6 +1,20 @@
-image: gcc
+image: gcc    
 
-integration:
+
+unit_testing:
+  stage: test
+  before_script:
+    - apt-get update
+    - apt-get -y install cmake autoconf
+  script:
+    - mkdir parser_build
+    - cd parser_build
+    - cmake ../Parser_Test
+    - cmake --build .
+    - ./parser_tests --gtest_output="xml:report.xml"
+    
+    
+integration_testing:
   stage: test
   before_script:
     - apt-get update
@@ -19,18 +33,6 @@ integration:
     - cmake --build .
     - ./parser_tests_integration --gtest_output="xml:report.xml"
 
-google-tests:
-  stage: test
-  before_script:
-    - apt-get update
-    - apt-get -y install cmake autoconf
-  script:
-    - mkdir parser_build
-    - cd parser_build
-    - cmake ../Parser_Test
-    - cmake --build .
-    - ./parser_tests --gtest_output="xml:report.xml"
-
 
 linting:
   stage: test
@@ -40,6 +42,5 @@ linting:
     - apt-get -y install clang clang-tidy clang-format
   script:
     - cd Parser
-    - clang-tidy *.cpp --
+    - clang-tidy *.cpp -- -Werror -Wno-error=readability-function-size
     - clang *.cpp -fsyntax-only
-

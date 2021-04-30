@@ -6,7 +6,6 @@ Utrecht University within the Software Project course.
 #include "../pch.h"
 
 
-
 #if defined(WIN32) || defined(_WIN32)
 std::string dataLoc = "../data";
 #else
