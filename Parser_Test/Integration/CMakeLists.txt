@@ -10,6 +10,8 @@ if (UNIX)
   list(APPEND CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
 endif(UNIX)
 
+file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 add_subdirectory(../../Parser ./Parser)
 
 include(FetchContent)
