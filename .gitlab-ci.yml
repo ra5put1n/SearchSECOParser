@@ -27,7 +27,7 @@ integration_testing:
     - cd build
     - cmake ../
     - cmake --build .
-    - ./parser_standalone ../../tools
+    - ./parser_standalone ../../Parser_Test/Integration/data
     - cd ../../Parser_Test/Integration
     - cmake .
     - cmake --build .
