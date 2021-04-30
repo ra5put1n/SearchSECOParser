@@ -1,15 +1,5 @@
 image: gcc    
 
-linting:
-  stage: test
-  before_script:
-    - apt-get update
-    - apt-get -y install cmake autoconf
-    - apt-get -y install clang clang-tidy clang-format
-  script:
-    - cd Parser
-    - clang-tidy *.cpp -- 
-    - clang *.cpp -fsyntax-only -Werror
 
 unit_testing:
   stage: test
@@ -44,3 +34,13 @@ integration_testing:
     - ./parser_tests_integration --gtest_output="xml:report.xml"
 
 
+linting:
+  stage: test
+  before_script:
+    - apt-get update
+    - apt-get -y install cmake autoconf
+    - apt-get -y install clang clang-tidy clang-format
+  script:
+    - cd Parser
+    - clang-tidy *.cpp -- 
+    - clang *.cpp -fsyntax-only -Werror
