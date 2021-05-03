@@ -1,11 +1,22 @@
-image: gcc    
+stages:
+  - build
+  - test
+
+image: ubuntu:latest    
+
+build_install:
+  stage: build
+  variables:
+    DEBIAN_FRONTEND: "noninteractive"
+  before_script:
+    - apt-get update
+    - apt-get -y install gcc g++ cmake autoconf git
+  script:
+    - echo "Install complete."
 
 
 unit_testing:
   stage: test
-  before_script:
-    - apt-get update
-    - apt-get -y install cmake autoconf
   script:
     - mkdir parser_build
     - cd parser_build
@@ -17,8 +28,6 @@ unit_testing:
 integration_testing:
   stage: test
   before_script:
-    - apt-get update
-    - apt-get -y install cmake autoconf
     - wget http://131.123.42.38/lmcrs/v1.0.0/srcml_1.0.0-1_ubuntu18.04.deb
     - apt-get -y install ./srcml_1.0.0-1_ubuntu18.04.deb
   script:
@@ -37,8 +46,6 @@ integration_testing:
 linting:
   stage: test
   before_script:
-    - apt-get update
-    - apt-get -y install cmake autoconf
     - apt-get -y install clang clang-tidy clang-format
   script:
     - cd Parser
