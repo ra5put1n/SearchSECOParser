@@ -67,9 +67,9 @@ TEST(AbstractSyntaxToHashable_getHashable, manyNodesAbstraction)
     n1->addNode(n6);
 
     AbstractionData *data = AbstractSyntaxToHashable::getHashable(n1);
-    EXPECT_EQ(data->string, s2 + "type" + "type" + "var" + "funccall" + "funcname" + s6);
+    EXPECT_EQ(data->string, s2 + "test3" + "test4" + "var" + "funccall" + "funcname" + s6);
     EXPECT_TRUE(data->funcName == s7);
 
     n1->removeNode(n6);
-    EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n1)->string, s2 + "type" + "type" + "var" + "funccall" + "funcname");
+    EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n1)->string, s2 + "test3" + "test4" + "var" + "funccall" + "funcname");
 }
