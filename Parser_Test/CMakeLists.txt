@@ -4,9 +4,7 @@
 
 # Required by FetchContent_MakeAvailable
 cmake_minimum_required(VERSION 3.13)
-project(parser)
-
-add_subdirectory(../Parser ./Parser)
+project(parser_tests)
 
 include(FetchContent)
 FetchContent_Declare(
