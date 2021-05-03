@@ -157,25 +157,25 @@ TEST(integrationCSharp, integrationCSharpBase)
 	ASSERT_EQ(hd1.lineNumber, 709);
 	ASSERT_EQ(hd1.lineNumberEnd, 737);
 
-	hd1 = hds[17];
+	hd1 = hds[18];
 	ASSERT_EQ(hd1.functionName, "mandelbrotGetal");
 	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
 	ASSERT_EQ(hd1.lineNumber, 864);
 	ASSERT_EQ(hd1.lineNumberEnd, 908);
 
-	hd1 = hds[20];
+	hd1 = hds[21];
 	ASSERT_EQ(hd1.functionName, "BitSet");
 	ASSERT_EQ(hd1.fileName, "game.cs");
 	ASSERT_EQ(hd1.lineNumber, 57);
 	ASSERT_EQ(hd1.lineNumberEnd, 57);
 
-	hd1 = hds[21];
+	hd1 = hds[22];
 	ASSERT_EQ(hd1.functionName, "GetBit");
 	ASSERT_EQ(hd1.fileName, "game.cs");
 	ASSERT_EQ(hd1.lineNumber, 64);
 	ASSERT_EQ(hd1.lineNumberEnd, 64);
 
-	hd1 = hds[24];
+	hd1 = hds[25];
 	ASSERT_EQ(hd1.functionName, "Init");
 	ASSERT_EQ(hd1.fileName, "game.cs");
 	ASSERT_EQ(hd1.lineNumber, 117);
@@ -195,18 +195,18 @@ TEST(integrationCSharp, integrationCSharpHash)
 	hd1 = hds[5];
 	ASSERT_EQ(hd1.hash, "c479a6bc42ae5efe6374c12d2c6fda67");
 
-	hd1 = hds[13];
-	ASSERT_EQ(hd1.hash, "499197bcc36799a64d9c32c671cda8a0");
+	hd1 = hds[12];
+	ASSERT_EQ(hd1.hash, "09c5c9c6efba9285810be9a57d321472");
 
-	hd1 = hds[20];
-	ASSERT_EQ(hd1.hash, "64bb178950272f51cf120c718b0285d0");
+	hd1 = hds[18];
+	ASSERT_EQ(hd1.hash, "b265242c314d87b5f35eb2c78a8e4bd4");
 
-	hd1 = hds[24];
-	ASSERT_EQ(hd1.hash, "90fe1d33f501ccdb6940e3c3fff6b60c");
+	hd1 = hds[21];
+	ASSERT_EQ(hd1.hash, "ff82b8114817616459e4281ca990b041");
+
+	hd1 = hds[22];
+	ASSERT_EQ(hd1.hash, "a75bee732e3aa0f51e89d44fe4941108");
 
 	hd1 = hds[25];
 	ASSERT_EQ(hd1.hash, "df16098f05883dda93d5b6f702935adf");
-
-	hd1 = hds[27];
-	ASSERT_EQ(hd1.hash, "33e89feb2aa613f7a8dc6c86b5b28788");
 }
