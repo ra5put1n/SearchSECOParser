@@ -1,6 +1,7 @@
-image: gcc
+image: gcc    
 
-google-tests:
+
+unit_testing:
   stage: test
   before_script:
     - apt-get update
@@ -11,6 +12,26 @@ google-tests:
     - cmake ../Parser_Test
     - cmake --build .
     - ./parser_tests --gtest_output="xml:report.xml"
+    
+    
+integration_testing:
+  stage: test
+  before_script:
+    - apt-get update
+    - apt-get -y install cmake autoconf
+    - wget http://131.123.42.38/lmcrs/v1.0.0/srcml_1.0.0-1_ubuntu18.04.deb
+    - apt-get -y install ./srcml_1.0.0-1_ubuntu18.04.deb
+  script:
+    - cd StandAlone
+    - mkdir build
+    - cd build
+    - cmake ../
+    - cmake --build .
+    - ./parser_standalone ../../Parser_Test/Integration/data
+    - cd ../../Parser_Test/Integration
+    - cmake .
+    - cmake --build .
+    - ./parser_tests_integration --gtest_output="xml:report.xml"
 
 
 linting:
@@ -21,6 +42,5 @@ linting:
     - apt-get -y install clang clang-tidy clang-format
   script:
     - cd Parser
-    - clang-tidy *.cpp --
-    - clang *.cpp -fsyntax-only
-    
+    - clang-tidy *.cpp -- 
+    - clang *.cpp -fsyntax-only -Werror

@@ -10,6 +10,7 @@ set(PARSER_HEADER_LIST
    ./md5/md5.h
 )
 
+
 add_library(parser
   AbstractSyntaxToHashable.cpp
   Node.cpp
