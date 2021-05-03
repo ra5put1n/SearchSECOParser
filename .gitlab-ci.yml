@@ -19,7 +19,11 @@ build_install:
     - cmake --build .
   artifacts:
     paths:
-      - build
+      - build/StandAlone/parser_standalone
+      - build/Parser_Test/parser_tests
+      - build/Parser_Test/Integration/parser_tests_integration
+    expire_in: 1 day
+      
   
 
 
@@ -27,7 +31,7 @@ unit_testing:
   stage: test
   needs: [build_install]
   script:
-    - build/parser_tests --gtest_output="xml:report.xml"
+    - parser_tests --gtest_output="xml:report.xml"
     
     
 integration_testing:
@@ -39,7 +43,7 @@ integration_testing:
     - wget http://131.123.42.38/lmcrs/v1.0.0/srcml_1.0.0-1_ubuntu18.04.deb
     - apt-get -y install ./srcml_1.0.0-1_ubuntu18.04.deb
   script:
-    - build/parser_tests_integration --gtest_output="xml:report.xml"
+    - parser_tests_integration --gtest_output="xml:report.xml"
 
 
 linting:
