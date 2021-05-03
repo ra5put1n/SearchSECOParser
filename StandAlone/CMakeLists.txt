@@ -6,8 +6,6 @@ cmake_minimum_required(VERSION 3.13)
 
 project(parser)
 
-add_subdirectory(../Parser ./Parser)
-
 if (UNIX)
   list(APPEND CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
 endif(UNIX)
