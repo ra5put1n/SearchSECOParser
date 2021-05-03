@@ -87,7 +87,10 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
         // meaning we can go ahead and hash it.
         AbstractionData *s = AbstractSyntaxToHashable::getHashable(current);
         std::string mdHash = md5(s->string);
-        hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction, lineNumber));
+        if (s->string.length() > 50)
+        {
+            hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction, lineNumber));
+        }
         // Removing the tree after we've hashed it to free up memory.
         prev->removeNode(current);
         inFunction = false;

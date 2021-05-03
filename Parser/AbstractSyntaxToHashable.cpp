@@ -7,7 +7,7 @@ Utrecht University within the Software Project course.
 
 
 #define ABSTRACT_FUNCCALL
-#define ABSTRACT_TYPE
+//#define ABSTRACT_TYPE
 #define ABSTRACT_VARIABLE
 
 
@@ -15,8 +15,18 @@ Utrecht University within the Software Project course.
 // OUTPUT: string representation of abstract syntax tree.
 AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd)
 {
-    AbstractionData *ad = new AbstractionData("", "");
-    collapseNodes(nd, ad);
+    AbstractionData* ad = new AbstractionData("", "");
+
+    if (nd->getTag() == function_tag)
+    {
+        ad->funcName = nd->getBranches()[1]->getBranches()[0]->getContents();
+        collapseNodes(nd->getBranches()[3]->getBranches()[1], ad);
+    }
+    else
+    {
+        collapseNodes(nd, ad);
+    }   
+    
 	return ad;
 }
 

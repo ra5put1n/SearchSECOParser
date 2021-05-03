@@ -42,13 +42,13 @@ TEST(integrationCpp, integrationCppHash)
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/cpp");
 
 	HashData hd1 = hds[0];
-	ASSERT_EQ(hd1.hash, "d1bf75492e51b358191be78df4a097ea");
+	ASSERT_EQ(hd1.hash, "35b09a79e9280726c0795e2079ba6e05");
 
 	HashData hd2 = hds[1];
-	ASSERT_EQ(hd2.hash, "5076ea70a545b1856cfe0cfc229ef036");
+	ASSERT_EQ(hd2.hash, "c32ef09c649c47ee60877c692e47ae47");
 
 	HashData hd3 = hds[2];
-	ASSERT_EQ(hd3.hash, "5b5cd5fcc939f8d50aa13b4c7f70e4ab");
+	ASSERT_EQ(hd3.hash, "79d26f0be79270fcda7037b11e2b7fcc");
 }
 
 
@@ -106,32 +106,32 @@ TEST(integrationJava, integrationJavaHash)
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/java");
 
 	HashData hd1 = hds[0];
-	ASSERT_EQ(hd1.hash, "cb0f4c5ff5f3c1c04228926d4d4d9e9d");
+	ASSERT_EQ(hd1.hash, "9ffab3f3813d9de8cbd90d779c286713");
 
 	hd1 = hds[1];
-	ASSERT_EQ(hd1.hash, "92c537ba1fd89b37bca81374efd07ae2");
+	ASSERT_EQ(hd1.hash, "66f21f61d6597cdc3402fcf5e7fd69aa");
 
 	hd1 = hds[4];
-	ASSERT_EQ(hd1.hash, "72fca34a0ec774281d99189f229e0d88");
+	ASSERT_EQ(hd1.hash, "9e229cc6e64d756c43a56207352c11e7");
 
 	hd1 = hds[5];
-	ASSERT_EQ(hd1.hash, "61f88694e9b861922d5e608f653a1214");
+	ASSERT_EQ(hd1.hash, "9d724b672666cddd05296c5aa70d507f");
 
 	hd1 = hds[8];
-	ASSERT_EQ(hd1.hash, "72fca34a0ec774281d99189f229e0d88");
+	ASSERT_EQ(hd1.hash, "ba8d0759cbbfb689ada188864341af4c");
 
 	hd1 = hds[14];
-	ASSERT_EQ(hd1.hash, "72fca34a0ec774281d99189f229e0d88");
+	ASSERT_EQ(hd1.hash, "7521d667c7390d04b767ba31b3f314ba");
 
 	hd1 = hds[16];
-	ASSERT_EQ(hd1.hash, "ec90ac728778a07162ea8ccfcffe958d");
+	ASSERT_EQ(hd1.hash, "02604c35dc3eb3dbcf068278cc6e1466");
 }
 
 TEST(integrationCSharp, integrationCSharpBase)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/csharp");
 
-	ASSERT_EQ(hds.size(), 33);
+	ASSERT_EQ(hds.size(), 28);
 
 	HashData hd1 = hds[0];
 	ASSERT_EQ(hd1.functionName, "HelpTekstKleurInstellen");
@@ -151,37 +151,31 @@ TEST(integrationCSharp, integrationCSharpBase)
 	ASSERT_EQ(hd1.lineNumber, 562);
 	ASSERT_EQ(hd1.lineNumberEnd, 574);
 
-	hd1 = hds[13];
+	hd1 = hds[12];
 	ASSERT_EQ(hd1.functionName, "berekenMandelbrotPixels");
 	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
 	ASSERT_EQ(hd1.lineNumber, 709);
 	ASSERT_EQ(hd1.lineNumberEnd, 737);
 
-	hd1 = hds[20];
+	hd1 = hds[18];
 	ASSERT_EQ(hd1.functionName, "mandelbrotGetal");
 	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
 	ASSERT_EQ(hd1.lineNumber, 864);
 	ASSERT_EQ(hd1.lineNumberEnd, 908);
 
-	hd1 = hds[24];
+	hd1 = hds[21];
 	ASSERT_EQ(hd1.functionName, "BitSet");
 	ASSERT_EQ(hd1.fileName, "game.cs");
 	ASSERT_EQ(hd1.lineNumber, 57);
 	ASSERT_EQ(hd1.lineNumberEnd, 57);
 
-	hd1 = hds[25];
-	ASSERT_EQ(hd1.functionName, "BitSet");
-	ASSERT_EQ(hd1.fileName, "game.cs");
-	ASSERT_EQ(hd1.lineNumber, 59);
-	ASSERT_EQ(hd1.lineNumberEnd, 59);
-
-	hd1 = hds[27];
+	hd1 = hds[22];
 	ASSERT_EQ(hd1.functionName, "GetBit");
 	ASSERT_EQ(hd1.fileName, "game.cs");
-	ASSERT_EQ(hd1.lineNumber, 66);
-	ASSERT_EQ(hd1.lineNumberEnd, 66);
+	ASSERT_EQ(hd1.lineNumber, 64);
+	ASSERT_EQ(hd1.lineNumberEnd, 64);
 
-	hd1 = hds[30];
+	hd1 = hds[25];
 	ASSERT_EQ(hd1.functionName, "Init");
 	ASSERT_EQ(hd1.fileName, "game.cs");
 	ASSERT_EQ(hd1.lineNumber, 117);
@@ -193,29 +187,26 @@ TEST(integrationCSharp, integrationCSharpHash)
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/csharp");
 
 	HashData hd1 = hds[0];
-	ASSERT_EQ(hd1.hash, "b9e5e69a3ea7d01b4deeabb703c5b6e4");
+	ASSERT_EQ(hd1.hash, "4de7c18ab0263164be018d48922d7328");
 
 	hd1 = hds[1];
-	ASSERT_EQ(hd1.hash, "225ad4ab7dee7f360b5b7c724743b833");
+	ASSERT_EQ(hd1.hash, "685624834b651e79f6fce1edf416d381");
 
 	hd1 = hds[5];
-	ASSERT_EQ(hd1.hash, "769238cc13bf9af7241eccf3350c2862");
+	ASSERT_EQ(hd1.hash, "c479a6bc42ae5efe6374c12d2c6fda67");
 
-	hd1 = hds[13];
-	ASSERT_EQ(hd1.hash, "0af95d4304b41012e5030569539921ef");
+	hd1 = hds[12];
+	ASSERT_EQ(hd1.hash, "09c5c9c6efba9285810be9a57d321472");
 
-	hd1 = hds[20];
-	ASSERT_EQ(hd1.hash, "148902d702169102f2684b51fa4423f4");
+	hd1 = hds[18];
+	ASSERT_EQ(hd1.hash, "b265242c314d87b5f35eb2c78a8e4bd4");
 
-	hd1 = hds[24];
-	ASSERT_EQ(hd1.hash, "80b4bfabd8a7fba55dbd6d6baac6a7b5");
+	hd1 = hds[21];
+	ASSERT_EQ(hd1.hash, "ff82b8114817616459e4281ca990b041");
+
+	hd1 = hds[22];
+	ASSERT_EQ(hd1.hash, "a75bee732e3aa0f51e89d44fe4941108");
 
 	hd1 = hds[25];
-	ASSERT_EQ(hd1.hash, "8f27ea737430bb9f5fdaa77d86df90a8");
-
-	hd1 = hds[27];
-	ASSERT_EQ(hd1.hash, "fc0f64dc27602fcc539e891882ce4910");
-
-	hd1 = hds[30];
-	ASSERT_EQ(hd1.hash, "ecd74d47c4858d22cbe4979b8e22ef13");
+	ASSERT_EQ(hd1.hash, "df16098f05883dda93d5b6f702935adf");
 }
