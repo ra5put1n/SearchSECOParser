@@ -45,7 +45,7 @@ integration_testing:
     - apt-get -y install ./srcml_1.0.0-1_ubuntu18.04.deb
   script:
     - cd build/Parser_Test/Integration
-    - parser_tests_integration --gtest_output="xml:report.xml"
+    - ./parser_tests_integration --gtest_output="xml:report.xml"
 
 
 linting:
