@@ -13,28 +13,39 @@ Utrecht University within the Software Project course.
 
 // INPUT: top most node of abstract syntax tree. 
 // OUTPUT: string representation of abstract syntax tree.
-AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd)
+AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd, bool testing)
 {
     AbstractionData* ad = new AbstractionData("", "");
-
-    if (nd->getTag() == function_tag)
+    if (testing)
     {
-        ad->funcName = nd->getBranches()[1]->getBranches()[0]->getContents();
-        collapseNodes(nd->getBranches()[3]->getBranches()[1], ad);
+        collapseNodes(nd, ad, true);
+        return ad;
     }
-    else
+    for (Node* n : nd->getBranches())
     {
-        collapseNodes(nd, ad);
-    }   
-    
-	return ad;
+        if (n->getTag() == block_tag)
+        {
+            for (Node* n2 : n->getBranches())
+            {
+                if (n2->getTag() == block_content_tag)
+                {
+                    collapseNodes(n2, ad, true);
+                }
+            }
+        }
+        else
+        {
+            collapseNodes(n, ad, false);
+        }
+    }
+    return ad;
 }
 
 // Collapse a node and all it's children recursively.
-void AbstractSyntaxToHashable::collapseNodes(Node *nd, AbstractionData* ad)
+void AbstractSyntaxToHashable::collapseNodes(Node *nd, AbstractionData* ad, bool inFunction)
 {
 	std::vector<Node*> children = nd->getBranches();
-	nodeToString(nd, ad);
+	nodeToString(nd, ad, inFunction);
 
 	// Return if end node.
 	if (children.size() == 0)
@@ -47,7 +58,7 @@ void AbstractSyntaxToHashable::collapseNodes(Node *nd, AbstractionData* ad)
 
 		for (Node* n : children)
 		{
-			collapseNodes(n, ad);
+			collapseNodes(n, ad, inFunction);
 		}
 
 		return;
@@ -56,7 +67,7 @@ void AbstractSyntaxToHashable::collapseNodes(Node *nd, AbstractionData* ad)
 
 
 // Abstract the contents of a node and returns the abstracted value.
-void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
+void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad, bool inFunction)
 {
     // Only give content if an end Node.
     if (nd->getBranches().size() > 0)
@@ -64,7 +75,8 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
         return;
     }
 
-    std::string content = nd->getContents();
+    std::string content = nd->getContents();    
+
     if (content == "")
     {
         return;
@@ -89,41 +101,57 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad)
 
             if (parent->getTag() == type_tag)
             {
+                if (inFunction)
+                {
 #ifdef ABSTRACT_TYPE
-                ad->string += "type";
+                    ad->string += "type";
 #else
-                ad->string += content;
+                    ad->string += content;
 #endif                
+                }
                 return;
             }
             else if (parent->getTag() == call_tag)
-            {           
+            {
+                if (inFunction)
+                {
 #ifdef ABSTRACT_FUNCCALL
-                ad->string += "funccall";
+                    ad->string += "funccall";
 #else
-                ad->string += content;
+                    ad->string += content;
 #endif                
+                }
                 return;
             }
             else if (parent->getTag() == function_tag)
             {
-                ad->string += "funcname";
+
+                if (inFunction)
+                {
+                    ad->string += "funcname";
+                }
                 ad->funcName = content;
                 return;
             }
         }
+        if (inFunction)
+        {
 #ifdef ABSTRACT_VARIABLE
-        ad->string += "var";        
+            ad->string += "var";
 #else
-        ad->string += content;
+            ad->string += content;
 #endif          
+        }
         return;
         break;
     }
     default:
     {
         // If no abstraction required, just return the content.
-        ad->string += content;
+        if (inFunction)
+        {
+            ad->string += content;
+        }
         return;
     }
     }

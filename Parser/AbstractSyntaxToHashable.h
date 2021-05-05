@@ -37,8 +37,8 @@ public:
 	/// </summary>
 	/// <param name="nd">The top most node of an abstract syntax tree.</param>
 	/// <returns>string representation of abstract syntax tree.</returns>
-  static AbstractionData* getHashable(Node *nd);
+  static AbstractionData* getHashable(Node *nd, bool testing = false);
 private:
-  static void collapseNodes(Node *nd, AbstractionData* ad);
-  static void nodeToString(Node *nd, AbstractionData* ad);
+  static void collapseNodes(Node *nd, AbstractionData* ad, bool inFunction);
+  static void nodeToString(Node *nd, AbstractionData* ad, bool inFunction);
 };

@@ -9,19 +9,19 @@ Utrecht University within the Software Project course.
 // getHashable function
 TEST(AbstractSyntaxToHashable_getHashable, oneNodeEmpty) {
 	Node* n = new Node("", unknown_tag, nullptr);
-    EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n)->string, "");
+    EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n, true)->string, "");
 }
 
 TEST(AbstractSyntaxToHashable_getHashable, oneNodeNotEmpty) {
 	std::string s = "test";
 	Node* n = new Node(s, unknown_tag, nullptr);
-    EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n)->string, s);
+    EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n, true)->string, s);
 }
 
 TEST(AbstractSyntaxToHashable_getHashable, oneNodeNotEmptyAbstracted) {
 	std::string s = "test";
 	Node* n = new Node(s, name_tag, nullptr);
-	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n)->string, "var");
+	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n, true)->string, "var");
 }
 
 TEST(AbstractSyntaxToHashable_getHashable, manyNodesAbstraction)
@@ -66,10 +66,10 @@ TEST(AbstractSyntaxToHashable_getHashable, manyNodesAbstraction)
     Node *n6 = new Node(s6, decl_tag, n1);
     n1->addNode(n6);
 
-    AbstractionData *data = AbstractSyntaxToHashable::getHashable(n1);
+    AbstractionData *data = AbstractSyntaxToHashable::getHashable(n1, true);
     EXPECT_EQ(data->string, s2 + "test3" + "test4" + "var" + "funccall" + "funcname" + s6);
     EXPECT_TRUE(data->funcName == s7);
 
     n1->removeNode(n6);
-    EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n1)->string, s2 + "test3" + "test4" + "var" + "funccall" + "funcname");
+    EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n1, true)->string, s2 + "test3" + "test4" + "var" + "funccall" + "funcname");
 }
