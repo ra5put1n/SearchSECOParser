@@ -39,6 +39,9 @@
     <ClCompile Include="md5\md5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="loguru\loguru.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
@@ -66,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HashData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="loguru\loguru.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
