@@ -15,4 +15,9 @@ set(EXE_NAME parser_standalone)
 add_executable(${EXE_NAME} Main.cpp)
 target_link_libraries(${EXE_NAME} parser)
 
+if(CMAKE_DL_LIBS)
+    target_link_libraries(${EXE_NAME} ${CMAKE_DL_LIBS})
+endif()
+
+
 target_include_directories(${EXE_NAME} PUBLIC "${PROJECT_BINARY_DIR}" ../Parser)
