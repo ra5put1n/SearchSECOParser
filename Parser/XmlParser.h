@@ -101,6 +101,7 @@ private:
     bool inFunction = false;
     std::string currentFileName = "";
     int startLastFunction = 0;
+	int functionCount = 0;
     Node *current;
     std::vector<HashData> hashes;
 };

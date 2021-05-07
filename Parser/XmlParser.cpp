@@ -2,12 +2,11 @@
 Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)*/
 
-#include <iostream>
-
 #include "AbstractSyntaxToHashable.h"
 #include "Tag.h"
 #include "XmlParser.h"
 #include "md5/md5.h"
+#include "loguru/loguru.hpp"
 
 XmlParser::XmlParser(std::string path)
 {
@@ -25,7 +24,10 @@ std::vector<HashData> XmlParser::parseXML(StringStream *stringStream, bool parse
     {
         // Received invalid input.
         tree = nullptr;
-        std::cout << "wrong first tag, tag in doc was: " << td.tag << std::endl;
+
+        std::string log = "wrong first tag, tag in doc was: " + td.tag;
+        LOG_F(ERROR, "%s", log.c_str());
+
         return hashes;
     }
 
@@ -69,13 +71,16 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
     // Checking if the node we close actually has the same tag as the closing tag we just found.
     if (TagMap::getTag(tagData.tag.substr(1)) != current->getTag())
     {
-        std::cout << "Closing tags don't line up in " << currentFileName;
+        std::string log = "Closing tags don't line up in " + currentFileName + " on line " + std::to_string(lineNumber) + " skipping function";
+        LOG_F(WARNING, "%s", log.c_str());
+
         // In case the closing tags don't line up, we will just give up on this function.
         // and continue to the next function.
         delete tree;
         tree = new Node(unknown_tag, nullptr);
         current = tree;
         inFunction = false;
+
         return;
     }
 
@@ -90,7 +95,13 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
         if (s->string.length() > 50)
         {
             hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction, lineNumber));
-        }
+
+            std::string log = "Found function: " + s->funcName + " in File: " + currentFileName + " " + std::to_string(startLastFunction) + " - " + std::to_string(lineNumber);
+            LOG_F(1, "%s", log.c_str());
+
+            functionCount++;
+        }        
+
         // Removing the tree after we've hashed it to free up memory.
         prev->removeNode(current);
         inFunction = false;
@@ -142,6 +153,12 @@ void XmlParser::handleOpeningTag(TagData tagData)
 
 void XmlParser::handleUnitTag(TagData tagData)
 {
+    if (currentFileName != "")
+    {
+        std::string log = "Finished parsing file: " + currentFileName + ", number of functions found: " + std::to_string(functionCount);
+        LOG_F(INFO, "%s", log.c_str());
+    }
+
     size_t filenamePosition = tagData.textInTag.find("filename=") + 10;
     if (filenamePosition >= 10)
     {
@@ -154,7 +171,8 @@ void XmlParser::handleUnitTag(TagData tagData)
 
         size_t filenameEnd = tagData.textInTag.find('"', filenamePosition);
         currentFileName = tagData.textInTag.substr(filenamePosition + filenameBuffer, filenameEnd - filenamePosition - filenameBuffer);
-        lineNumber = 1;    
+        lineNumber = 1;
+        functionCount = 0;
     }
 }
 

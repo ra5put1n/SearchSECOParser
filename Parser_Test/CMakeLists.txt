@@ -24,6 +24,10 @@ set(TEST_NAME parser_tests)
 add_executable(${TEST_NAME} StringStream_test.cpp Tag_test.cpp AbstractSyntaxToHashable_test.cpp XmlParser_test.cpp)
 target_link_libraries(${TEST_NAME} gtest_main parser)
 
+if(CMAKE_DL_LIBS)
+    target_link_libraries(${TEST_NAME} ${CMAKE_DL_LIBS})
+endif()
+
 target_include_directories(${TEST_NAME} PUBLIC "${PROJECT_BINARY_DIR}" ../Parser)
 
 enable_testing()
