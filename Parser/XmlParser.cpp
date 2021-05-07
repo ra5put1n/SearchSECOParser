@@ -1,12 +1,16 @@
 /*This program has been developed by students from the bachelor Computer Science at
 Utrecht University within the Software Project course.
-© Copyright Utrecht University(Department of Informationand Computing Sciences)*/
+ï¿½ Copyright Utrecht University(Department of Informationand Computing Sciences)*/
 
 #include "AbstractSyntaxToHashable.h"
 #include "Tag.h"
 #include "XmlParser.h"
 #include "md5/md5.h"
 #include "loguru/loguru.hpp"
+
+// Constants.
+#define MIN_FUNCTION_CHARACTERS 50
+#define MIN_FUNCTION_LINES 6
 
 XmlParser::XmlParser(std::string path)
 {
@@ -92,7 +96,7 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
 		// meaning we can go ahead and hash it.
 		AbstractionData *s = AbstractSyntaxToHashable::getHashable(current);
 		std::string mdHash = md5(s->string);
-		if (s->string.length() > 50)
+		if (s->string.length() >= MIN_FUNCTION_CHARACTERS && lineNumber - startLastFunction >= MIN_FUNCTION_LINES)
 		{
 			hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction, lineNumber));
 
