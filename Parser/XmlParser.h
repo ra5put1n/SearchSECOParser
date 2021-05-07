@@ -77,15 +77,15 @@ private:
 	/// </summary>
 	void handleUnitTag(TagData tagData);
 
-    /// <summary>
-    /// Gets the data from the string stream until it finds one of the break values.
+	/// <summary>
+	/// Gets the data from the string stream until it finds one of the break values.
 	/// It will also stop if the stream runs out of data.
-    /// </summary>
-    /// <param name="stringStream">The source to read from.</param>
-    /// <param name="breakOn">The characters on which it stops.</param>
-    /// <param name="removeWhiteSpace">Remove white space yes or no.</param>
-    /// <param name="brokeOn">A second return. Will give on what character it broke.</param>
-    std::string getDataUntil(StringStream *stringStream, std::vector<char> breakOn, bool removeWhiteSpace, char &brokeOn);
+	/// </summary>
+	/// <param name="stringStream">The source to read from.</param>
+	/// <param name="breakOn">The characters on which it stops.</param>
+	/// <param name="removeWhiteSpace">Remove white space yes or no.</param>
+	/// <param name="brokeOn">A second return. Will give on what character it broke.</param>
+	std::string getDataUntil(StringStream *stringStream, std::vector<char> breakOn, bool removeWhiteSpace, char &brokeOn);
 	
 	/// <summary>
 	/// Gets the data from the string stream until it finds the break value.
@@ -94,13 +94,14 @@ private:
 	/// <param name="stringStream">The source to read from.</param>
 	/// <param name="breakOn">The character on which it stops.</param>
 	/// <param name="removeWhiteSpace">Remove white space yes or no.</param>
-    std::string getDataUntil(StringStream *stringStream, char breakOn, bool removeWhiteSpace);
-    Node* tree;
-    std::string path;
-    int lineNumber = 0;
-    bool inFunction = false;
-    std::string currentFileName = "";
-    int startLastFunction = 0;
-    Node *current;
-    std::vector<HashData> hashes;
+	std::string getDataUntil(StringStream *stringStream, char breakOn, bool removeWhiteSpace);
+	Node* tree;
+	std::string path;
+	int lineNumber = 0;
+	bool inFunction = false;
+	std::string currentFileName = "";
+	int startLastFunction = 0;
+	int functionCount = 0;
+	Node *current;
+	std::vector<HashData> hashes;
 };

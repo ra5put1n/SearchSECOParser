@@ -7,6 +7,8 @@ Utrecht University within the Software Project course.
 #include <iostream>
 #include <algorithm>
 
+#include "loguru/loguru.hpp"
+
 #include "Parser.h"
 #include "StringStream.h"
 #include "SrcMLCaller.h"
@@ -14,14 +16,14 @@ Utrecht University within the Software Project course.
 
 std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {
+	loguru::set_thread_name("parser");
 
-	std::cout << "Sending files to srcML\n";
+	LOG_F(INFO, "Sending files to srcML");
 
 	StringStream* stream = SrcMLCaller::startSrcML(path.c_str(), numberThreads);
 
-	std::cout << "Received stream from srcML\n";
-
-	std::cout << "Sending stream to Xml Parser\n";
+	LOG_F(INFO, "Received stream from srcML");
+	LOG_F(INFO, "Sending stream to Xml Parser");
 
 	// Give XmlParser the path with / instead of \ for finding files.
 	std::replace(path.begin(), path.end(), '\\', '/');
@@ -29,7 +31,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 
 	std::vector<HashData> hashes = xmlParser.parseXML(stream);
 
-	std::cout << "hashes received from Parser, returning\n";
+	LOG_F(INFO, "Hashes received from Parser, returning");
 
 	return hashes;
 }

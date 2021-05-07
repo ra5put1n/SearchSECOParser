@@ -8,7 +8,9 @@ set(PARSER_HEADER_LIST
    Tag.h
    XmlParser.h
    ./md5/md5.h
+   ./loguru/loguru.hpp
 )
+
 
 add_library(parser
   AbstractSyntaxToHashable.cpp
@@ -19,6 +21,7 @@ add_library(parser
   Tag.cpp
   XmlParser.cpp
   ./md5/md5.cpp
+  ./loguru/loguru.cpp
   ${PARSER_HEADER_LIST}
 )
 

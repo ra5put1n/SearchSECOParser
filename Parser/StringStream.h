@@ -11,10 +11,10 @@ Utrecht University within the Software Project course.
 class StringBuffer
 {
 public:
-    /// <summary>
-    /// Basic constructor.
-    /// </summary>
-    StringBuffer(int bufferSize);
+	/// <summary>
+	/// Basic constructor.
+	/// </summary>
+	StringBuffer(int bufferSize);
 	~StringBuffer()
 	{
 		delete[] buffers;
@@ -25,21 +25,21 @@ public:
 	/// was given in the constructor.
 	/// </summary>
 	void addBuffer(char* buffer);
-    /// <summary>
-    /// Will read the next char in the buffer.
+	/// <summary>
+	/// Will read the next char in the buffer.
 	/// There is no check in place to see if we still have data left,
 	/// it is assumed you do that yourself.
 	/// In our stringstream inplementation that is the case.
-    /// </summary>
-    char readNextChar();
+	/// </summary>
+	char readNextChar();
 
 private:
-    char **buffers;
+	char **buffers;
 	int bufferSize;
-    int currentIndex = 0;
-    int bufferIndex = 0;
+	int currentIndex = 0;
+	int bufferIndex = 0;
 	int bufferAmount;
-    int bufferCap;
+	int bufferCap;
 };
 
 class StringStream
@@ -79,5 +79,5 @@ private:
 	std::mutex lock;
 	int sizeWrite = 0;
 	int sizeRead = 0;
-    int buffersSize;
+	int buffersSize;
 };

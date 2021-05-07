@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbstractSyntaxToHashable.cpp" />
+    <ClCompile Include="loguru\loguru.cpp" />
     <ClCompile Include="md5\md5.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Parser.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractSyntaxToHashable.h" />
     <ClInclude Include="HashData.h" />
+    <ClInclude Include="loguru\loguru.hpp" />
     <ClInclude Include="md5\md5.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Parser.h" />

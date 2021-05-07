@@ -4,7 +4,13 @@
 
 # Required by FetchContent_MakeAvailable
 cmake_minimum_required(VERSION 3.13)
-project(parser_tests)
+project(parser_integration)
+
+if (UNIX)
+  list(APPEND CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
+endif(UNIX)
+
+file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 include(FetchContent)
 FetchContent_Declare(
@@ -20,15 +26,15 @@ if(NOT googletest_POPULATED)
 endif()
 
 set(CMAKE_CXX_STANDARD 20)
-set(TEST_NAME parser_tests)
-add_executable(${TEST_NAME} StringStream_test.cpp Tag_test.cpp AbstractSyntaxToHashable_test.cpp XmlParser_test.cpp)
+set(TEST_NAME parser_tests_integration)
+add_executable(${TEST_NAME} integration_test.cpp)
 target_link_libraries(${TEST_NAME} gtest_main parser)
 
 if(CMAKE_DL_LIBS)
     target_link_libraries(${TEST_NAME} ${CMAKE_DL_LIBS})
 endif()
 
-target_include_directories(${TEST_NAME} PUBLIC "${PROJECT_BINARY_DIR}" ../Parser)
+target_include_directories(${TEST_NAME} PUBLIC "${PROJECT_BINARY_DIR}" ../../Parser)
 
 enable_testing()
 include(GoogleTest)
