@@ -179,10 +179,10 @@ Tag TagMap::getTag(std::string text)
 	auto it = map.find(text);
 
 	// it points to map.end() if entry is not found.
-    if (it == map.end())
-    {
-        return unknown_tag;
-    }
+	if (it == map.end())
+	{
+		return unknown_tag;
+	}
 	return it->second;
 }
 

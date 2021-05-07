@@ -24,8 +24,8 @@ INSTANTIATE_TEST_CASE_P(
 TEST_P(ParameterizedStringStreamTests, TestName) {
 	std::string testable = GetParam();
 	char* stringpointer = strdup(testable.c_str());
-    int size = testable.length();
-    StringStream *s = new StringStream(size);
+	int size = testable.length();
+	StringStream *s = new StringStream(size);
 	s->addBuffer(stringpointer, size);
 	for (int i = 0; i < size; i++) {
 		ASSERT_EQ(testable[i], s->nextChar());

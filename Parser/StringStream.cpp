@@ -10,9 +10,9 @@ Utrecht University within the Software Project course.
 
 StringStream::StringStream(int bufferSize)
 {
-    readStream = new StringBuffer(bufferSize);
-    writeStream = new StringBuffer(bufferSize);
-    this->buffersSize = bufferSize;
+	readStream = new StringBuffer(bufferSize);
+	writeStream = new StringBuffer(bufferSize);
+	this->buffersSize = bufferSize;
 }
 
 void StringStream::addBuffer(char* buffer, int length)
@@ -28,7 +28,7 @@ char StringStream::nextChar()
 	if (sizeRead > 0)
 	{
 		sizeRead--;
-        return readStream->readNextChar();
+		return readStream->readNextChar();
 	}
 
 	// Check the whether the write stream is empty.
@@ -57,16 +57,16 @@ char StringStream::nextChar()
 	sizeRead = sizeWrite;
 	sizeWrite = 0;
 
-    return this->nextChar();
+	return this->nextChar();
 }
 
 bool StringStream::stop()
 {
 	// We want to make sure we don't lock the thread if it is not necessary,
 	// so we check this first.
-    if (sizeRead > 0)
-    {
-        return false;
+	if (sizeRead > 0)
+	{
+		return false;
 	}
 	std::unique_lock<std::mutex> l(lock);
 	// The stringstream is done when the input is done and both streams are empty.
@@ -81,37 +81,37 @@ void StringStream::setInputEnded(bool b)
 
 StringBuffer::StringBuffer(int bufferSize)
 {
-    bufferCap = 10;
-    buffers = new char*[bufferCap];
-    bufferAmount = 0;
-    this->bufferSize = bufferSize;
+	bufferCap = 10;
+	buffers = new char*[bufferCap];
+	bufferAmount = 0;
+	this->bufferSize = bufferSize;
 }
 
 void StringBuffer::addBuffer(char *buffer)
 {
-    if (bufferAmount == bufferCap)
-    {
-        char **old = buffers;
-        buffers = new char *[bufferCap * 2];
-        for (int i = 0; i < bufferCap; i++)
-        {
-            buffers[i] = old[i];
+	if (bufferAmount == bufferCap)
+	{
+		char **old = buffers;
+		buffers = new char *[bufferCap * 2];
+		for (int i = 0; i < bufferCap; i++)
+		{
+			buffers[i] = old[i];
 		}
-        bufferCap *= 2;
-        delete[] old;
+		bufferCap *= 2;
+		delete[] old;
 	}
-    buffers[bufferAmount++] = buffer;
+	buffers[bufferAmount++] = buffer;
 }
 
 char StringBuffer::readNextChar()
 {
-    char c = buffers[bufferIndex][currentIndex];
-    currentIndex++;
-    if (currentIndex >= bufferSize)
-    {
-        currentIndex = 0;
-        delete[] buffers[bufferIndex];
-        bufferIndex++;
+	char c = buffers[bufferIndex][currentIndex];
+	currentIndex++;
+	if (currentIndex >= bufferSize)
+	{
+		currentIndex = 0;
+		delete[] buffers[bufferIndex];
+		bufferIndex++;
 	}
-    return c;
+	return c;
 }

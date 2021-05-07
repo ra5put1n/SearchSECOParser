@@ -15,30 +15,30 @@ Utrecht University within the Software Project course.
 // OUTPUT: string representation of abstract syntax tree.
 AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd, bool testing)
 {
-    AbstractionData* ad = new AbstractionData("", "");
-    if (testing)
-    {
-        collapseNodes(nd, ad, true);
-        return ad;
-    }
-    for (Node* n : nd->getBranches())
-    {
-        if (n->getTag() == block_tag)
-        {
-            for (Node* n2 : n->getBranches())
-            {
-                if (n2->getTag() == block_content_tag)
-                {
-                    collapseNodes(n2, ad, true);
-                }
-            }
-        }
-        else
-        {
-            collapseNodes(n, ad, false);
-        }
-    }
-    return ad;
+	AbstractionData* ad = new AbstractionData("", "");
+	if (testing)
+	{
+		collapseNodes(nd, ad, true);
+		return ad;
+	}
+	for (Node* n : nd->getBranches())
+	{
+		if (n->getTag() == block_tag)
+		{
+			for (Node* n2 : n->getBranches())
+			{
+				if (n2->getTag() == block_content_tag)
+				{
+					collapseNodes(n2, ad, true);
+				}
+			}
+		}
+		else
+		{
+			collapseNodes(n, ad, false);
+		}
+	}
+	return ad;
 }
 
 // Collapse a node and all it's children recursively.
@@ -69,90 +69,90 @@ void AbstractSyntaxToHashable::collapseNodes(Node *nd, AbstractionData* ad, bool
 // Abstract the contents of a node and returns the abstracted value.
 void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad, bool inFunction)
 {
-    // Only give content if an end Node.
-    if (nd->getBranches().size() > 0)
-    {
-        return;
-    }
+	// Only give content if an end Node.
+	if (nd->getBranches().size() > 0)
+	{
+		return;
+	}
 
-    std::string content = nd->getContents();    
+	std::string content = nd->getContents();    
 
-    if (content == "")
-    {
-        return;
-    }
+	if (content == "")
+	{
+		return;
+	}
 
-    Tag tag = nd->getTag();
+	Tag tag = nd->getTag();
 
-    // Do proper abstraction for every tag.
-    switch (tag)
-    {
-    // Name tag can be a variable, functioncall or type. Look at parent to find out which.
-    case name_tag:
-    {
-        Node *parent = nd->getPrevious();
+	// Do proper abstraction for every tag.
+	switch (tag)
+	{
+	// Name tag can be a variable, functioncall or type. Look at parent to find out which.
+	case name_tag:
+	{
+		Node *parent = nd->getPrevious();
 
-        if (parent != nullptr)
-        {
-            while (parent->getTag() == name_tag)
-            {
-                parent = parent->getPrevious();
-            }
+		if (parent != nullptr)
+		{
+			while (parent->getTag() == name_tag)
+			{
+				parent = parent->getPrevious();
+			}
 
-            if (parent->getTag() == type_tag)
-            {
-                if (inFunction)
-                {
+			if (parent->getTag() == type_tag)
+			{
+				if (inFunction)
+				{
 #ifdef ABSTRACT_TYPE
-                    ad->string += "type";
+					ad->string += "type";
 #else
-                    ad->string += content;
+					ad->string += content;
 #endif                
-                }
-                return;
-            }
-            else if (parent->getTag() == call_tag)
-            {
-                if (inFunction)
-                {
+				}
+				return;
+			}
+			else if (parent->getTag() == call_tag)
+			{
+				if (inFunction)
+				{
 #ifdef ABSTRACT_FUNCCALL
-                    ad->string += "funccall";
+					ad->string += "funccall";
 #else
-                    ad->string += content;
+					ad->string += content;
 #endif                
-                }
-                return;
-            }
-            else if (parent->getTag() == function_tag)
-            {
+				}
+				return;
+			}
+			else if (parent->getTag() == function_tag)
+			{
 
-                if (inFunction)
-                {
-                    ad->string += "funcname";
-                }
-                ad->funcName = content;
-                return;
-            }
-        }
-        if (inFunction)
-        {
+				if (inFunction)
+				{
+					ad->string += "funcname";
+				}
+				ad->funcName = content;
+				return;
+			}
+		}
+		if (inFunction)
+		{
 #ifdef ABSTRACT_VARIABLE
-            ad->string += "var";
+			ad->string += "var";
 #else
-            ad->string += content;
+			ad->string += content;
 #endif          
-        }
-        return;
-        break;
-    }
-    default:
-    {
-        // If no abstraction required, just return the content.
-        if (inFunction)
-        {
-            ad->string += content;
-        }
-        return;
-    }
-    }
+		}
+		return;
+		break;
+	}
+	default:
+	{
+		// If no abstraction required, just return the content.
+		if (inFunction)
+		{
+			ad->string += content;
+		}
+		return;
+	}
+	}
 };

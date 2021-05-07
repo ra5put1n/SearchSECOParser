@@ -12,18 +12,18 @@ struct AbstractionData
 {
 
   public:
-    /// <summary>
-    /// All info returned from a abstracted syntax tree.
-    /// </summary>
-    /// <param name="string">String representation of abstract syntax tree.</param>
-    /// <param name="funcCalls">Set of all functions called by this function.</param>
-    /// <param name="funcName">This functions name.</param>
-    AbstractionData(std::string string = "", std::string funcName = "")
-    {
-        this->string = string;
-        this->funcName = funcName;
-    };
-    std::string string, funcName;
+	/// <summary>
+	/// All info returned from a abstracted syntax tree.
+	/// </summary>
+	/// <param name="string">String representation of abstract syntax tree.</param>
+	/// <param name="funcCalls">Set of all functions called by this function.</param>
+	/// <param name="funcName">This functions name.</param>
+	AbstractionData(std::string string = "", std::string funcName = "")
+	{
+		this->string = string;
+		this->funcName = funcName;
+	};
+	std::string string, funcName;
 };
 
 
