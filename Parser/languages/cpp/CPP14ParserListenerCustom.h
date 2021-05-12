@@ -4,6 +4,7 @@
 #include "antlr4-runtime.h"
 #include "generated/CPP14ParserBaseListener.h"
 #include "../../HashData.h"
+#include <stack>
 
 
 #include <map>
@@ -31,6 +32,13 @@ public:
 	virtual void enterPostfixExpression(CPP14Parser::PostfixExpressionContext* ctx) override;
 	virtual void exitPostfixExpression(CPP14Parser::PostfixExpressionContext* ctx) override;
 
+	virtual void enterUnqualifiedId(CPP14Parser::UnqualifiedIdContext *ctx) override;
+    virtual void exitUnqualifiedId(CPP14Parser::UnqualifiedIdContext *ctx) override;
+
+	
+	virtual void enterIdExpression(CPP14Parser::IdExpressionContext *ctx) override;
+    virtual void exitIdExpression(CPP14Parser::IdExpressionContext *ctx) override;
+
 
 	virtual void enterPrimaryExpression(CPP14Parser::PrimaryExpressionContext* ctx) override;
 	virtual void exitPrimaryExpression(CPP14Parser::PrimaryExpressionContext* ctx) override;
@@ -46,5 +54,5 @@ private:
 	std::string functionName, functionBody, fileName = "filenametest", funccallName = "";
 	bool inFunction = false, inHeader = false, inFunccall = false;
 
-	int posfixDepth = 0;
+    std::stack<bool> functionCalls = {};
 };

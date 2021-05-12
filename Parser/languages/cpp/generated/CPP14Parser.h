@@ -608,6 +608,7 @@ public:
     PostfixExpressionContext *postfixExpression();
     antlr4::tree::TerminalNode *LeftBracket();
     antlr4::tree::TerminalNode *RightBracket();
+    TypeIdListContext *typeIdList();
     antlr4::tree::TerminalNode *Dot();
     antlr4::tree::TerminalNode *Arrow();
     IdExpressionContext *idExpression();
@@ -1226,6 +1227,7 @@ public:
     StatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     LabeledStatementContext *labeledStatement();
+    DeclarationStatementContext *declarationStatement();
     ExpressionStatementContext *expressionStatement();
     CompoundStatementContext *compoundStatement();
     SelectionStatementContext *selectionStatement();
@@ -1233,7 +1235,6 @@ public:
     JumpStatementContext *jumpStatement();
     TryBlockContext *tryBlock();
     AttributeSpecifierSeqContext *attributeSpecifierSeq();
-    DeclarationStatementContext *declarationStatement();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
