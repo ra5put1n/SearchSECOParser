@@ -27,6 +27,11 @@ bld/
 [Oo]bj/
 [Ll]og/
 
+# Exceptions for used libs
+!lib/debug/
+!lib/release/
+
+
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 .opencppcov/

@@ -14,10 +14,14 @@ Utrecht University within the Software Project course.
 #include "SrcMLCaller.h"
 #include "XmlParser.h"
 
+#include "antlrParser.h"
+
+
 std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {
 	loguru::set_thread_name("parser");
 
+	
 	LOG_F(INFO, "Sending files to srcML");
 
 	StringStream* stream = SrcMLCaller::startSrcML(path.c_str(), numberThreads);
@@ -30,9 +34,13 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	XmlParser xmlParser = XmlParser(path);
 
 	std::vector<HashData> hashes = xmlParser.parseXML(stream);
-
+	
 	LOG_F(INFO, "Hashes received from Parser, returning");
+	
 
+	antlrParsing pser;
+	std::vector<HashData> hashes2 = pser.parseFile(path);
+	hashes.insert(hashes.end(), hashes2.begin(), hashes2.end());
 	return hashes;
 }
 

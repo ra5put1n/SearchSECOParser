@@ -9,9 +9,20 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="md5">
+      <UniqueIdentifier>{1cbdbcb1-6f19-40be-bdd4-1aa98f09a9d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="loguru">
+      <UniqueIdentifier>{3b8775fe-b96b-4b11-963f-38c1e90f0cf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="languages">
+      <UniqueIdentifier>{65750931-f84c-4b93-beb3-d6f1bc834495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="languages\cpp">
+      <UniqueIdentifier>{f26589e9-2877-459b-ad9c-a0fb1cdf90f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="languages\cpp\generated">
+      <UniqueIdentifier>{bf32e6c1-42b3-4870-bc88-750ee9905778}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,10 +48,31 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="md5\md5.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>md5</Filter>
     </ClCompile>
     <ClCompile Include="loguru\loguru.cpp">
+      <Filter>loguru</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\cpp\generated\CPP14Lexer.cpp">
+      <Filter>languages\cpp\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\cpp\generated\CPP14Parser.cpp">
+      <Filter>languages\cpp\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\cpp\generated\CPP14ParserBaseListener.cpp">
+      <Filter>languages\cpp\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\cpp\generated\CPP14ParserListener.cpp">
+      <Filter>languages\cpp\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\cpp\CPP14ParserListenerCustom.cpp">
+      <Filter>languages\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="antlrParser.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\cpp\generated\CPP14ParserVisitor.cpp">
+      <Filter>languages\cpp\generated</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,14 +97,35 @@
     <ClInclude Include="Parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="md5\md5.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HashData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="md5\md5.h">
+      <Filter>md5</Filter>
+    </ClInclude>
     <ClInclude Include="loguru\loguru.hpp">
+      <Filter>loguru</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\cpp\generated\CPP14Lexer.h">
+      <Filter>languages\cpp\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\cpp\generated\CPP14Parser.h">
+      <Filter>languages\cpp\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\cpp\generated\CPP14ParserBaseListener.h">
+      <Filter>languages\cpp\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\cpp\generated\CPP14ParserListener.h">
+      <Filter>languages\cpp\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\cpp\CPP14ParserListenerCustom.h">
+      <Filter>languages\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="antlrParser.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\cpp\generated\CPP14ParserVisitor.h">
+      <Filter>languages\cpp\generated</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
