@@ -188,6 +188,13 @@
     <ClCompile Include="languages\cpp\generated\CPP14ParserBaseListener.cpp" />
     <ClCompile Include="languages\cpp\generated\CPP14ParserListener.cpp" />
     <ClCompile Include="languages\cpp\generated\CPP14ParserVisitor.cpp" />
+    <ClCompile Include="languages\c\CParserListenerCustom.cpp" />
+    <ClCompile Include="languages\c\generated\CBaseListener.cpp" />
+    <ClCompile Include="languages\c\generated\CBaseVisitor.cpp" />
+    <ClCompile Include="languages\c\generated\CLexer.cpp" />
+    <ClCompile Include="languages\c\generated\CListener.cpp" />
+    <ClCompile Include="languages\c\generated\CParser.cpp" />
+    <ClCompile Include="languages\c\generated\CVisitor.cpp" />
     <ClCompile Include="loguru\loguru.cpp" />
     <ClCompile Include="md5\md5.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -207,6 +214,13 @@
     <ClInclude Include="languages\cpp\generated\CPP14ParserBaseListener.h" />
     <ClInclude Include="languages\cpp\generated\CPP14ParserListener.h" />
     <ClInclude Include="languages\cpp\generated\CPP14ParserVisitor.h" />
+    <ClInclude Include="languages\c\CParserListenerCustom.h" />
+    <ClInclude Include="languages\c\generated\CBaseListener.h" />
+    <ClInclude Include="languages\c\generated\CBaseVisitor.h" />
+    <ClInclude Include="languages\c\generated\CLexer.h" />
+    <ClInclude Include="languages\c\generated\CListener.h" />
+    <ClInclude Include="languages\c\generated\CParser.h" />
+    <ClInclude Include="languages\c\generated\CVisitor.h" />
     <ClInclude Include="loguru\loguru.hpp" />
     <ClInclude Include="md5\md5.h" />
     <ClInclude Include="Node.h" />

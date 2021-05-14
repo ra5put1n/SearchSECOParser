@@ -24,6 +24,12 @@
     <Filter Include="languages\cpp\generated">
       <UniqueIdentifier>{bf32e6c1-42b3-4870-bc88-750ee9905778}</UniqueIdentifier>
     </Filter>
+    <Filter Include="languages\c">
+      <UniqueIdentifier>{0a81736b-fb1c-43d6-8ccf-fbd6843d35ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="languages\c\generated">
+      <UniqueIdentifier>{ff4f66a6-8657-49aa-908a-83ea989eb3a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractSyntaxToHashable.cpp">
@@ -73,6 +79,27 @@
     </ClCompile>
     <ClCompile Include="languages\cpp\generated\CPP14ParserVisitor.cpp">
       <Filter>languages\cpp\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\c\generated\CBaseListener.cpp">
+      <Filter>languages\c\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\c\generated\CBaseVisitor.cpp">
+      <Filter>languages\c\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\c\generated\CLexer.cpp">
+      <Filter>languages\c\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\c\generated\CListener.cpp">
+      <Filter>languages\c\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\c\generated\CParser.cpp">
+      <Filter>languages\c\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\c\generated\CVisitor.cpp">
+      <Filter>languages\c\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\c\CParserListenerCustom.cpp">
+      <Filter>languages\c</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +153,27 @@
     </ClInclude>
     <ClInclude Include="languages\cpp\generated\CPP14ParserVisitor.h">
       <Filter>languages\cpp\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\c\generated\CBaseListener.h">
+      <Filter>languages\c\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\c\generated\CBaseVisitor.h">
+      <Filter>languages\c\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\c\generated\CLexer.h">
+      <Filter>languages\c\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\c\generated\CListener.h">
+      <Filter>languages\c\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\c\generated\CParser.h">
+      <Filter>languages\c\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\c\generated\CVisitor.h">
+      <Filter>languages\c\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\c\CParserListenerCustom.h">
+      <Filter>languages\c</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

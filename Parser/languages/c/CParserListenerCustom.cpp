@@ -4,10 +4,10 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Information and Computing Sciences)
 */
 
-#include "CPP14ParserListenerCustom.h"
+#include "CParserListenerCustom.h"
 #include "../../md5/md5.h"
 
-CustomCPP14Listener::CustomCPP14Listener(CPP14Parser *parser, antlr4::TokenStreamRewriter *tsr)
+CustomCListener::CustomCListener(CParser *parser, antlr4::TokenStreamRewriter *tsr)
 {
     this->parser = parser;
     this->tsr = tsr;
@@ -15,14 +15,14 @@ CustomCPP14Listener::CustomCPP14Listener(CPP14Parser *parser, antlr4::TokenStrea
     stop = 0;
 }
 
-void CustomCPP14Listener::enterFunctionDefinition(CPP14Parser::FunctionDefinitionContext *ctx)
+void CustomCListener::enterFunctionDefinition(CParser::FunctionDefinitionContext *ctx)
 {
     inHeader = true;
     functionName = "";
     start = ctx->start->getLine();
 }
 
-void CustomCPP14Listener::exitFunctionDefinition(CPP14Parser::FunctionDefinitionContext *ctx)
+void CustomCListener::exitFunctionDefinition(CParser::FunctionDefinitionContext *ctx)
 {
     stop = ctx->stop->getLine();
     std::cout << functionBody << std::endl << std::endl;
@@ -30,17 +30,17 @@ void CustomCPP14Listener::exitFunctionDefinition(CPP14Parser::FunctionDefinition
     inFunction = false;
 }
 
-void CustomCPP14Listener::enterFunctionBody(CPP14Parser::FunctionBodyContext *ctx)
+void CustomCListener::enterCompoundStatement(CParser::CompoundStatementContext *ctx)
 {
     inHeader = false;
 }
 
-void CustomCPP14Listener::exitFunctionBody(CPP14Parser::FunctionBodyContext *ctx)
+void CustomCListener::exitCompoundStatement(CParser::CompoundStatementContext *ctx)
 {
     functionBody = tsr->getText(ctx->getSourceInterval());
 }
 
-void CustomCPP14Listener::enterPostfixExpression(CPP14Parser::PostfixExpressionContext *ctx)
+void CustomCListener::enterPostfixExpression(CParser::PostfixExpressionContext *ctx)
 {
     int numChildren = ctx->children.size();
     if (numChildren > 1)
@@ -59,7 +59,7 @@ void CustomCPP14Listener::enterPostfixExpression(CPP14Parser::PostfixExpressionC
     }
 }
 
-void CustomCPP14Listener::exitPostfixExpression(CPP14Parser::PostfixExpressionContext *ctx)
+void CustomCListener::exitPostfixExpression(CParser::PostfixExpressionContext *ctx)
 {
     postfixOpeningTokens.pop();
     inFunccall = false;
@@ -68,28 +68,21 @@ void CustomCPP14Listener::exitPostfixExpression(CPP14Parser::PostfixExpressionCo
 }
 
 
-void CustomCPP14Listener::enterDeclarator(CPP14Parser::DeclaratorContext *ctx)
+void CustomCListener::enterDeclarator(CParser::DeclaratorContext *ctx)
 {
     antlr4::Token *tk = ctx->start;
     tsr->replace(tk, "decl");
 }
 
-void CustomCPP14Listener::enterUnqualifiedId(CPP14Parser::UnqualifiedIdContext *ctx)
-{
-    if (inHeader && functionName == "")
-    {
-        functionName = ctx->start->getText();
-    }
-}
-
-void CustomCPP14Listener::enterIdExpression(CPP14Parser::IdExpressionContext *ctx)
+void CustomCListener::enterIdentifier(CParser::IdentifierContext *ctx)
 {
     if (postfixOpeningTokens.empty())
         return;
     std::string top = postfixOpeningTokens.top();
-    postfixOpeningTokens.pop();
+    //postfixOpeningTokens.pop();
 
-    if (!postfixOpeningTokens.empty() && (postfixOpeningTokens.top() == "(" && (inFunccall || (top == "." || top == "->"))))
+    if (!postfixOpeningTokens.empty() &&
+        (postfixOpeningTokens.top() == "(" && (inFunccall || (top == "." || top == "->"))))
     {
         tsr->replace(ctx->start, "funccall");
     }
@@ -97,10 +90,10 @@ void CustomCPP14Listener::enterIdExpression(CPP14Parser::IdExpressionContext *ct
     {
         tsr->replace(ctx->start, "var");
     }
-    postfixOpeningTokens.push(top);
+    //postfixOpeningTokens.push(top);
 }
 
-void CustomCPP14Listener::enterExpressionList(CPP14Parser::ExpressionListContext *ctx)
+void CustomCListener::enterArgumentExpressionList(CParser::ArgumentExpressionListContext *ctx)
 {
     inFunccall = false;
 }
