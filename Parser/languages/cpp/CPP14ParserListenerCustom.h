@@ -1,3 +1,9 @@
+/*
+This program has been developed by students from the bachelor Computer Science at
+Utrecht University within the Software Project course.
+© Copyright Utrecht University(Department of Informationand Computing Sciences)
+*/
+
 #pragma once
 
 
@@ -35,13 +41,11 @@ public:
 	virtual void enterUnqualifiedId(CPP14Parser::UnqualifiedIdContext *ctx) override;
     virtual void exitUnqualifiedId(CPP14Parser::UnqualifiedIdContext *ctx) override;
 
-	
 	virtual void enterIdExpression(CPP14Parser::IdExpressionContext *ctx) override;
     virtual void exitIdExpression(CPP14Parser::IdExpressionContext *ctx) override;
 
-
-	virtual void enterPrimaryExpression(CPP14Parser::PrimaryExpressionContext* ctx) override;
-	virtual void exitPrimaryExpression(CPP14Parser::PrimaryExpressionContext* ctx) override;
+	virtual void enterExpressionList(CPP14Parser::ExpressionListContext *ctx) override;
+    virtual void exitExpressionList(CPP14Parser::ExpressionListContext *ctx) override;
 
 	virtual void enterDeclarator(CPP14Parser::DeclaratorContext* ctx) override;
 
@@ -54,5 +58,5 @@ private:
 	std::string functionName, functionBody, fileName = "filenametest", funccallName = "";
 	bool inFunction = false, inHeader = false, inFunccall = false;
 
-    std::stack<bool> functionCalls = {};
+    std::stack<std::string> functionCalls = {};
 };

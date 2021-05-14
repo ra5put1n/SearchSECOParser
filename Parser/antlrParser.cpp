@@ -1,4 +1,8 @@
-
+/*
+This program has been developed by students from the bachelor Computer Science at
+Utrecht University within the Software Project course.
+© Copyright Utrecht University(Department of Informationand Computing Sciences)
+*/
 
 //#define ANTLR4CPP_STATIC
 
@@ -53,7 +57,7 @@ std::vector<HashData> antlrParsing::parseFile(std::string filepath)
             std::cout << s.hash << std::endl << std::endl;
         }*/
 
-        //std::cout << tree->toStringTree(parser, true) << std::endl;
+        std::cout << tree->toStringTree(parser, true) << std::endl;
         file->close();
     }
 	return meths;

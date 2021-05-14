@@ -1,4 +1,8 @@
-
+/*
+This program has been developed by students from the bachelor Computer Science at
+Utrecht University within the Software Project course.
+© Copyright Utrecht University(Department of Informationand Computing Sciences)
+*/
 
 #include "antlr4-runtime.h"
 
@@ -62,20 +66,21 @@ void CustomCPP14Listener::enterFunctionBody(CPP14Parser::FunctionBodyContext *ct
 void CustomCPP14Listener::exitFunctionBody(CPP14Parser::FunctionBodyContext *ctx)
 {
     std::string body = tsr->getText(ctx->getSourceInterval());
-    functionBody = body.erase(0, 1).erase(body.size() - 2, body.size() - 1);
+    functionBody = body; // body.erase(0, 1).erase(body.size() - 2, body.size() - 1);
 }
 
 void CustomCPP14Listener::enterPostfixExpression(CPP14Parser::PostfixExpressionContext *ctx)
 {
     // std::cout << "enterPost " << ctx->start->getText() << " children " << ctx->children.size() << std::endl;
     int test = ctx->children.size();
-    if (test > 1 && ctx->children[1]->toString() == "(")
+    if (test > 1)
     {
-        functionCalls.push(true);
+        functionCalls.push(ctx->children[1]->toString());
+        inFunccall = true;
     }
     else
     {
-        functionCalls.push(false);
+        functionCalls.push("");
     }
     return;
     if (funccallName == "")
@@ -96,8 +101,8 @@ void CustomCPP14Listener::enterPostfixExpression(CPP14Parser::PostfixExpressionC
 void CustomCPP14Listener::exitPostfixExpression(CPP14Parser::PostfixExpressionContext *ctx)
 {
     functionCalls.pop();
-    funccallName = "";
     inFunccall = false;
+    funccallName = "";
     return;
     /*
     posfixDepth--;
@@ -115,73 +120,11 @@ void CustomCPP14Listener::exitPostfixExpression(CPP14Parser::PostfixExpressionCo
     }*/
 }
 
-// void CustomCPP14Listener::enterPostfixBracketedExpression(CPP14Parser::PostfixBracketedExpressionContext *ctx)
-//{
-//    // std::cout << "enterPost " << ctx->start->getText() << " children " << ctx->children.size() << std::endl;
-//    funccallName = ctx->parent->children[0]->getText();
-//    std::cout << funccallName << std::endl << std::endl;
-//    auto brother = (CPP14Parser::PostfixExpressionContext *)ctx->parent;
-//    tsr->replace(brother->start, "funccall");
-//    /*
-//    if (funccallTokens.find(ctx->start->getText()) != funccallTokens.end() && funccallTokens[ctx->start->getText()]
-//    != nullptr)
-//    {
-//            tsr->replace(funccallTokens[ctx->start->getText()], "funccall");
-//            funccallTokens.erase(ctx->start->getText());
-//    }*/
-//    // funccallName = ;
-//    // inFunccall = true;
-//    inFunccall = true;
-//}
-//
-// void CustomCPP14Listener::exitPostfixBracketedExpression(CPP14Parser::PostfixBracketedExpressionContext *ctx)
-//{
-//    funccallName = "";
-//    inFunccall = false;
-//    /*
-//    posfixDepth--;
-//
-//    std::cout << "exitPost " << ctx->start->getText() << " children " << ctx->children.size() << std::endl;
-//    */
-//    /*
-//    inFunccall = false;
-//    if (ctx->start->getText() == funccallName)
-//    {
-//
-//
-//            //funccallName = "";
-//            //inFunccall = false;
-//    }*/
-//}
-
-void CustomCPP14Listener::enterPrimaryExpression(CPP14Parser::PrimaryExpressionContext *ctx)
-{
-    // std::cout << "enterPrimExpr " << ctx->start->getText() << " children " << ctx->children.size() << std::endl;
-
-    antlr4::Token *tk = ctx->start;
-    if (tk->getType() == 132 && ctx->children.size() > 0)
-    {
-        /*CPP14Parser::PostfixExpressionContext* sldkfj = (CPP14Parser::PostfixExpressionContext *) ctx->parent;
-        std::string count = ctx->parent->getText();*/
-        if (inFunccall)
-        {
-            // tsr->replace(tk, "funccall");
-        }
-        else
-        {
-            // tsr->replace(tk, "var");
-        }
-    }
-}
-
-void CustomCPP14Listener::exitPrimaryExpression(CPP14Parser::PrimaryExpressionContext *ctx)
-{
-}
 
 void CustomCPP14Listener::enterDeclarator(CPP14Parser::DeclaratorContext *ctx)
 {
     antlr4::Token *tk = ctx->start;
-    // tsr->replace(tk, "decl");
+    tsr->replace(tk, "decl");
 
     /*if (inHeader && functionName == "")
     {
@@ -209,12 +152,16 @@ void CustomCPP14Listener::enterIdExpression(CPP14Parser::IdExpressionContext *ct
 {
     if (functionCalls.empty())
         return;
-    bool top = functionCalls.top();
+    std::string top = functionCalls.top();
     functionCalls.pop();
 
-    if (!functionCalls.empty() && functionCalls.top())
+    if (!functionCalls.empty() && (functionCalls.top() == "(" && (inFunccall || (top == "." || top == "->"))))
     {
         tsr->replace(ctx->start, "funccall");
+    }
+    else
+    {
+        tsr->replace(ctx->start, "var");
     }
     functionCalls.push(top);
 }
@@ -223,64 +170,11 @@ void CustomCPP14Listener::exitIdExpression(CPP14Parser::IdExpressionContext *ctx
 {
 }
 
-/*
-void CustomCListener::enterTypeSpecifier(CParser::TypeSpecifierContext* ctx)
+void CustomCPP14Listener::enterExpressionList(CPP14Parser::ExpressionListContext *ctx)
 {
-        //ctx.
-        //ctx->getToken*
-        if (ctx->children.size() == 1)
-        {
-                tsr->replace(ctx->start, "type");
-        }
+    inFunccall = false;
 }
 
-
-
-void CustomCListener::enterDirectDeclarator(CParser::DirectDeclaratorContext* ctx)
+void CustomCPP14Listener::exitExpressionList(CPP14Parser::ExpressionListContext *ctx)
 {
-        antlr4::Token* tk = ctx->start;
-        if (tk->getType() == 105 && ctx->children.size() == 1)
-        {
-                tsr->replace(tk, "decl");
-        }
 }
-
-void CustomCListener::enterCompoundStatement(CParser::CompoundStatementContext* ctx)
-{
-        inHeader = false;
-        inFunction = true;
-}
-
-
-void CustomCListener::visitTerminal(antlr4::tree::TerminalNode* node)
-{
-
-}
-
-//void CustomCListener::enterTypeQualifier(CParser::TypeQualifierContext* ctx)
-//{
-//	std::vector<antlr4::tree::ParseTree*> ch = ctx->children;
-//	for (antlr4::tree::ParseTree* i : ch)
-//	{
-//		std::cout << i->toString();
-//	}
-//}
-//
-//void CustomCListener::enterDeclarator(CParser::DeclaratorContext* ctx)
-//{
-//	std::vector<antlr4::tree::ParseTree*> ch = ctx->children;
-//	for (antlr4::tree::ParseTree* i : ch)
-//	{
-//		std::cout << i->toString();
-//	}
-//}
-//
-//void CustomCListener::enterDeclaration(CParser::DeclarationContext* ctx)
-//{
-//	std::vector<antlr4::tree::ParseTree*> ch = ctx->children;
-//	for (antlr4::tree::ParseTree* i : ch)
-//	{
-//		std::cout << i->toString();
-//	}
-//}
-*/
