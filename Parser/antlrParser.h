@@ -8,6 +8,7 @@ Utrecht University within the Software Project course.
 
 #include <vector>
 #include <string>
+#include <queue>
 
 #include "HashData.h"
 
@@ -16,7 +17,9 @@ Utrecht University within the Software Project course.
 class antlrParsing
 {
 public:
-	static std::vector<HashData> parseFile(std::string filepath);
+	static std::vector<HashData> parseFile(std::string repoPath);
 private:
-
+    static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
+                                 std::mutex &queueLock);
+    static void parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock);
 };
