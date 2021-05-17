@@ -33,8 +33,9 @@ public:
     Equal = 100, NotEqual = 101, Arrow = 102, Dot = 103, Ellipsis = 104, 
     Identifier = 105, Constant = 106, DigitSequence = 107, StringLiteral = 108, 
     ComplexDefine = 109, IncludeDirective = 110, AsmBlock = 111, LineAfterPreprocessing = 112, 
-    LineDirective = 113, PragmaDirective = 114, Whitespace = 115, Newline = 116, 
-    BlockComment = 117, LineComment = 118
+    LineDirective = 113, PragmaDirective = 114, DefinedDirective = 115, 
+    EndDefinedDirective = 116, Whitespace = 117, Newline = 118, BlockComment = 119, 
+    LineComment = 120
   };
 
   enum {
@@ -694,8 +695,8 @@ public:
     DeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     DeclarationSpecifiersContext *declarationSpecifiers();
-    antlr4::tree::TerminalNode *Semi();
     InitDeclaratorListContext *initDeclaratorList();
+    antlr4::tree::TerminalNode *Semi();
     StaticAssertDeclarationContext *staticAssertDeclaration();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;

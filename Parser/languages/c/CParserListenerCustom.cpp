@@ -74,6 +74,14 @@ void CustomCListener::enterDeclarator(CParser::DeclaratorContext *ctx)
     tsr->replace(tk, "decl");
 }
 
+void CustomCListener::enterDirectDeclarator(CParser::DirectDeclaratorContext *ctx)
+{
+    if (inHeader && functionName == "")
+    {
+        functionName = ctx->start->getText();
+    }
+}
+
 void CustomCListener::enterIdentifier(CParser::IdentifierContext *ctx)
 {
     if (postfixOpeningTokens.empty())

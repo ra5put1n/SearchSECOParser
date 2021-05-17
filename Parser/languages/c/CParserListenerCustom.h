@@ -29,6 +29,8 @@ class CustomCListener : public CBaseListener
 
     virtual void enterDeclarator(CParser::DeclaratorContext *ctx) override;
 
+    virtual void enterDirectDeclarator(CParser::DirectDeclaratorContext *ctx) override;
+
     virtual void enterIdentifier(CParser::IdentifierContext *ctx) override;
 
     virtual void enterArgumentExpressionList(CParser::ArgumentExpressionListContext *ctx) override;
