@@ -62,7 +62,7 @@ if(WIN32)
   target_link_libraries(parser PUBLIC ${antlr})
   target_include_directories(parser PUBLIC ../src)
 else()
-  
+  include_directories(/usr/include/antlr4-runtime)
 endif()
 
 

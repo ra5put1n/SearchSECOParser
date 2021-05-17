@@ -13,7 +13,7 @@ Utrecht University within the Software Project course.
 #include <thread>
 #include <codecvt>
 
-#include "antlr4-runtime/antlr4-runtime.h"
+#include "antlr4-runtime.h"
 
 #include "antlrParser.h"
 #include "languages/cpp/CPP14ParserListenerCustom.h"
