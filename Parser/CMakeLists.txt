@@ -62,7 +62,9 @@ if(WIN32)
   target_link_libraries(parser PUBLIC ${antlr})
   target_include_directories(parser PUBLIC ../src)
 else()
-  
+  find_library(antlr NAMES antlr antlr4 antlr4-runtime)
+  target_link_libraries(parser PUBLIC ${antlr} stdc++fs)
+  include_directories(/usr/include/antlr4-runtime)
 endif()
 
 

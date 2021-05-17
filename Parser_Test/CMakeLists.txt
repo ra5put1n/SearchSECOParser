@@ -19,7 +19,7 @@ if(NOT googletest_POPULATED)
   add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 endif()
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 14)
 set(TEST_NAME parser_tests)
 add_executable(${TEST_NAME} StringStream_test.cpp Tag_test.cpp AbstractSyntaxToHashable_test.cpp XmlParser_test.cpp)
 target_link_libraries(${TEST_NAME} gtest_main parser)
