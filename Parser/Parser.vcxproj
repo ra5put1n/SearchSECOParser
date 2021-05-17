@@ -208,14 +208,14 @@
     <ClInclude Include="AbstractSyntaxToHashable.h" />
     <ClInclude Include="antlrParser.h" />
     <ClInclude Include="HashData.h" />
-    <ClInclude Include="languages\cpp\CPP14Facade.h" />
+    <ClInclude Include="languages\cpp\CPP14AntlrImplemenation.h" />
     <ClInclude Include="languages\cpp\CPP14ParserListenerCustom.h" />
     <ClInclude Include="languages\cpp\generated\CPP14Lexer.h" />
     <ClInclude Include="languages\cpp\generated\CPP14Parser.h" />
     <ClInclude Include="languages\cpp\generated\CPP14ParserBaseListener.h" />
     <ClInclude Include="languages\cpp\generated\CPP14ParserListener.h" />
     <ClInclude Include="languages\cpp\generated\CPP14ParserVisitor.h" />
-    <ClInclude Include="languages\c\CFacade.h" />
+    <ClInclude Include="languages\c\CAntlrImplementation.h" />
     <ClInclude Include="languages\c\CParserListenerCustom.h" />
     <ClInclude Include="languages\c\generated\CBaseListener.h" />
     <ClInclude Include="languages\c\generated\CBaseVisitor.h" />
@@ -223,7 +223,7 @@
     <ClInclude Include="languages\c\generated\CListener.h" />
     <ClInclude Include="languages\c\generated\CParser.h" />
     <ClInclude Include="languages\c\generated\CVisitor.h" />
-    <ClInclude Include="languages\LanguageFacade.h" />
+    <ClInclude Include="languages\LanguageBase.h" />
     <ClInclude Include="loguru\loguru.hpp" />
     <ClInclude Include="md5\md5.h" />
     <ClInclude Include="Node.h" />

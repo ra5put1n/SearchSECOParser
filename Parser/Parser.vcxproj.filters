@@ -175,14 +175,14 @@
     <ClInclude Include="languages\c\CParserListenerCustom.h">
       <Filter>languages\c</Filter>
     </ClInclude>
-    <ClInclude Include="languages\c\CFacade.h">
+    <ClInclude Include="languages\LanguageBase.h">
+      <Filter>languages</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\c\CAntlrImplementation.h">
       <Filter>languages\c</Filter>
     </ClInclude>
-    <ClInclude Include="languages\cpp\CPP14Facade.h">
+    <ClInclude Include="languages\cpp\CPP14AntlrImplemenation.h">
       <Filter>languages\cpp</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\LanguageFacade.h">
-      <Filter>languages</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
