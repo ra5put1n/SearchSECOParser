@@ -62,8 +62,8 @@ postfixExpression
     )
     ('[' expression ']'
     | '(' argumentExpressionList? ')'
-    | ('.' | '->') identifier
     | ('.' | '->') postfixExpression
+    | ('.' | '->') identifier
     | ('++' | '--')
     )*
     ;

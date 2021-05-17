@@ -286,10 +286,10 @@ public:
     ExpressionContext* expression(size_t i);
     std::vector<antlr4::tree::TerminalNode *> RightBracket();
     antlr4::tree::TerminalNode* RightBracket(size_t i);
-    std::vector<IdentifierContext *> identifier();
-    IdentifierContext* identifier(size_t i);
     std::vector<PostfixExpressionContext *> postfixExpression();
     PostfixExpressionContext* postfixExpression(size_t i);
+    std::vector<IdentifierContext *> identifier();
+    IdentifierContext* identifier(size_t i);
     std::vector<antlr4::tree::TerminalNode *> Dot();
     antlr4::tree::TerminalNode* Dot(size_t i);
     std::vector<antlr4::tree::TerminalNode *> Arrow();

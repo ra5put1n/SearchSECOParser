@@ -661,20 +661,20 @@ tree::TerminalNode* CParser::PostfixExpressionContext::RightBracket(size_t i) {
   return getToken(CParser::RightBracket, i);
 }
 
-std::vector<CParser::IdentifierContext *> CParser::PostfixExpressionContext::identifier() {
-  return getRuleContexts<CParser::IdentifierContext>();
-}
-
-CParser::IdentifierContext* CParser::PostfixExpressionContext::identifier(size_t i) {
-  return getRuleContext<CParser::IdentifierContext>(i);
-}
-
 std::vector<CParser::PostfixExpressionContext *> CParser::PostfixExpressionContext::postfixExpression() {
   return getRuleContexts<CParser::PostfixExpressionContext>();
 }
 
 CParser::PostfixExpressionContext* CParser::PostfixExpressionContext::postfixExpression(size_t i) {
   return getRuleContext<CParser::PostfixExpressionContext>(i);
+}
+
+std::vector<CParser::IdentifierContext *> CParser::PostfixExpressionContext::identifier() {
+  return getRuleContexts<CParser::IdentifierContext>();
+}
+
+CParser::IdentifierContext* CParser::PostfixExpressionContext::identifier(size_t i) {
+  return getRuleContext<CParser::IdentifierContext>(i);
 }
 
 std::vector<tree::TerminalNode *> CParser::PostfixExpressionContext::Dot() {
@@ -872,7 +872,7 @@ CParser::PostfixExpressionContext* CParser::postfixExpression() {
             consume();
           }
           setState(261);
-          identifier();
+          postfixExpression();
           break;
         }
 
@@ -889,7 +889,7 @@ CParser::PostfixExpressionContext* CParser::postfixExpression() {
             consume();
           }
           setState(263);
-          postfixExpression();
+          identifier();
           break;
         }
 
@@ -11402,8 +11402,8 @@ CParser::Initializer::Initializer() {
        0x2, 0x101, 0x103, 0x7, 0x3d, 0x2, 0x2, 0x102, 0x104, 0x5, 0xe, 0x8, 
        0x2, 0x103, 0x102, 0x3, 0x2, 0x2, 0x2, 0x103, 0x104, 0x3, 0x2, 0x2, 
        0x2, 0x104, 0x105, 0x3, 0x2, 0x2, 0x2, 0x105, 0x10c, 0x7, 0x3e, 0x2, 
-       0x2, 0x106, 0x107, 0x9, 0x2, 0x2, 0x2, 0x107, 0x10c, 0x5, 0x2, 0x2, 
-       0x2, 0x108, 0x109, 0x9, 0x2, 0x2, 0x2, 0x109, 0x10c, 0x5, 0xc, 0x7, 
+       0x2, 0x106, 0x107, 0x9, 0x2, 0x2, 0x2, 0x107, 0x10c, 0x5, 0xc, 0x7, 
+       0x2, 0x108, 0x109, 0x9, 0x2, 0x2, 0x2, 0x109, 0x10c, 0x5, 0x2, 0x2, 
        0x2, 0x10a, 0x10c, 0x9, 0x3, 0x2, 0x2, 0x10b, 0xfd, 0x3, 0x2, 0x2, 
        0x2, 0x10b, 0x101, 0x3, 0x2, 0x2, 0x2, 0x10b, 0x106, 0x3, 0x2, 0x2, 
        0x2, 0x10b, 0x108, 0x3, 0x2, 0x2, 0x2, 0x10b, 0x10a, 0x3, 0x2, 0x2, 
