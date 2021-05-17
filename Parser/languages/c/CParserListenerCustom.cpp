@@ -47,15 +47,16 @@ void CustomCListener::enterPostfixExpression(CParser::PostfixExpressionContext *
     {
         postfixOpeningTokens.push(ctx->children[1]->toString());
         inFunccall = true;
+
+        if (ctx->children[1]->toString() == "(" && funccallName == "")
+        {
+            funccallName = ctx->start->getText();
+            //std::cout << funccallName << std::endl;
+        }
     }
     else
     {
         postfixOpeningTokens.push("");
-    }
-    return;
-    if (funccallName == "")
-    {
-        funccallName = ctx->start->getText();
     }
 }
 
