@@ -7,10 +7,11 @@ Utrecht University within the Software Project course.
 #include "CParserListenerCustom.h"
 #include "../../md5/md5.h"
 
-CustomCListener::CustomCListener(CParser *parser, antlr4::TokenStreamRewriter *tsr)
+CustomCListener::CustomCListener(CParser *parser, antlr4::TokenStreamRewriter *tsr, std::string fileName)
 {
     this->parser = parser;
     this->tsr = tsr;
+    this->fileName = fileName;
     start = 0;
     stop = 0;
 }

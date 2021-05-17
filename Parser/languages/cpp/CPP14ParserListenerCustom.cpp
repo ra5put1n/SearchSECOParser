@@ -7,10 +7,11 @@ Utrecht University within the Software Project course.
 #include "CPP14ParserListenerCustom.h"
 #include "../../md5/md5.h"
 
-CustomCPP14Listener::CustomCPP14Listener(CPP14Parser *parser, antlr4::TokenStreamRewriter *tsr)
+CustomCPP14Listener::CustomCPP14Listener(CPP14Parser *parser, antlr4::TokenStreamRewriter *tsr, std::string fileName)
 {
     this->parser = parser;
     this->tsr = tsr;
+    this->fileName = fileName;
     start = 0;
     stop = 0;
 }
