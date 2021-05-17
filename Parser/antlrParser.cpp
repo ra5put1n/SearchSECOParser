@@ -12,6 +12,7 @@ Utrecht University within the Software Project course.
 #include <iostream>
 #include <thread>
 #include <codecvt>
+#include <cstring>
 
 #include "antlr4-runtime.h"
 
