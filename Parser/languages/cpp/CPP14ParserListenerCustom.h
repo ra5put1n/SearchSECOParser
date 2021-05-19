@@ -25,7 +25,7 @@ class  CustomCPP14Listener : public CPP14ParserBaseListener
 public:
 	std::vector<HashData> output;
 
-	CustomCPP14Listener(CPP14Parser* parser, antlr4::TokenStreamRewriter* tsr);
+	CustomCPP14Listener(CPP14Parser* parser, antlr4::TokenStreamRewriter* tsr, std::string fileName);
 	
 	virtual void enterFunctionDefinition(CPP14Parser::FunctionDefinitionContext* ctx) override;
 	virtual void exitFunctionDefinition(CPP14Parser::FunctionDefinitionContext* ctx) override;

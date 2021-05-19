@@ -16,7 +16,7 @@ class CustomCListener : public CBaseListener
   public:
     std::vector<HashData> output;
 
-    CustomCListener(CParser *parser, antlr4::TokenStreamRewriter *tsr);
+    CustomCListener(CParser *parser, antlr4::TokenStreamRewriter *tsrfileName, std::string fileName);
     
 	virtual void enterFunctionDefinition(CParser::FunctionDefinitionContext *ctx) override;
     virtual void exitFunctionDefinition(CParser::FunctionDefinitionContext *ctx) override;
@@ -40,7 +40,7 @@ class CustomCListener : public CBaseListener
     antlr4::TokenStreamRewriter *tsr;
     size_t start, stop;
     std::map<std::string, antlr4::Token *> funccallTokens;
-    std::string functionName, functionBody, fileName = "filenametest", funccallName = "";
+    std::string functionName, functionBody, fileName, funccallName = "";
     bool inFunction = false, inHeader = false, inFunccall = false;
 
     std::stack<std::string> postfixOpeningTokens = {};
