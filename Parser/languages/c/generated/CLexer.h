@@ -32,10 +32,8 @@ public:
     RightShiftAssign = 96, AndAssign = 97, XorAssign = 98, OrAssign = 99, 
     Equal = 100, NotEqual = 101, Arrow = 102, Dot = 103, Ellipsis = 104, 
     Identifier = 105, Constant = 106, DigitSequence = 107, StringLiteral = 108, 
-    ComplexDefine = 109, IncludeDirective = 110, AsmBlock = 111, LineAfterPreprocessing = 112, 
-    LineDirective = 113, PragmaDirective = 114, DefinedDirective = 115, 
-    EndDefinedDirective = 116, Whitespace = 117, Newline = 118, BlockComment = 119, 
-    LineComment = 120
+    Directive = 109, Whitespace = 110, Newline = 111, BlockComment = 112, 
+    LineComment = 113
   };
 
   explicit CLexer(antlr4::CharStream *input);

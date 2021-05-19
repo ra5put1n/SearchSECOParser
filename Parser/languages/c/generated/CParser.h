@@ -32,10 +32,8 @@ public:
     RightShiftAssign = 96, AndAssign = 97, XorAssign = 98, OrAssign = 99, 
     Equal = 100, NotEqual = 101, Arrow = 102, Dot = 103, Ellipsis = 104, 
     Identifier = 105, Constant = 106, DigitSequence = 107, StringLiteral = 108, 
-    ComplexDefine = 109, IncludeDirective = 110, AsmBlock = 111, LineAfterPreprocessing = 112, 
-    LineDirective = 113, PragmaDirective = 114, DefinedDirective = 115, 
-    EndDefinedDirective = 116, Whitespace = 117, Newline = 118, BlockComment = 119, 
-    LineComment = 120
+    Directive = 109, Whitespace = 110, Newline = 111, BlockComment = 112, 
+    LineComment = 113
   };
 
   enum {
@@ -600,8 +598,8 @@ public:
     virtual size_t getRuleIndex() const override;
     LogicalOrExpressionContext *logicalOrExpression();
     antlr4::tree::TerminalNode *Question();
-    ExpressionContext *expression();
     antlr4::tree::TerminalNode *Colon();
+    ExpressionContext *expression();
     ConditionalExpressionContext *conditionalExpression();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -622,6 +620,7 @@ public:
     AssignmentOperatorContext *assignmentOperator();
     AssignmentExpressionContext *assignmentExpression();
     antlr4::tree::TerminalNode *DigitSequence();
+    StructOrUnionContext *structOrUnion();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -857,6 +856,7 @@ public:
     StructDeclarationListContext *structDeclarationList();
     antlr4::tree::TerminalNode *RightBrace();
     antlr4::tree::TerminalNode *Identifier();
+    antlr4::tree::TerminalNode *Semi();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -979,6 +979,7 @@ public:
     antlr4::tree::TerminalNode *RightBrace();
     antlr4::tree::TerminalNode *Identifier();
     antlr4::tree::TerminalNode *Comma();
+    antlr4::tree::TerminalNode *Semi();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1142,9 +1143,7 @@ public:
     antlr4::tree::TerminalNode *RightParen();
     antlr4::tree::TerminalNode *Colon();
     antlr4::tree::TerminalNode *DigitSequence();
-    PointerContext *pointer();
     DirectDeclaratorContext *directDeclarator();
-    TypeSpecifierContext *typeSpecifier();
     antlr4::tree::TerminalNode *LeftBracket();
     antlr4::tree::TerminalNode *RightBracket();
     TypeQualifierListContext *typeQualifierList();
