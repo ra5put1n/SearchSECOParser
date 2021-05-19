@@ -39,7 +39,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	
 
 	antlrParsing pser;
-	std::vector<HashData> hashes2 = pser.parseFile(path);
+	std::vector<HashData> hashes2 = pser.parseDir(path);
 	hashes.insert(hashes.end(), hashes2.begin(), hashes2.end());
 	return hashes;
 }

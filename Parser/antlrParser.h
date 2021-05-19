@@ -12,14 +12,34 @@ Utrecht University within the Software Project course.
 
 #include "HashData.h"
 
+#define MAX_THREADS 8
 
 
 class antlrParsing
 {
 public:
-	static std::vector<HashData> parseFile(std::string repoPath);
+    /// <summary>
+    /// Parses all parseable files in given directory.
+    /// </summary>
+    /// <param name = "repoPath"> The directory to be parsed. </param>
+	static std::vector<HashData> parseDir(std::string repoPath);
+
 private:
+    /// <summary>
+    /// Program run on a single thread to parse a queue of files.
+    /// </summary>
+    /// <param name = "meths"> The returned HashData. </param>
+    /// <param name = "outputLock"> Mutex that restricts access to meths. </param>
+    /// <param name = "files"> The queue of files to parse. </param>
+    /// <param name = "queueLock"> Mutex that restricts access to files queue. </param>
     static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
                                  std::mutex &queueLock);
+    
+    /// <summary>
+    /// Parses a single file.
+    /// </summary>
+    /// <param name = "filepath"> The file to be parsed. </param>
+    /// <param name = "meths"> The returned HashData. </param>
+    /// <param name = "outputLock"> Mutex that restricts access to meths. </param>
     static void parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock);
 };
