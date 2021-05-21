@@ -159,6 +159,8 @@ public:
 
     virtual antlrcpp::Any visitAtom(Python3Parser::AtomContext *context) = 0;
 
+    virtual antlrcpp::Any visitName(Python3Parser::NameContext *context) = 0;
+
     virtual antlrcpp::Any visitTestlist_comp(Python3Parser::Testlist_compContext *context) = 0;
 
     virtual antlrcpp::Any visitTrailer(Python3Parser::TrailerContext *context) = 0;

@@ -226,6 +226,9 @@ public:
   virtual void enterAtom(Python3Parser::AtomContext * /*ctx*/) override { }
   virtual void exitAtom(Python3Parser::AtomContext * /*ctx*/) override { }
 
+  virtual void enterName(Python3Parser::NameContext * /*ctx*/) override { }
+  virtual void exitName(Python3Parser::NameContext * /*ctx*/) override { }
+
   virtual void enterTestlist_comp(Python3Parser::Testlist_compContext * /*ctx*/) override { }
   virtual void exitTestlist_comp(Python3Parser::Testlist_compContext * /*ctx*/) override { }
 

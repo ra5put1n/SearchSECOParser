@@ -32,6 +32,9 @@ public:
 
     virtual void enterFuncbody(Python3Parser::FuncbodyContext *ctx) override;
     virtual void exitFuncbody(Python3Parser::FuncbodyContext *ctx) override;
+
+    virtual void enterName(Python3Parser::NameContext *ctx) override;
+    //virtual void exitName(Python3Parser::NameContext *ctx) override;
     /*
     virtual void enterCompoundStatement(CParser::CompoundStatementContext *ctx) override;
     virtual void exitCompoundStatement(CParser::CompoundStatementContext *ctx) override;

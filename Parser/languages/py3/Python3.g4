@@ -155,7 +155,7 @@ decorators: decorator+;
 decorated: decorators (classdef | funcdef | async_funcdef);
 
 async_funcdef: ASYNC funcdef;
-funcdef: 'def' NAME parameters ('->' test)? ':' funcbody;
+funcdef: 'def' name parameters ('->' test)? ':' funcbody;
 
 funcbody: suite; // Custom
 
@@ -165,14 +165,14 @@ typedargslist: (tfpdef ('=' test)? (',' tfpdef ('=' test)?)* (',' (
       | '**' tfpdef (',')?)?)?
   | '*' (tfpdef)? (',' tfpdef ('=' test)?)* (',' ('**' tfpdef (',')?)?)?
   | '**' tfpdef (',')?);
-tfpdef: NAME (':' test)?;
+tfpdef: name (':' test)?;
 varargslist: (vfpdef ('=' test)? (',' vfpdef ('=' test)?)* (',' (
         '*' (vfpdef)? (',' vfpdef ('=' test)?)* (',' ('**' vfpdef (',')?)?)?
       | '**' vfpdef (',')?)?)?
   | '*' (vfpdef)? (',' vfpdef ('=' test)?)* (',' ('**' vfpdef (',')?)?)?
   | '**' vfpdef (',')?
 );
-vfpdef: NAME;
+vfpdef: name;
 
 stmt: simple_stmt | compound_stmt;
 simple_stmt: small_stmt (';' small_stmt)* (';')? NEWLINE;
@@ -198,13 +198,13 @@ import_name: 'import' dotted_as_names;
 // note below: the ('.' | '...') is necessary because '...' is tokenized as ELLIPSIS
 import_from: ('from' (('.' | '...')* dotted_name | ('.' | '...')+)
               'import' ('*' | '(' import_as_names ')' | import_as_names));
-import_as_name: NAME ('as' NAME)?;
-dotted_as_name: dotted_name ('as' NAME)?;
+import_as_name: name ('as' name)?;
+dotted_as_name: dotted_name ('as' name)?;
 import_as_names: import_as_name (',' import_as_name)* (',')?;
 dotted_as_names: dotted_as_name (',' dotted_as_name)*;
-dotted_name: NAME ('.' NAME)*;
-global_stmt: 'global' NAME (',' NAME)*;
-nonlocal_stmt: 'nonlocal' NAME (',' NAME)*;
+dotted_name: name ('.' name)*;
+global_stmt: 'global' name (',' name)*;
+nonlocal_stmt: 'nonlocal' name (',' name)*;
 assert_stmt: 'assert' test (',' test)?;
 
 compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | with_stmt | funcdef | classdef | decorated | async_stmt;
@@ -220,7 +220,7 @@ try_stmt: ('try' ':' suite
 with_stmt: 'with' with_item (',' with_item)*  ':' suite;
 with_item: test ('as' expr)?;
 // NB compile.c makes sure that the default except clause is last
-except_clause: 'except' (test ('as' NAME)?)?;
+except_clause: 'except' (test ('as' name)?)?;
 suite: simple_stmt | NEWLINE INDENT stmt+ DEDENT;
 
 test: or_test ('if' or_test 'else' test)? | lambdef;
@@ -247,9 +247,10 @@ atom_expr: (AWAIT)? atom trailer*;
 atom: ('(' (yield_expr|testlist_comp)? ')' |
        '[' (testlist_comp)? ']' |
        '{' (dictorsetmaker)? '}' |
-       NAME | NUMBER | STRING+ | '...' | 'None' | 'True' | 'False');
+       name | NUMBER | STRING+ | '...' | 'None' | 'True' | 'False');
+name: NAME; //Custom
 testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* (',')? );
-trailer: '(' (arglist)? ')' | '[' subscriptlist ']' | '.' NAME;
+trailer: '(' (arglist)? ')' | '[' subscriptlist ']' | '.' name;
 subscriptlist: subscript (',' subscript)* (',')?;
 subscript: test | (test)? ':' (test)? (sliceop)?;
 sliceop: ':' (test)?;
@@ -260,12 +261,12 @@ dictorsetmaker: ( ((test ':' test | '**' expr)
                   ((test | star_expr)
                    (comp_for | (',' (test | star_expr))* (',')?)) );
 
-classdef: 'class' NAME ('(' (arglist)? ')')? ':' suite;
+classdef: 'class' name ('(' (arglist)? ')')? ':' suite;
 
 arglist: argument (',' argument)*  (',')?;
 
-// The reason that keywords are test nodes instead of NAME is that using NAME
-// results in an ambiguity. ast.c makes sure it's a NAME.
+// The reason that keywords are test nodes instead of name is that using name
+// results in an ambiguity. ast.c makes sure it's a name.
 // "test '=' test" is really "keyword '=' test", but we have no such token.
 // These need to be in a single rule to avoid grammar that is ambiguous
 // to our LL(1) parser. Even though 'test' includes '*expr' in star_expr,
@@ -283,7 +284,7 @@ comp_for: (ASYNC)? 'for' exprlist 'in' or_test (comp_iter)?;
 comp_if: 'if' test_nocond (comp_iter)?;
 
 // not used in grammar, but may appear in "node" passed from Parser to Compiler
-encoding_decl: NAME;
+encoding_decl: name;
 
 yield_expr: 'yield' (yield_arg)?;
 yield_arg: 'from' test | testlist;

@@ -41,3 +41,8 @@ void CustomPython3Listener::exitFuncbody(Python3Parser::FuncbodyContext *ctx)
 {
     functionBody = tsr->getText(ctx->getSourceInterval());
 }
+
+void CustomPython3Listener::enterName(Python3Parser::NameContext *ctx)
+{
+    tsr->replace(ctx->start, "var");
+}
