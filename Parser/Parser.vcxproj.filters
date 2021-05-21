@@ -30,6 +30,12 @@
     <Filter Include="languages\c\generated">
       <UniqueIdentifier>{ff4f66a6-8657-49aa-908a-83ea989eb3a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="languages\py3">
+      <UniqueIdentifier>{f9da27aa-dec8-4bcf-b895-99bc7c09fc3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="languages\py3\generated">
+      <UniqueIdentifier>{1661daf0-45c9-43db-9314-19e8e620147a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractSyntaxToHashable.cpp">
@@ -100,6 +106,27 @@
     </ClCompile>
     <ClCompile Include="languages\c\CParserListenerCustom.cpp">
       <Filter>languages\c</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\py3\Python3ParserListenerCustom.cpp">
+      <Filter>languages\py3</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\py3\generated\Python3BaseListener.cpp">
+      <Filter>languages\py3\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\py3\generated\Python3BaseVisitor.cpp">
+      <Filter>languages\py3\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\py3\generated\Python3Lexer.cpp">
+      <Filter>languages\py3\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\py3\generated\Python3Listener.cpp">
+      <Filter>languages\py3\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\py3\generated\Python3Parser.cpp">
+      <Filter>languages\py3\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\py3\generated\Python3Visitor.cpp">
+      <Filter>languages\py3\generated</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +210,30 @@
     </ClInclude>
     <ClInclude Include="languages\cpp\CPP14AntlrImplemenation.h">
       <Filter>languages\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\py3\Python3AntlrImplemenation.h">
+      <Filter>languages\py3</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\py3\Python3ParserListenerCustom.h">
+      <Filter>languages\py3</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\py3\generated\Python3BaseListener.h">
+      <Filter>languages\py3\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\py3\generated\Python3BaseVisitor.h">
+      <Filter>languages\py3\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\py3\generated\Python3Lexer.h">
+      <Filter>languages\py3\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\py3\generated\Python3Listener.h">
+      <Filter>languages\py3\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\py3\generated\Python3Parser.h">
+      <Filter>languages\py3\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\py3\generated\Python3Visitor.h">
+      <Filter>languages\py3\generated</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,6 +22,7 @@ Utrecht University within the Software Project course.
 #include "languages/LanguageBase.h"
 #include "languages/c/CAntlrImplementation.h"
 #include "languages/cpp/CPP14AntlrImplemenation.h"
+#include "languages/py3/Python3AntlrImplemenation.h"
 
 // Method practically copied from Spider Revisited.
 std::vector<HashData> antlrParsing::parseDir(std::string repoPath)
@@ -91,7 +92,11 @@ LanguageBase* getFacade(std::string fileName)
 	else if (path.extension() == ".cpp" || path.extension() == ".hpp" || path.extension() == ".h")
 	{
 		return new CPP14AntlrImplemenation();
-	}
+    }
+    else if (path.extension() == ".py")
+    {
+        return new Python3AntlrImplemenation();
+    }
 	else
 	{
 		return nullptr;
