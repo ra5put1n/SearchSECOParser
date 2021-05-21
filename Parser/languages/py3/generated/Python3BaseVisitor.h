@@ -291,11 +291,19 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitFunccall(Python3Parser::FunccallContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitAtom(Python3Parser::AtomContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitName(Python3Parser::NameContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitFunccallname(Python3Parser::FunccallnameContext *ctx) override {
     return visitChildren(ctx);
   }
 

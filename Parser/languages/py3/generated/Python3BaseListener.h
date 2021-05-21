@@ -223,11 +223,17 @@ public:
   virtual void enterAtom_expr(Python3Parser::Atom_exprContext * /*ctx*/) override { }
   virtual void exitAtom_expr(Python3Parser::Atom_exprContext * /*ctx*/) override { }
 
+  virtual void enterFunccall(Python3Parser::FunccallContext * /*ctx*/) override { }
+  virtual void exitFunccall(Python3Parser::FunccallContext * /*ctx*/) override { }
+
   virtual void enterAtom(Python3Parser::AtomContext * /*ctx*/) override { }
   virtual void exitAtom(Python3Parser::AtomContext * /*ctx*/) override { }
 
   virtual void enterName(Python3Parser::NameContext * /*ctx*/) override { }
   virtual void exitName(Python3Parser::NameContext * /*ctx*/) override { }
+
+  virtual void enterFunccallname(Python3Parser::FunccallnameContext * /*ctx*/) override { }
+  virtual void exitFunccallname(Python3Parser::FunccallnameContext * /*ctx*/) override { }
 
   virtual void enterTestlist_comp(Python3Parser::Testlist_compContext * /*ctx*/) override { }
   virtual void exitTestlist_comp(Python3Parser::Testlist_compContext * /*ctx*/) override { }

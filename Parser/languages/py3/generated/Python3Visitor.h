@@ -157,9 +157,13 @@ public:
 
     virtual antlrcpp::Any visitAtom_expr(Python3Parser::Atom_exprContext *context) = 0;
 
+    virtual antlrcpp::Any visitFunccall(Python3Parser::FunccallContext *context) = 0;
+
     virtual antlrcpp::Any visitAtom(Python3Parser::AtomContext *context) = 0;
 
     virtual antlrcpp::Any visitName(Python3Parser::NameContext *context) = 0;
+
+    virtual antlrcpp::Any visitFunccallname(Python3Parser::FunccallnameContext *context) = 0;
 
     virtual antlrcpp::Any visitTestlist_comp(Python3Parser::Testlist_compContext *context) = 0;
 

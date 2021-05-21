@@ -243,14 +243,18 @@ arith_expr: term (('+'|'-') term)*;
 term: factor (('*'|'@'|'/'|'%'|'//') factor)*;
 factor: ('+'|'-'|'~') factor | power;
 power: atom_expr ('**' factor)?;
-atom_expr: (AWAIT)? atom trailer*;
+//atom_expr: (AWAIT)? atom trailer*;
+atom_expr: (AWAIT)? (funccall | atom) trailer*;   // Custom.
+funccall: funccallname '(' (arglist)? ')';	// Custom.
 atom: ('(' (yield_expr|testlist_comp)? ')' |
        '[' (testlist_comp)? ']' |
        '{' (dictorsetmaker)? '}' |
        name | NUMBER | STRING+ | '...' | 'None' | 'True' | 'False');
 name: NAME; //Custom
+funccallname: NAME; //Custom
 testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* (',')? );
-trailer: '(' (arglist)? ')' | '[' subscriptlist ']' | '.' name;
+//trailer: '(' (arglist)? ')' | '[' subscriptlist ']' | '.' name;
+trailer: '.' funccall | '[' subscriptlist ']' | '.' name;    // Custom.
 subscriptlist: subscript (',' subscript)* (',')?;
 subscript: test | (test)? ':' (test)? (sliceop)?;
 sliceop: ':' (test)?;

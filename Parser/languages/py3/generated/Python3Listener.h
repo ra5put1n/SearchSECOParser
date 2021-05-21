@@ -221,11 +221,17 @@ public:
   virtual void enterAtom_expr(Python3Parser::Atom_exprContext *ctx) = 0;
   virtual void exitAtom_expr(Python3Parser::Atom_exprContext *ctx) = 0;
 
+  virtual void enterFunccall(Python3Parser::FunccallContext *ctx) = 0;
+  virtual void exitFunccall(Python3Parser::FunccallContext *ctx) = 0;
+
   virtual void enterAtom(Python3Parser::AtomContext *ctx) = 0;
   virtual void exitAtom(Python3Parser::AtomContext *ctx) = 0;
 
   virtual void enterName(Python3Parser::NameContext *ctx) = 0;
   virtual void exitName(Python3Parser::NameContext *ctx) = 0;
+
+  virtual void enterFunccallname(Python3Parser::FunccallnameContext *ctx) = 0;
+  virtual void exitFunccallname(Python3Parser::FunccallnameContext *ctx) = 0;
 
   virtual void enterTestlist_comp(Python3Parser::Testlist_compContext *ctx) = 0;
   virtual void exitTestlist_comp(Python3Parser::Testlist_compContext *ctx) = 0;

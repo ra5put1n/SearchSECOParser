@@ -46,3 +46,8 @@ void CustomPython3Listener::enterName(Python3Parser::NameContext *ctx)
 {
     tsr->replace(ctx->start, "var");
 }
+
+void CustomPython3Listener::enterFunccallname(Python3Parser::FunccallnameContext *ctx)
+{
+    tsr->replace(ctx->start, "funccall");
+}

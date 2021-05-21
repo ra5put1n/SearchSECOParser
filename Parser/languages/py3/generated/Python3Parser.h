@@ -52,11 +52,12 @@ public:
     RuleComparison = 57, RuleComp_op = 58, RuleStar_expr = 59, RuleExpr = 60, 
     RuleXor_expr = 61, RuleAnd_expr = 62, RuleShift_expr = 63, RuleArith_expr = 64, 
     RuleTerm = 65, RuleFactor = 66, RulePower = 67, RuleAtom_expr = 68, 
-    RuleAtom = 69, RuleName = 70, RuleTestlist_comp = 71, RuleTrailer = 72, 
-    RuleSubscriptlist = 73, RuleSubscript = 74, RuleSliceop = 75, RuleExprlist = 76, 
-    RuleTestlist = 77, RuleDictorsetmaker = 78, RuleClassdef = 79, RuleArglist = 80, 
-    RuleArgument = 81, RuleComp_iter = 82, RuleComp_for = 83, RuleComp_if = 84, 
-    RuleEncoding_decl = 85, RuleYield_expr = 86, RuleYield_arg = 87
+    RuleFunccall = 69, RuleAtom = 70, RuleName = 71, RuleFunccallname = 72, 
+    RuleTestlist_comp = 73, RuleTrailer = 74, RuleSubscriptlist = 75, RuleSubscript = 76, 
+    RuleSliceop = 77, RuleExprlist = 78, RuleTestlist = 79, RuleDictorsetmaker = 80, 
+    RuleClassdef = 81, RuleArglist = 82, RuleArgument = 83, RuleComp_iter = 84, 
+    RuleComp_for = 85, RuleComp_if = 86, RuleEncoding_decl = 87, RuleYield_expr = 88, 
+    RuleYield_arg = 89
   };
 
   explicit Python3Parser(antlr4::TokenStream *input);
@@ -138,8 +139,10 @@ public:
   class FactorContext;
   class PowerContext;
   class Atom_exprContext;
+  class FunccallContext;
   class AtomContext;
   class NameContext;
+  class FunccallnameContext;
   class Testlist_compContext;
   class TrailerContext;
   class SubscriptlistContext;
@@ -1441,6 +1444,7 @@ public:
   public:
     Atom_exprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    FunccallContext *funccall();
     AtomContext *atom();
     antlr4::tree::TerminalNode *AWAIT();
     std::vector<TrailerContext *> trailer();
@@ -1454,6 +1458,24 @@ public:
   };
 
   Atom_exprContext* atom_expr();
+
+  class  FunccallContext : public antlr4::ParserRuleContext {
+  public:
+    FunccallContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    FunccallnameContext *funccallname();
+    antlr4::tree::TerminalNode *OPEN_PAREN();
+    antlr4::tree::TerminalNode *CLOSE_PAREN();
+    ArglistContext *arglist();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  FunccallContext* funccall();
 
   class  AtomContext : public antlr4::ParserRuleContext {
   public:
@@ -1501,6 +1523,21 @@ public:
 
   NameContext* name();
 
+  class  FunccallnameContext : public antlr4::ParserRuleContext {
+  public:
+    FunccallnameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *NAME();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  FunccallnameContext* funccallname();
+
   class  Testlist_compContext : public antlr4::ParserRuleContext {
   public:
     Testlist_compContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1526,13 +1563,11 @@ public:
   public:
     TrailerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *OPEN_PAREN();
-    antlr4::tree::TerminalNode *CLOSE_PAREN();
-    ArglistContext *arglist();
+    antlr4::tree::TerminalNode *DOT();
+    FunccallContext *funccall();
     antlr4::tree::TerminalNode *OPEN_BRACK();
     SubscriptlistContext *subscriptlist();
     antlr4::tree::TerminalNode *CLOSE_BRACK();
-    antlr4::tree::TerminalNode *DOT();
     NameContext *name();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
