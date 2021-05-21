@@ -35,6 +35,7 @@ void CustomPython3Listener::exitFuncdef(Python3Parser::FuncdefContext *ctx)
 void CustomPython3Listener::enterFuncbody(Python3Parser::FuncbodyContext *ctx)
 {
     inHeader = false;
+    inFunction = true;
 }
 
 void CustomPython3Listener::exitFuncbody(Python3Parser::FuncbodyContext *ctx)
@@ -44,7 +45,15 @@ void CustomPython3Listener::exitFuncbody(Python3Parser::FuncbodyContext *ctx)
 
 void CustomPython3Listener::enterName(Python3Parser::NameContext *ctx)
 {
-    tsr->replace(ctx->start, "var");
+    if (functionName == "")
+    {
+        functionName = ctx->start->getText();
+    }
+
+    if (inFunction)
+    {
+        tsr->replace(ctx->start, "var");
+    }
 }
 
 void CustomPython3Listener::enterFunccallname(Python3Parser::FunccallnameContext *ctx)
