@@ -47,6 +47,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitFuncbody(Python3Parser::FuncbodyContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitParameters(Python3Parser::ParametersContext *ctx) override {
     return visitChildren(ctx);
   }

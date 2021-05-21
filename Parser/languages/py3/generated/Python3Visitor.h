@@ -35,6 +35,8 @@ public:
 
     virtual antlrcpp::Any visitFuncdef(Python3Parser::FuncdefContext *context) = 0;
 
+    virtual antlrcpp::Any visitFuncbody(Python3Parser::FuncbodyContext *context) = 0;
+
     virtual antlrcpp::Any visitParameters(Python3Parser::ParametersContext *context) = 0;
 
     virtual antlrcpp::Any visitTypedargslist(Python3Parser::TypedargslistContext *context) = 0;

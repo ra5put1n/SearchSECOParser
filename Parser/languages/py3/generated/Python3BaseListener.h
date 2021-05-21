@@ -40,6 +40,9 @@ public:
   virtual void enterFuncdef(Python3Parser::FuncdefContext * /*ctx*/) override { }
   virtual void exitFuncdef(Python3Parser::FuncdefContext * /*ctx*/) override { }
 
+  virtual void enterFuncbody(Python3Parser::FuncbodyContext * /*ctx*/) override { }
+  virtual void exitFuncbody(Python3Parser::FuncbodyContext * /*ctx*/) override { }
+
   virtual void enterParameters(Python3Parser::ParametersContext * /*ctx*/) override { }
   virtual void exitParameters(Python3Parser::ParametersContext * /*ctx*/) override { }
 

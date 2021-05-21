@@ -38,6 +38,9 @@ public:
   virtual void enterFuncdef(Python3Parser::FuncdefContext *ctx) = 0;
   virtual void exitFuncdef(Python3Parser::FuncdefContext *ctx) = 0;
 
+  virtual void enterFuncbody(Python3Parser::FuncbodyContext *ctx) = 0;
+  virtual void exitFuncbody(Python3Parser::FuncbodyContext *ctx) = 0;
+
   virtual void enterParameters(Python3Parser::ParametersContext *ctx) = 0;
   virtual void exitParameters(Python3Parser::ParametersContext *ctx) = 0;
 

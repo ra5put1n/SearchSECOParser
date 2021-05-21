@@ -36,27 +36,27 @@ public:
   enum {
     RuleSingle_input = 0, RuleFile_input = 1, RuleEval_input = 2, RuleDecorator = 3, 
     RuleDecorators = 4, RuleDecorated = 5, RuleAsync_funcdef = 6, RuleFuncdef = 7, 
-    RuleParameters = 8, RuleTypedargslist = 9, RuleTfpdef = 10, RuleVarargslist = 11, 
-    RuleVfpdef = 12, RuleStmt = 13, RuleSimple_stmt = 14, RuleSmall_stmt = 15, 
-    RuleExpr_stmt = 16, RuleAnnassign = 17, RuleTestlist_star_expr = 18, 
-    RuleAugassign = 19, RuleDel_stmt = 20, RulePass_stmt = 21, RuleFlow_stmt = 22, 
-    RuleBreak_stmt = 23, RuleContinue_stmt = 24, RuleReturn_stmt = 25, RuleYield_stmt = 26, 
-    RuleRaise_stmt = 27, RuleImport_stmt = 28, RuleImport_name = 29, RuleImport_from = 30, 
-    RuleImport_as_name = 31, RuleDotted_as_name = 32, RuleImport_as_names = 33, 
-    RuleDotted_as_names = 34, RuleDotted_name = 35, RuleGlobal_stmt = 36, 
-    RuleNonlocal_stmt = 37, RuleAssert_stmt = 38, RuleCompound_stmt = 39, 
-    RuleAsync_stmt = 40, RuleIf_stmt = 41, RuleWhile_stmt = 42, RuleFor_stmt = 43, 
-    RuleTry_stmt = 44, RuleWith_stmt = 45, RuleWith_item = 46, RuleExcept_clause = 47, 
-    RuleSuite = 48, RuleTest = 49, RuleTest_nocond = 50, RuleLambdef = 51, 
-    RuleLambdef_nocond = 52, RuleOr_test = 53, RuleAnd_test = 54, RuleNot_test = 55, 
-    RuleComparison = 56, RuleComp_op = 57, RuleStar_expr = 58, RuleExpr = 59, 
-    RuleXor_expr = 60, RuleAnd_expr = 61, RuleShift_expr = 62, RuleArith_expr = 63, 
-    RuleTerm = 64, RuleFactor = 65, RulePower = 66, RuleAtom_expr = 67, 
-    RuleAtom = 68, RuleTestlist_comp = 69, RuleTrailer = 70, RuleSubscriptlist = 71, 
-    RuleSubscript = 72, RuleSliceop = 73, RuleExprlist = 74, RuleTestlist = 75, 
-    RuleDictorsetmaker = 76, RuleClassdef = 77, RuleArglist = 78, RuleArgument = 79, 
-    RuleComp_iter = 80, RuleComp_for = 81, RuleComp_if = 82, RuleEncoding_decl = 83, 
-    RuleYield_expr = 84, RuleYield_arg = 85
+    RuleFuncbody = 8, RuleParameters = 9, RuleTypedargslist = 10, RuleTfpdef = 11, 
+    RuleVarargslist = 12, RuleVfpdef = 13, RuleStmt = 14, RuleSimple_stmt = 15, 
+    RuleSmall_stmt = 16, RuleExpr_stmt = 17, RuleAnnassign = 18, RuleTestlist_star_expr = 19, 
+    RuleAugassign = 20, RuleDel_stmt = 21, RulePass_stmt = 22, RuleFlow_stmt = 23, 
+    RuleBreak_stmt = 24, RuleContinue_stmt = 25, RuleReturn_stmt = 26, RuleYield_stmt = 27, 
+    RuleRaise_stmt = 28, RuleImport_stmt = 29, RuleImport_name = 30, RuleImport_from = 31, 
+    RuleImport_as_name = 32, RuleDotted_as_name = 33, RuleImport_as_names = 34, 
+    RuleDotted_as_names = 35, RuleDotted_name = 36, RuleGlobal_stmt = 37, 
+    RuleNonlocal_stmt = 38, RuleAssert_stmt = 39, RuleCompound_stmt = 40, 
+    RuleAsync_stmt = 41, RuleIf_stmt = 42, RuleWhile_stmt = 43, RuleFor_stmt = 44, 
+    RuleTry_stmt = 45, RuleWith_stmt = 46, RuleWith_item = 47, RuleExcept_clause = 48, 
+    RuleSuite = 49, RuleTest = 50, RuleTest_nocond = 51, RuleLambdef = 52, 
+    RuleLambdef_nocond = 53, RuleOr_test = 54, RuleAnd_test = 55, RuleNot_test = 56, 
+    RuleComparison = 57, RuleComp_op = 58, RuleStar_expr = 59, RuleExpr = 60, 
+    RuleXor_expr = 61, RuleAnd_expr = 62, RuleShift_expr = 63, RuleArith_expr = 64, 
+    RuleTerm = 65, RuleFactor = 66, RulePower = 67, RuleAtom_expr = 68, 
+    RuleAtom = 69, RuleTestlist_comp = 70, RuleTrailer = 71, RuleSubscriptlist = 72, 
+    RuleSubscript = 73, RuleSliceop = 74, RuleExprlist = 75, RuleTestlist = 76, 
+    RuleDictorsetmaker = 77, RuleClassdef = 78, RuleArglist = 79, RuleArgument = 80, 
+    RuleComp_iter = 81, RuleComp_for = 82, RuleComp_if = 83, RuleEncoding_decl = 84, 
+    RuleYield_expr = 85, RuleYield_arg = 86
   };
 
   explicit Python3Parser(antlr4::TokenStream *input);
@@ -77,6 +77,7 @@ public:
   class DecoratedContext;
   class Async_funcdefContext;
   class FuncdefContext;
+  class FuncbodyContext;
   class ParametersContext;
   class TypedargslistContext;
   class TfpdefContext;
@@ -288,7 +289,7 @@ public:
     antlr4::tree::TerminalNode *NAME();
     ParametersContext *parameters();
     antlr4::tree::TerminalNode *COLON();
-    SuiteContext *suite();
+    FuncbodyContext *funcbody();
     antlr4::tree::TerminalNode *ARROW();
     TestContext *test();
 
@@ -300,6 +301,21 @@ public:
   };
 
   FuncdefContext* funcdef();
+
+  class  FuncbodyContext : public antlr4::ParserRuleContext {
+  public:
+    FuncbodyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    SuiteContext *suite();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  FuncbodyContext* funcbody();
 
   class  ParametersContext : public antlr4::ParserRuleContext {
   public:

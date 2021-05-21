@@ -27,6 +27,26 @@ public:
 
 	CustomPython3Listener(Python3Parser *parser, antlr4::TokenStreamRewriter *tsr, std::string fileName);
 
+	virtual void enterFuncdef(Python3Parser::FuncdefContext *ctx) override;
+    virtual void exitFuncdef(Python3Parser::FuncdefContext *ctx) override;
+
+    virtual void enterFuncbody(Python3Parser::FuncbodyContext *ctx) override;
+    virtual void exitFuncbody(Python3Parser::FuncbodyContext *ctx) override;
+    /*
+    virtual void enterCompoundStatement(CParser::CompoundStatementContext *ctx) override;
+    virtual void exitCompoundStatement(CParser::CompoundStatementContext *ctx) override;
+
+    virtual void enterPostfixExpression(CParser::PostfixExpressionContext *ctx) override;
+    virtual void exitPostfixExpression(CParser::PostfixExpressionContext *ctx) override;
+
+    virtual void enterDeclarator(CParser::DeclaratorContext *ctx) override;
+
+    virtual void enterDirectDeclarator(CParser::DirectDeclaratorContext *ctx) override;
+
+    virtual void enterIdentifier(CParser::IdentifierContext *ctx) override;
+
+    virtual void enterArgumentExpressionList(CParser::ArgumentExpressionListContext *ctx) override;*/
+
 
 private:
     Python3Parser *parser;
