@@ -128,6 +128,9 @@
     <ClCompile Include="languages\py3\generated\Python3Visitor.cpp">
       <Filter>languages\py3\generated</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
@@ -234,6 +237,9 @@
     </ClInclude>
     <ClInclude Include="languages\py3\generated\Python3Visitor.h">
       <Filter>languages\py3\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -202,6 +202,7 @@
     <ClCompile Include="languages\py3\generated\Python3Parser.cpp" />
     <ClCompile Include="languages\py3\generated\Python3Visitor.cpp" />
     <ClCompile Include="languages\py3\Python3ParserListenerCustom.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="loguru\loguru.cpp" />
     <ClCompile Include="md5\md5.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="languages\py3\generated\Python3Visitor.h" />
     <ClInclude Include="languages\py3\Python3AntlrImplemenation.h" />
     <ClInclude Include="languages\py3\Python3ParserListenerCustom.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="loguru\loguru.hpp" />
     <ClInclude Include="md5\md5.h" />
     <ClInclude Include="Node.h" />
