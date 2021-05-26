@@ -97,14 +97,21 @@ public:
 
     private:
     std::unique_ptr<antlr4::Token> createDedent() {
-      std::unique_ptr<antlr4::CommonToken> dedent = commonToken(Python3Parser::DEDENT, "");
+      std::unique_ptr<antlr4::CommonToken> dedent = commonToken(Python3Parser::DEDENT, "dedent");	// Custom
       return dedent;
     }
 
     std::unique_ptr<antlr4::CommonToken> commonToken(size_t type, const std::string& text) {
       int stop = getCharIndex() - 1;
       int start = text.empty() ? stop : stop - text.size() + 1;
-      return _factory->create({ this, _input }, type, text, DEFAULT_TOKEN_CHANNEL, start, stop, m_pLastToken->getLine(), m_pLastToken->getCharPositionInLine());
+  	if (m_pLastToken == nullptr)
+        {
+            return _factory->create({ this, _input }, type, text, DEFAULT_TOKEN_CHANNEL, start, stop,0,0);
+        }
+      else
+        {
+            return _factory->create({ this, _input }, type, text, DEFAULT_TOKEN_CHANNEL, start, stop, m_pLastToken->getLine(), m_pLastToken->getCharPositionInLine());
+        }
     }
 
     std::unique_ptr<antlr4::CommonToken> cloneToken(const std::unique_ptr<antlr4::Token>& source) {

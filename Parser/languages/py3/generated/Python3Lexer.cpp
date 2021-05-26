@@ -111,7 +111,7 @@ void Python3Lexer::NEWLINEAction(antlr4::RuleContext *context, size_t actionInde
            }
            else if (indent > previous) {
              m_indents.push(indent);
-             emit(commonToken(Python3Parser::INDENT, spaces));
+             emit(commonToken(Python3Parser::INDENT, "indent"));	// Custom
            }
            else {
              // Possibly emit more than 1 DEDENT token.

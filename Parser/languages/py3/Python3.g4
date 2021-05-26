@@ -33,7 +33,7 @@ grammar Python3;
 // All comments that start with "///" are copy-pasted from
 // The Python Language Reference
 
-tokens { INDENT, DEDENT }
+tokens {INDENT, DEDENT}
 
 @lexer::header {
   #include "Python3Parser.h"
@@ -98,14 +98,21 @@ tokens { INDENT, DEDENT }
 
   private:
   std::unique_ptr<antlr4::Token> createDedent() {
-    std::unique_ptr<antlr4::CommonToken> dedent = commonToken(Python3Parser::DEDENT, "");
+    std::unique_ptr<antlr4::CommonToken> dedent = commonToken(Python3Parser::DEDENT, "dedent");	// Custom
     return dedent;
   }
 
   std::unique_ptr<antlr4::CommonToken> commonToken(size_t type, const std::string& text) {
     int stop = getCharIndex() - 1;
     int start = text.empty() ? stop : stop - text.size() + 1;
-    return _factory->create({ this, _input }, type, text, DEFAULT_TOKEN_CHANNEL, start, stop, m_pLastToken->getLine(), m_pLastToken->getCharPositionInLine());
+	if (m_pLastToken == nullptr)
+      {
+          return _factory->create({ this, _input }, type, text, DEFAULT_TOKEN_CHANNEL, start, stop,0,0);
+      }
+    else
+      {
+          return _factory->create({ this, _input }, type, text, DEFAULT_TOKEN_CHANNEL, start, stop, m_pLastToken->getLine(), m_pLastToken->getCharPositionInLine());
+      }
   }
 
   std::unique_ptr<antlr4::CommonToken> cloneToken(const std::unique_ptr<antlr4::Token>& source) {
@@ -222,7 +229,6 @@ with_item: test ('as' expr)?;
 // NB compile.c makes sure that the default except clause is last
 except_clause: 'except' (test ('as' name)?)?;
 suite: simple_stmt | NEWLINE INDENT stmt+ DEDENT;
-
 test: or_test ('if' or_test 'else' test)? | lambdef;
 test_nocond: or_test | lambdef_nocond;
 lambdef: 'lambda' (varargslist)? ':' test;
@@ -387,7 +393,7 @@ NEWLINE
        }
        else if (indent > previous) {
          m_indents.push(indent);
-         emit(commonToken(Python3Parser::INDENT, spaces));
+         emit(commonToken(Python3Parser::INDENT, "indent"));	// Custom
        }
        else {
          // Possibly emit more than 1 DEDENT token.

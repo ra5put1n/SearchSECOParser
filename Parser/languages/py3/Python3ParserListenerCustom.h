@@ -42,9 +42,7 @@ private:
     Python3Parser *parser;
 	antlr4::TokenStreamRewriter* tsr;
 	size_t start, stop;
-	std::map<std::string,antlr4::Token*> funccallTokens;
-	std::string functionName, functionBody, fileName = "filenametest", funccallName = "";
-	bool inFunction = false, inHeader = false, inFunccall = false;
-
-    std::stack<std::string> postfixOpeningTokens = {};
+	//std::map<std::string,antlr4::Token*> funccallTokens;
+    std::string functionName, functionBody, fileName = "filenametest";//funccallName = "";
+	bool inFunction = false;
 };

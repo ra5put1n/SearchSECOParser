@@ -19,7 +19,6 @@ CustomPython3Listener::CustomPython3Listener(Python3Parser *parser, antlr4::Toke
 
 void CustomPython3Listener::enterFuncdef(Python3Parser::FuncdefContext *ctx)
 {
-    inHeader = true;
     functionName = "";
     start = ctx->start->getLine();
 }
@@ -27,14 +26,13 @@ void CustomPython3Listener::enterFuncdef(Python3Parser::FuncdefContext *ctx)
 void CustomPython3Listener::exitFuncdef(Python3Parser::FuncdefContext *ctx)
 {
     stop = ctx->stop->getLine();
-    std::cout << functionBody << std::endl << std::endl;
+    std::cout << functionBody << std::endl;
     output.push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
     inFunction = false;
 }
 
 void CustomPython3Listener::enterFuncbody(Python3Parser::FuncbodyContext *ctx)
 {
-    inHeader = false;
     inFunction = true;
 }
 
