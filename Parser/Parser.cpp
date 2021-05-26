@@ -9,6 +9,7 @@ Utrecht University within the Software Project course.
 
 #include "loguru/loguru.hpp"
 
+#include "Logger.h"
 #include "Parser.h"
 #include "StringStream.h"
 #include "SrcMLCaller.h"
@@ -22,21 +23,23 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	loguru::set_thread_name("parser");
 
 	
-	LOG_F(INFO, "Sending files to srcML");
+	Logger::logInfo("Starting Parser", __FILE__, __LINE__);
 
+
+	Logger::logDebug("Sending files to SrcML", __FILE__, __LINE__);
 	StringStream* stream = SrcMLCaller::startSrcML(path.c_str(), numberThreads);
+	Logger::logDebug("Received stream from srcML", __FILE__, __LINE__);
 
-	LOG_F(INFO, "Received stream from srcML");
-	LOG_F(INFO, "Sending stream to Xml Parser");
-
+	Logger::logDebug("Sending stream to Xml Parser", __FILE__, __LINE__);
 	// Give XmlParser the path with / instead of \ for finding files.
 	std::replace(path.begin(), path.end(), '\\', '/');
 	XmlParser xmlParser = XmlParser(path);
 
 	std::vector<HashData> hashes = xmlParser.parseXML(stream);
+	Logger::logDebug("Hashes received from Parser, returning", __FILE__, __LINE__);
 	
-	LOG_F(INFO, "Hashes received from Parser, returning");
-	
+	Logger::logInfo("SrcML parsing finished, methods found: " + hashes.size(), __FILE__, __LINE__);
+
 
 	antlrParsing pser;
 	std::vector<HashData> hashes2 = pser.parseDir(path);

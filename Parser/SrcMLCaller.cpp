@@ -9,8 +9,10 @@ Utrecht University within the Software Project course.
 #include <stdexcept>
 #include <string>
 #include <array>
-#include "SrcMLCaller.h"
 #include <thread>
+
+#include "Logger.h"
+#include "SrcMLCaller.h"
 
 #define BUFFER_SIZE 1024
 
@@ -49,7 +51,9 @@ void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 
 	if (!pipe)
 	{
-		throw std::runtime_error("popen() failed!");
+		Logger::logWarn("Popen() failed, can't call SrcML, returning", __FILE__, __LINE__);
+		stream->setInputEnded(true);
+		return;
 	}
 
 	// Amount of data read, is less then bufferSize if output ends.

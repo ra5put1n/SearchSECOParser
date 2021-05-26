@@ -16,7 +16,7 @@ Utrecht University within the Software Project course.
 
 #include "antlr4-runtime.h"
 
-#include "loguru/loguru.hpp"
+#include "Logger.h"
 
 #include "antlrParser.h"
 #include "languages/LanguageBase.h"
@@ -140,7 +140,7 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 			catch (const std::exception& e) 
 			{
 				std::string log = "Can't convert file" + filepath + " to utf-8, skipping \n Error: " + e.what();
-				LOG_F(WARNING, "%s", log.c_str());
+				Logger::logWarn(log.c_str(), __FILE__, __LINE__);
 				return;
 			}
 		}
@@ -150,7 +150,7 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		if (lf == nullptr)
 		{
 			std::string log = "Can't find parser for file " + filepath + ", skipping";
-			LOG_F(INFO, "%s", log.c_str());
+			Logger::logInfo(log.c_str(), __FILE__, __LINE__);
 			return;
 		}
 		 
@@ -204,7 +204,7 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 	else
 	{
 		std::string log = "Can't open file: " + filepath + ", skipping";
-		LOG_F(ERROR, "%s", log.c_str());
+		Logger::logWarn(log.c_str(), __FILE__, __LINE__);
 	}
 }
 
