@@ -181,7 +181,7 @@ varargslist: (vfpdef ('=' test)? (',' vfpdef ('=' test)?)* (',' (
 );
 vfpdef: name;
 
-stmt: simple_stmt | compound_stmt;
+stmt: simple_stmt | compound_stmt | INDENT NEWLINE DEDENT;	//Custom
 simple_stmt: small_stmt (';' small_stmt)* (';')? NEWLINE;
 small_stmt: (expr_stmt | del_stmt | pass_stmt | flow_stmt |
              import_stmt | global_stmt | nonlocal_stmt | assert_stmt);
