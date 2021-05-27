@@ -58,3 +58,21 @@ void CustomPython3Listener::enterFunccallname(Python3Parser::FunccallnameContext
 {
     tsr->replace(ctx->start, "funccall");
 }
+
+void CustomPython3Listener::enterExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx)
+{
+    inSingleStatement = true;
+}
+
+void CustomPython3Listener::exitExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx)
+{
+    inSingleStatement = false;
+}
+
+void CustomPython3Listener::enterString(Python3Parser::StringContext *ctx)
+{
+    if (inSingleStatement)
+    {
+        tsr->replace(ctx->start, "");
+    }
+}

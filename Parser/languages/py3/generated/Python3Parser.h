@@ -38,26 +38,27 @@ public:
     RuleDecorators = 4, RuleDecorated = 5, RuleAsync_funcdef = 6, RuleFuncdef = 7, 
     RuleFuncbody = 8, RuleParameters = 9, RuleTypedargslist = 10, RuleTfpdef = 11, 
     RuleVarargslist = 12, RuleVfpdef = 13, RuleStmt = 14, RuleSimple_stmt = 15, 
-    RuleSmall_stmt = 16, RuleExpr_stmt = 17, RuleAnnassign = 18, RuleTestlist_star_expr = 19, 
-    RuleAugassign = 20, RuleDel_stmt = 21, RulePass_stmt = 22, RuleFlow_stmt = 23, 
-    RuleBreak_stmt = 24, RuleContinue_stmt = 25, RuleReturn_stmt = 26, RuleYield_stmt = 27, 
-    RuleRaise_stmt = 28, RuleImport_stmt = 29, RuleImport_name = 30, RuleImport_from = 31, 
-    RuleImport_as_name = 32, RuleDotted_as_name = 33, RuleImport_as_names = 34, 
-    RuleDotted_as_names = 35, RuleDotted_name = 36, RuleGlobal_stmt = 37, 
-    RuleNonlocal_stmt = 38, RuleAssert_stmt = 39, RuleCompound_stmt = 40, 
-    RuleAsync_stmt = 41, RuleIf_stmt = 42, RuleWhile_stmt = 43, RuleFor_stmt = 44, 
-    RuleTry_stmt = 45, RuleWith_stmt = 46, RuleWith_item = 47, RuleExcept_clause = 48, 
-    RuleSuite = 49, RuleTest = 50, RuleTest_nocond = 51, RuleLambdef = 52, 
-    RuleLambdef_nocond = 53, RuleOr_test = 54, RuleAnd_test = 55, RuleNot_test = 56, 
-    RuleComparison = 57, RuleComp_op = 58, RuleStar_expr = 59, RuleExpr = 60, 
-    RuleXor_expr = 61, RuleAnd_expr = 62, RuleShift_expr = 63, RuleArith_expr = 64, 
-    RuleTerm = 65, RuleFactor = 66, RulePower = 67, RuleAtom_expr = 68, 
-    RuleFunccall = 69, RuleAtom = 70, RuleName = 71, RuleFunccallname = 72, 
-    RuleTestlist_comp = 73, RuleTrailer = 74, RuleSubscriptlist = 75, RuleSubscript = 76, 
-    RuleSliceop = 77, RuleExprlist = 78, RuleTestlist = 79, RuleDictorsetmaker = 80, 
-    RuleClassdef = 81, RuleArglist = 82, RuleArgument = 83, RuleComp_iter = 84, 
-    RuleComp_for = 85, RuleComp_if = 86, RuleEncoding_decl = 87, RuleYield_expr = 88, 
-    RuleYield_arg = 89
+    RuleSmall_stmt = 16, RuleExpr_stmt = 17, RuleExpr_stmt_single = 18, 
+    RuleExpr_stmt_multi = 19, RuleAnnassign = 20, RuleTestlist_star_expr = 21, 
+    RuleAugassign = 22, RuleDel_stmt = 23, RulePass_stmt = 24, RuleFlow_stmt = 25, 
+    RuleBreak_stmt = 26, RuleContinue_stmt = 27, RuleReturn_stmt = 28, RuleYield_stmt = 29, 
+    RuleRaise_stmt = 30, RuleImport_stmt = 31, RuleImport_name = 32, RuleImport_from = 33, 
+    RuleImport_as_name = 34, RuleDotted_as_name = 35, RuleImport_as_names = 36, 
+    RuleDotted_as_names = 37, RuleDotted_name = 38, RuleGlobal_stmt = 39, 
+    RuleNonlocal_stmt = 40, RuleAssert_stmt = 41, RuleCompound_stmt = 42, 
+    RuleAsync_stmt = 43, RuleIf_stmt = 44, RuleWhile_stmt = 45, RuleFor_stmt = 46, 
+    RuleTry_stmt = 47, RuleWith_stmt = 48, RuleWith_item = 49, RuleExcept_clause = 50, 
+    RuleSuite = 51, RuleTest = 52, RuleTest_nocond = 53, RuleLambdef = 54, 
+    RuleLambdef_nocond = 55, RuleOr_test = 56, RuleAnd_test = 57, RuleNot_test = 58, 
+    RuleComparison = 59, RuleComp_op = 60, RuleStar_expr = 61, RuleExpr = 62, 
+    RuleXor_expr = 63, RuleAnd_expr = 64, RuleShift_expr = 65, RuleArith_expr = 66, 
+    RuleTerm = 67, RuleFactor = 68, RulePower = 69, RuleAtom_expr = 70, 
+    RuleFunccall = 71, RuleAtom = 72, RuleString = 73, RuleName = 74, RuleFunccallname = 75, 
+    RuleTestlist_comp = 76, RuleTrailer = 77, RuleSubscriptlist = 78, RuleSubscript = 79, 
+    RuleSliceop = 80, RuleExprlist = 81, RuleTestlist = 82, RuleDictorsetmaker = 83, 
+    RuleClassdef = 84, RuleArglist = 85, RuleArgument = 86, RuleComp_iter = 87, 
+    RuleComp_for = 88, RuleComp_if = 89, RuleEncoding_decl = 90, RuleYield_expr = 91, 
+    RuleYield_arg = 92
   };
 
   explicit Python3Parser(antlr4::TokenStream *input);
@@ -88,6 +89,8 @@ public:
   class Simple_stmtContext;
   class Small_stmtContext;
   class Expr_stmtContext;
+  class Expr_stmt_singleContext;
+  class Expr_stmt_multiContext;
   class AnnassignContext;
   class Testlist_star_exprContext;
   class AugassignContext;
@@ -141,6 +144,7 @@ public:
   class Atom_exprContext;
   class FunccallContext;
   class AtomContext;
+  class StringContext;
   class NameContext;
   class FunccallnameContext;
   class Testlist_compContext;
@@ -479,6 +483,37 @@ public:
   public:
     Expr_stmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    Expr_stmt_singleContext *expr_stmt_single();
+    Expr_stmt_multiContext *expr_stmt_multi();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Expr_stmtContext* expr_stmt();
+
+  class  Expr_stmt_singleContext : public antlr4::ParserRuleContext {
+  public:
+    Expr_stmt_singleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    Testlist_star_exprContext *testlist_star_expr();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Expr_stmt_singleContext* expr_stmt_single();
+
+  class  Expr_stmt_multiContext : public antlr4::ParserRuleContext {
+  public:
+    Expr_stmt_multiContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
     std::vector<Testlist_star_exprContext *> testlist_star_expr();
     Testlist_star_exprContext* testlist_star_expr(size_t i);
     AnnassignContext *annassign();
@@ -496,7 +531,7 @@ public:
    
   };
 
-  Expr_stmtContext* expr_stmt();
+  Expr_stmt_multiContext* expr_stmt_multi();
 
   class  AnnassignContext : public antlr4::ParserRuleContext {
   public:
@@ -1496,8 +1531,8 @@ public:
     Yield_exprContext *yield_expr();
     Testlist_compContext *testlist_comp();
     DictorsetmakerContext *dictorsetmaker();
-    std::vector<antlr4::tree::TerminalNode *> STRING();
-    antlr4::tree::TerminalNode* STRING(size_t i);
+    std::vector<StringContext *> string();
+    StringContext* string(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1507,6 +1542,21 @@ public:
   };
 
   AtomContext* atom();
+
+  class  StringContext : public antlr4::ParserRuleContext {
+  public:
+    StringContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *STRING();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  StringContext* string();
 
   class  NameContext : public antlr4::ParserRuleContext {
   public:

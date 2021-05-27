@@ -70,6 +70,12 @@ public:
   virtual void enterExpr_stmt(Python3Parser::Expr_stmtContext * /*ctx*/) override { }
   virtual void exitExpr_stmt(Python3Parser::Expr_stmtContext * /*ctx*/) override { }
 
+  virtual void enterExpr_stmt_single(Python3Parser::Expr_stmt_singleContext * /*ctx*/) override { }
+  virtual void exitExpr_stmt_single(Python3Parser::Expr_stmt_singleContext * /*ctx*/) override { }
+
+  virtual void enterExpr_stmt_multi(Python3Parser::Expr_stmt_multiContext * /*ctx*/) override { }
+  virtual void exitExpr_stmt_multi(Python3Parser::Expr_stmt_multiContext * /*ctx*/) override { }
+
   virtual void enterAnnassign(Python3Parser::AnnassignContext * /*ctx*/) override { }
   virtual void exitAnnassign(Python3Parser::AnnassignContext * /*ctx*/) override { }
 
@@ -228,6 +234,9 @@ public:
 
   virtual void enterAtom(Python3Parser::AtomContext * /*ctx*/) override { }
   virtual void exitAtom(Python3Parser::AtomContext * /*ctx*/) override { }
+
+  virtual void enterString(Python3Parser::StringContext * /*ctx*/) override { }
+  virtual void exitString(Python3Parser::StringContext * /*ctx*/) override { }
 
   virtual void enterName(Python3Parser::NameContext * /*ctx*/) override { }
   virtual void exitName(Python3Parser::NameContext * /*ctx*/) override { }

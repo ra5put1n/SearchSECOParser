@@ -185,8 +185,10 @@ stmt: simple_stmt | compound_stmt;
 simple_stmt: small_stmt (';' small_stmt)* (';')? NEWLINE;
 small_stmt: (expr_stmt | del_stmt | pass_stmt | flow_stmt |
              import_stmt | global_stmt | nonlocal_stmt | assert_stmt);
-expr_stmt: testlist_star_expr (annassign | augassign (yield_expr|testlist) |
-                     ('=' (yield_expr|testlist_star_expr))*);
+expr_stmt: expr_stmt_single | expr_stmt_multi;	// Custom
+expr_stmt_single: testlist_star_expr;	// Custom
+expr_stmt_multi: testlist_star_expr (annassign | augassign (yield_expr|testlist) |
+                     ('=' (yield_expr|testlist_star_expr))+);	// Custom
 annassign: ':' test ('=' test)?;
 testlist_star_expr: (test|star_expr) (',' (test|star_expr))* (',')?;
 augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' |
@@ -255,7 +257,8 @@ funccall: funccallname '(' (arglist)? ')';	// Custom.
 atom: ('(' (yield_expr|testlist_comp)? ')' |
        '[' (testlist_comp)? ']' |
        '{' (dictorsetmaker)? '}' |
-       name | NUMBER | STRING+ | '...' | 'None' | 'True' | 'False');
+       name | NUMBER | string+ | '...' | 'None' | 'True' | 'False');
+string: STRING;	//Custom
 name: NAME; //Custom
 funccallname: NAME; //Custom
 testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* (',')? );

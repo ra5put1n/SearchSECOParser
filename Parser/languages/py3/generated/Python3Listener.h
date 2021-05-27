@@ -68,6 +68,12 @@ public:
   virtual void enterExpr_stmt(Python3Parser::Expr_stmtContext *ctx) = 0;
   virtual void exitExpr_stmt(Python3Parser::Expr_stmtContext *ctx) = 0;
 
+  virtual void enterExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx) = 0;
+  virtual void exitExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx) = 0;
+
+  virtual void enterExpr_stmt_multi(Python3Parser::Expr_stmt_multiContext *ctx) = 0;
+  virtual void exitExpr_stmt_multi(Python3Parser::Expr_stmt_multiContext *ctx) = 0;
+
   virtual void enterAnnassign(Python3Parser::AnnassignContext *ctx) = 0;
   virtual void exitAnnassign(Python3Parser::AnnassignContext *ctx) = 0;
 
@@ -226,6 +232,9 @@ public:
 
   virtual void enterAtom(Python3Parser::AtomContext *ctx) = 0;
   virtual void exitAtom(Python3Parser::AtomContext *ctx) = 0;
+
+  virtual void enterString(Python3Parser::StringContext *ctx) = 0;
+  virtual void exitString(Python3Parser::StringContext *ctx) = 0;
 
   virtual void enterName(Python3Parser::NameContext *ctx) = 0;
   virtual void exitName(Python3Parser::NameContext *ctx) = 0;

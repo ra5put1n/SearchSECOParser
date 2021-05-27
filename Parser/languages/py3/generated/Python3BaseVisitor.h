@@ -87,6 +87,14 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExpr_stmt_multi(Python3Parser::Expr_stmt_multiContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitAnnassign(Python3Parser::AnnassignContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -296,6 +304,10 @@ public:
   }
 
   virtual antlrcpp::Any visitAtom(Python3Parser::AtomContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitString(Python3Parser::StringContext *ctx) override {
     return visitChildren(ctx);
   }
 

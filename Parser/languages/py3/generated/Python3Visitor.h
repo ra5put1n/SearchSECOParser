@@ -55,6 +55,10 @@ public:
 
     virtual antlrcpp::Any visitExpr_stmt(Python3Parser::Expr_stmtContext *context) = 0;
 
+    virtual antlrcpp::Any visitExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *context) = 0;
+
+    virtual antlrcpp::Any visitExpr_stmt_multi(Python3Parser::Expr_stmt_multiContext *context) = 0;
+
     virtual antlrcpp::Any visitAnnassign(Python3Parser::AnnassignContext *context) = 0;
 
     virtual antlrcpp::Any visitTestlist_star_expr(Python3Parser::Testlist_star_exprContext *context) = 0;
@@ -160,6 +164,8 @@ public:
     virtual antlrcpp::Any visitFunccall(Python3Parser::FunccallContext *context) = 0;
 
     virtual antlrcpp::Any visitAtom(Python3Parser::AtomContext *context) = 0;
+
+    virtual antlrcpp::Any visitString(Python3Parser::StringContext *context) = 0;
 
     virtual antlrcpp::Any visitName(Python3Parser::NameContext *context) = 0;
 

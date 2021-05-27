@@ -37,6 +37,10 @@ public:
 
     virtual void enterFunccallname(Python3Parser::FunccallnameContext *ctx) override;
 
+    virtual void enterExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx) override;
+    virtual void exitExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx) override;
+
+    virtual void enterString(Python3Parser::StringContext *ctx) override;
 
 private:
     Python3Parser *parser;
@@ -44,5 +48,5 @@ private:
 	size_t start, stop;
 	//std::map<std::string,antlr4::Token*> funccallTokens;
     std::string functionName, functionBody, fileName = "filenametest";//funccallName = "";
-	bool inFunction = false;
+	bool inFunction = false, inSingleStatement = false;
 };
