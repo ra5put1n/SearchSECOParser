@@ -211,12 +211,6 @@
     <ClInclude Include="languages\c\CAntlrImplementation.h">
       <Filter>languages\c</Filter>
     </ClInclude>
-    <ClInclude Include="languages\cpp\CPP14AntlrImplemenation.h">
-      <Filter>languages\cpp</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\py3\Python3AntlrImplemenation.h">
-      <Filter>languages\py3</Filter>
-    </ClInclude>
     <ClInclude Include="languages\py3\Python3ParserListenerCustom.h">
       <Filter>languages\py3</Filter>
     </ClInclude>
@@ -240,6 +234,12 @@
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\py3\Python3AntlrImplementation.h">
+      <Filter>languages\py3</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\cpp\CPP14AntlrImplementation.h">
+      <Filter>languages\cpp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -216,7 +216,7 @@
     <ClInclude Include="AbstractSyntaxToHashable.h" />
     <ClInclude Include="antlrParser.h" />
     <ClInclude Include="HashData.h" />
-    <ClInclude Include="languages\cpp\CPP14AntlrImplemenation.h" />
+    <ClInclude Include="languages\cpp\CPP14AntlrImplementation.h" />
     <ClInclude Include="languages\cpp\CPP14ParserListenerCustom.h" />
     <ClInclude Include="languages\cpp\generated\CPP14Lexer.h" />
     <ClInclude Include="languages\cpp\generated\CPP14Parser.h" />
@@ -238,7 +238,7 @@
     <ClInclude Include="languages\py3\generated\Python3Listener.h" />
     <ClInclude Include="languages\py3\generated\Python3Parser.h" />
     <ClInclude Include="languages\py3\generated\Python3Visitor.h" />
-    <ClInclude Include="languages\py3\Python3AntlrImplemenation.h" />
+    <ClInclude Include="languages\py3\Python3AntlrImplementation.h" />
     <ClInclude Include="languages\py3\Python3ParserListenerCustom.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="loguru\loguru.hpp" />
