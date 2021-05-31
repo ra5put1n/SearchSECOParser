@@ -131,51 +131,51 @@ TEST(integrationCSharp, integrationCSharpBase)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/csharp");
 
-	ASSERT_EQ(hds.size(), 28);
+	ASSERT_EQ(hds.size(), 25);
 
 	HashData hd1 = hds[0];
-	ASSERT_EQ(hd1.functionName, "HelpTekstKleurInstellen");
-	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
-	ASSERT_EQ(hd1.lineNumber, 440);
-	ASSERT_EQ(hd1.lineNumberEnd, 444);
-
-	hd1 = hds[1];
 	ASSERT_EQ(hd1.functionName, "BitmapOpslaan");
 	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
 	ASSERT_EQ(hd1.lineNumber, 446);
-	ASSERT_EQ(hd1.lineNumberEnd, 467);
+	ASSERT_EQ(hd1.lineNumberEnd, 467);	
+	
+	hd1 = hds[1];
+	ASSERT_EQ(hd1.functionName, "HaalInteressantPuntOp");
+	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
+	ASSERT_EQ(hd1.lineNumber, 469);
+	ASSERT_EQ(hd1.lineNumberEnd, 491);
 
-	hd1 = hds[5];
+	hd1 = hds[4];
 	ASSERT_EQ(hd1.functionName, "Smoothing");
 	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
 	ASSERT_EQ(hd1.lineNumber, 562);
 	ASSERT_EQ(hd1.lineNumberEnd, 574);
 
-	hd1 = hds[12];
+	hd1 = hds[11];
 	ASSERT_EQ(hd1.functionName, "berekenMandelbrotPixels");
 	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
 	ASSERT_EQ(hd1.lineNumber, 709);
 	ASSERT_EQ(hd1.lineNumberEnd, 737);
 
-	hd1 = hds[18];
+	hd1 = hds[17];
 	ASSERT_EQ(hd1.functionName, "mandelbrotGetal");
 	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
 	ASSERT_EQ(hd1.lineNumber, 864);
 	ASSERT_EQ(hd1.lineNumberEnd, 908);
 
-	hd1 = hds[21];
-	ASSERT_EQ(hd1.functionName, "BitSet");
+	hd1 = hds[20];
+	ASSERT_EQ(hd1.functionName, "SetMouseState");
 	ASSERT_EQ(hd1.fileName, "game.cs");
-	ASSERT_EQ(hd1.lineNumber, 57);
-	ASSERT_EQ(hd1.lineNumberEnd, 57);
+	ASSERT_EQ(hd1.lineNumber, 76);
+	ASSERT_EQ(hd1.lineNumberEnd, 96);
+
+	hd1 = hds[21];
+	ASSERT_EQ(hd1.functionName, "SetScroll");
+	ASSERT_EQ(hd1.fileName, "game.cs");
+	ASSERT_EQ(hd1.lineNumber, 98);
+	ASSERT_EQ(hd1.lineNumberEnd, 114);
 
 	hd1 = hds[22];
-	ASSERT_EQ(hd1.functionName, "GetBit");
-	ASSERT_EQ(hd1.fileName, "game.cs");
-	ASSERT_EQ(hd1.lineNumber, 64);
-	ASSERT_EQ(hd1.lineNumberEnd, 64);
-
-	hd1 = hds[25];
 	ASSERT_EQ(hd1.functionName, "Init");
 	ASSERT_EQ(hd1.fileName, "game.cs");
 	ASSERT_EQ(hd1.lineNumber, 117);
@@ -187,26 +187,26 @@ TEST(integrationCSharp, integrationCSharpHash)
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/csharp");
 
 	HashData hd1 = hds[0];
-	ASSERT_EQ(hd1.hash, "4de7c18ab0263164be018d48922d7328");
-
-	hd1 = hds[1];
 	ASSERT_EQ(hd1.hash, "685624834b651e79f6fce1edf416d381");
+	
+	hd1 = hds[1];
+	ASSERT_EQ(hd1.hash, "ede20d2efb3a471951edb1448fb5327e");
 
-	hd1 = hds[5];
+	hd1 = hds[4];
 	ASSERT_EQ(hd1.hash, "c479a6bc42ae5efe6374c12d2c6fda67");
 
-	hd1 = hds[12];
+	hd1 = hds[11];
 	ASSERT_EQ(hd1.hash, "09c5c9c6efba9285810be9a57d321472");
 
-	hd1 = hds[18];
+	hd1 = hds[17];
 	ASSERT_EQ(hd1.hash, "b265242c314d87b5f35eb2c78a8e4bd4");
 
+	hd1 = hds[20];
+	ASSERT_EQ(hd1.hash, "21ce4cfb98987174285f2eb09d09a10e");
+
 	hd1 = hds[21];
-	ASSERT_EQ(hd1.hash, "ff82b8114817616459e4281ca990b041");
+	ASSERT_EQ(hd1.hash, "90fe1d33f501ccdb6940e3c3fff6b60c");
 
 	hd1 = hds[22];
-	ASSERT_EQ(hd1.hash, "a75bee732e3aa0f51e89d44fe4941108");
-
-	hd1 = hds[25];
 	ASSERT_EQ(hd1.hash, "df16098f05883dda93d5b6f702935adf");
 }
