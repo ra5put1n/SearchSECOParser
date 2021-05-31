@@ -16,9 +16,9 @@ public:
         antlr4::Lexer* l = lexer(input);
         antlr4::CommonTokenStream* tokens = new antlr4::CommonTokenStream(l);
         tokens->fill();
-        for (auto token : tokens->getTokens()) {
-            std::cout << token->toString() << std::endl;
-        }
+        //for (auto token : tokens->getTokens()) {
+        //    std::cout << token->toString() << std::endl;
+        //}
         antlr4::Parser* p = parser(tokens);
         antlr4::TokenStreamRewriter* rewriter = new antlr4::TokenStreamRewriter(tokens);
         antlr4::tree::ParseTreeListener* e = listener(p, rewriter, filePath);
@@ -26,7 +26,7 @@ public:
         antlr4::tree::ParseTree* t = tree(p);
 
         antlr4::tree::ParseTreeWalker::DEFAULT.walk(e, t);
-        std::cout << t->toStringTree(p, true) << std::endl;
+        //std::cout << t->toStringTree(p, true) << std::endl;
 
         return getHashes(e);
 	}

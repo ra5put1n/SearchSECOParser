@@ -428,9 +428,6 @@ public:
     virtual size_t getRuleIndex() const override;
     Simple_stmtContext *simple_stmt();
     Compound_stmtContext *compound_stmt();
-    antlr4::tree::TerminalNode *INDENT();
-    antlr4::tree::TerminalNode *NEWLINE();
-    antlr4::tree::TerminalNode *DEDENT();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

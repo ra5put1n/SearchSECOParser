@@ -85,7 +85,7 @@ void antlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &output
 LanguageBase* getFacade(std::string fileName)
 {
 	std::experimental::filesystem::path path = std::experimental::filesystem::path(fileName);
-	if (path.extension() == ".c")
+	/*if (path.extension() == ".c")
 	{
 		return new CAntlrImplementation();
 	}
@@ -93,7 +93,7 @@ LanguageBase* getFacade(std::string fileName)
 	{
 		return new CPP14AntlrImplemenation();
     }
-    else if (path.extension() == ".py")
+    else*/ if (path.extension() == ".py")
     {
         return new Python3AntlrImplemenation();
     }

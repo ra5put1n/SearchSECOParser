@@ -26,7 +26,11 @@ void CustomPython3Listener::enterFuncdef(Python3Parser::FuncdefContext *ctx)
 void CustomPython3Listener::exitFuncdef(Python3Parser::FuncdefContext *ctx)
 {
     stop = ctx->stop->getLine();
-    std::cout << functionBody << std::endl;
+
+    // Remove all newlines and carriage returns.
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\n'), functionBody.end());
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\r'), functionBody.end());
+    //std::cout << functionBody << std::endl;
     output.push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
     inFunction = false;
 }
