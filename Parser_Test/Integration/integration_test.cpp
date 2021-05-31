@@ -217,12 +217,10 @@ TEST(integrationPython3, integrationPython3Base)
     ASSERT_EQ(hds.size(), 25);
 
     // Check regardless of permutation because of multithreading.
-    std::map<HashData, int> hm;
     for (int i = 0; i < hds.size(); i++)
     {
         // Ignore hashes for now.
         hds[i].hash = "";
-        hm[hds[i]]++;
     }
 
     // Check for several expected functions.
@@ -244,8 +242,7 @@ TEST(integrationPython3, integrationPython3Base)
 
     for (int i = 0; i < hds_exp.size(); i++)
     {
-        ASSERT_NE(hm[hds_exp[i]], 0);
-        hm[hds_exp[i]]--;
+        ASSERT_NE(std::find(begin(hds), end(hds), hds_exp[i]), end(hds));
     }
 }
 
