@@ -4,6 +4,7 @@ set(PARSER_HEADER_LIST
    AbstractSyntaxToHashable.h
    antlrParser.h
    HashData.h
+   Logger.h
    Node.h
    Parser.h
    SrcMLCaller.h
@@ -42,6 +43,7 @@ set(PARSER_HEADER_LIST
 add_library(parser
   AbstractSyntaxToHashable.cpp
   antlrParser.cpp
+  Logger.cpp
   Node.cpp
   Parser.cpp
   SrcMLCaller.cpp
