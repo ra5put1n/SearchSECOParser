@@ -30,12 +30,12 @@ set(PARSER_HEADER_LIST
    ./languages/cpp/generated/CPP14ParserVisitor.h
    ./languages/py3/Python3AntlrImplementation.h
    ./languages/py3/Python3ParserListenerCustom.h
-   ./languages/py3/generated/Python3ParserBaseListener.h
-   ./languages/py3/generated/Python3ParserBaseVisitor.h
+   ./languages/py3/generated/Python3BaseListener.h
+   ./languages/py3/generated/Python3BaseVisitor.h
    ./languages/py3/generated/Python3Lexer.h
-   ./languages/py3/generated/Python3ParserListener.h
+   ./languages/py3/generated/Python3Listener.h
    ./languages/py3/generated/Python3Parser.h
-   ./languages/py3/generated/CPython3ParserVisitor.h
+   ./languages/py3/generated/CPython3Visitor.h
 )
 
 
@@ -65,12 +65,12 @@ add_library(parser
   ./languages/cpp/generated/CPP14Parser.cpp
   ./languages/cpp/generated/CPP14ParserVisitor.cpp
   ./languages/py3/Python3ParserListenerCustom.cpp
-  ./languages/py3/generated/Python3ParserBaseListener.cpp
-  ./languages/py3/generated/Python3ParserBaseVisitor.cpp
+  ./languages/py3/generated/Python3BaseListener.cpp
+  ./languages/py3/generated/Python3BaseVisitor.cpp
   ./languages/py3/generated/Python3Lexer.cpp
-  ./languages/py3/generated/Python3ParserListener.cpp
+  ./languages/py3/generated/Python3Listener.cpp
   ./languages/py3/generated/Python3Parser.cpp
-  ./languages/py3/generated/Python3ParserVisitor.cpp
+  ./languages/py3/generated/Python3Visitor.cpp
   ${PARSER_HEADER_LIST}
 )
 
