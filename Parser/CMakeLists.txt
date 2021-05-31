@@ -35,7 +35,7 @@ set(PARSER_HEADER_LIST
    ./languages/py3/generated/Python3Lexer.h
    ./languages/py3/generated/Python3Listener.h
    ./languages/py3/generated/Python3Parser.h
-   ./languages/py3/generated/CPython3Visitor.h
+   ./languages/py3/generated/Python3Visitor.h
 )
 
 
