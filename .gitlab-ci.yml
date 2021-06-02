@@ -17,7 +17,7 @@ build_install:
     - cd build
     - cmake ../
     - cmake --build .
-    - cp /usr/lib/x86_64-linux-gnu/libantlr4-runtime.so /build/Parser_Test/Integration
+    - cp /usr/lib/x86_64-linux-gnu/libantlr4-runtime.so /Parser_Test/Integration
   artifacts:
     paths:
       - build/StandAlone/parser_standalone
