@@ -83,7 +83,7 @@ if(WIN32)
 else()
   find_library(antlr NAMES antlr antlr4 antlr4-runtime)
   target_link_libraries(parser PUBLIC ${antlr} stdc++fs)
-  target_include_directories(parser PUBLIC ${ANTLR4_INCLUDE_DIR} )
+  include_directories(/usr/include/antlr4-runtime)
 endif()
 
 
