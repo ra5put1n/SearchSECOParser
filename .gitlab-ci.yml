@@ -13,8 +13,8 @@ build_install:
     - sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list                      
     - apt-get update
     - apt-get -y install gcc g++ cmake autoconf git #libantlr4-runtime-dev libantlr4-runtime4.8
-    - apt-get build-dep antlr4-cpp-runtime
-    - apt-get source --compile antlr4-cpp-runtime
+    - apt-get -y build-dep antlr4-cpp-runtime
+    - apt-get -y source --compile antlr4-cpp-runtime
   script:
     - echo "Install complete."
     - mkdir build
