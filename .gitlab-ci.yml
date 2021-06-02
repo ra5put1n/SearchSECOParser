@@ -10,7 +10,7 @@ build_install:
     DEBIAN_FRONTEND: "noninteractive"
   before_script:
     - apt-get update
-    - apt-get -y install gcc g++ cmake autoconf git libantlr4-runtime-dev
+    - apt-get -y install gcc g++ cmake autoconf git libantlr4-runtime-dev libantlr4-runtime4.8
   script:
     - echo "Install complete."
     - mkdir build

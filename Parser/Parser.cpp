@@ -38,7 +38,8 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	std::vector<HashData> hashes = xmlParser.parseXML(stream);
 	Logger::logDebug("Hashes received from Parser, returning", __FILE__, __LINE__);
 	
-	Logger::logDebug("SrcML parsing finished, number of methods found: " + hashes.size(), __FILE__, __LINE__);
+	std::string log = "SrcML parsing finished, number of methods found: " + std::to_string(hashes.size());
+	Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 
 
 	antlrParsing pser;
@@ -47,12 +48,14 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 
 	std::vector<HashData> hashes2 = pser.parseDir(path);
 
-	Logger::logDebug("Custom parser parsing finished, number of methods found: " + hashes2.size(), __FILE__, __LINE__);
+	log = "Custom parser parsing finished, number of methods found: " + std::to_string(hashes2.size());
+	Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 
 
 	hashes.insert(hashes.end(), hashes2.begin(), hashes2.end());
 
-	Logger::logDebug("Parsing finished, total number of methods found: " + hashes.size(), __FILE__, __LINE__);
+	log = "Parsing finished, total number of methods found: " + std::to_string(hashes.size());
+	Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 
 	return hashes;
 }
