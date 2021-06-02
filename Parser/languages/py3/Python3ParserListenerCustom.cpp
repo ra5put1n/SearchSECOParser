@@ -7,6 +7,10 @@ Utrecht University within the Software Project course.
 #include "Python3ParserListenerCustom.h"
 #include "../../md5/md5.h"
 
+#define MIN_FUNCTION_CHARACTERS 50
+#define MIN_FUNCTION_LINES 6
+
+
 CustomPython3Listener::CustomPython3Listener(Python3Parser *parser, antlr4::TokenStreamRewriter *tsr,
                                              std::string fileName)
 {
@@ -31,7 +35,10 @@ void CustomPython3Listener::exitFuncdef(Python3Parser::FuncdefContext *ctx)
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\n'), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\r'), functionBody.end());
     //std::cout << functionBody << std::endl;
-    output.push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
+    if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
+    {
+        output.push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
+    }
     inFunction = false;
 }
 
