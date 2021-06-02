@@ -9,6 +9,8 @@ build_install:
   variables:
     DEBIAN_FRONTEND: "noninteractive"
   before_script:
+    - cp /etc/apt/sources.list /etc/apt/sources.list~
+    - sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list                      
     - apt-get update
     - apt-get -y install gcc g++ cmake autoconf git #libantlr4-runtime-dev libantlr4-runtime4.8
     - apt-get build-dep antlr4-cpp-runtime
