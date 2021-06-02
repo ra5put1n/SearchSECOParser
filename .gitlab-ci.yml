@@ -17,11 +17,13 @@ build_install:
     - cd build
     - cmake ../
     - cmake --build .
+    - cp /usr/lib/x86_64-linux-gnu/libantlr4-runtime.so /build/Parser_Test/Integration
   artifacts:
     paths:
       - build/StandAlone/parser_standalone
       - build/Parser_Test/parser_tests
       - build/Parser_Test/Integration/parser_tests_integration
+      - build/Parser_Test/Integration/libantlr4-runtime.so
       - build/Parser_Test/Integration/data
     expire_in: 1 day
       
