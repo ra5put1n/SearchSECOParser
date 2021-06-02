@@ -1,3 +1,17 @@
+# This program has been developed by students from the bachelor Computer Science at
+# Utrecht University within the Software Project course.
+# © Copyright Utrecht University (Department of Information and Computing Sciences)
+
+message("Building the parser...")
+if(NOT DEFINED LOGURU_INCLUDED)
+   set(LOGURU_FILES
+   loguru/loguru.hpp
+   loguru/loguru.cpp
+   )
+   set(LOGURU_INCLUDED true PARENT_SCOPE)
+   message("Including loguru files...")
+endif()
+
 set(PARSER_HEADER_LIST
    AbstractSyntaxToHashable.h
    HashData.h
@@ -8,7 +22,6 @@ set(PARSER_HEADER_LIST
    Tag.h
    XmlParser.h
    ./md5/md5.h
-   ./loguru/loguru.hpp
 )
 
 
@@ -21,7 +34,6 @@ add_library(parser
   Tag.cpp
   XmlParser.cpp
   ./md5/md5.cpp
-  ./loguru/loguru.cpp
   ${PARSER_HEADER_LIST}
+  ${LOGURU_FILES}
 )
-
