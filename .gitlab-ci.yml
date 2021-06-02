@@ -18,7 +18,6 @@ build_install:
     - cmake ../
     - cmake --build .
     - cd /usr/lib/x86_64-linux-gnu
-    - cp libantlr4-runtime.so libantlr4-runtime.so.4.8
     - cp libantlr4-runtime.so /builds/searchseco/parser/build/Parser_Test/Integration
     - cd /builds/searchseco/parser/build/Parser_Test/Integration
     - mv libantlr4-runtime.so libantlr4-runtime.so.4.8
