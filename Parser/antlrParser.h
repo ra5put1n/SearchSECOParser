@@ -33,7 +33,7 @@ private:
     /// <param name = "files"> The queue of files to parse. </param>
     /// <param name = "queueLock"> Mutex that restricts access to files queue. </param>
     static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
-                                 std::mutex &queueLock);
+                                 std::mutex &queueLock, std::string path);
     
     /// <summary>
     /// Parses a single file.
@@ -41,5 +41,5 @@ private:
     /// <param name = "filepath"> The file to be parsed. </param>
     /// <param name = "meths"> The returned HashData. </param>
     /// <param name = "outputLock"> Mutex that restricts access to meths. </param>
-    static void parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock);
+    static void parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path);
 };

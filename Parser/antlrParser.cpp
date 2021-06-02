@@ -41,7 +41,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath)
 	for (const auto &path : dirIter)
 	{
 		std::string s = (path.path()).string();
-		if (path.path().has_extension())
+		if (path.path().has_extension() && path.path().extension() == ".py")
 		{
 			files.push(s);
 		}
@@ -51,7 +51,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath)
 	for (int i = 0; i < MAX_THREADS; i++)
 	{
 		threads.push_back(std::thread(&antlrParsing::singleThread, std::ref(meths), std::ref(outputLock),
-									  std::ref(files), std::ref(queueLock)));
+									  std::ref(files), std::ref(queueLock), std::ref(repoPath)));
 	}
 
 	// Wait on threads to finish.
@@ -64,7 +64,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath)
 }
 
 void antlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
-								std::mutex &queueLock)
+								std::mutex &queueLock, std::string path)
 {
 	while (true)
 	{
@@ -78,7 +78,7 @@ void antlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &output
 		std::string file = files.front();
 		files.pop();
 		queueLock.unlock();
-		parseSingleFile(file, meths, outputLock);
+		parseSingleFile(file, meths, outputLock, path);
 	}
 }
 
@@ -111,7 +111,7 @@ std::string toUtf8(const std::string& str, const std::locale& loc = std::locale{
 	return wcvt{}.to_bytes(wstr.data(), wstr.data() + wstr.size());
 }
 
-void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock)
+void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path)
 {
 	std::ifstream file(filepath);
 	if (file.is_open())
@@ -135,7 +135,7 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		{
 			try
 			{
-				data = to_utf8(buffer);
+				data = toUtf8(buffer);
 			}
 			catch (const std::exception& e) 
 			{
@@ -186,7 +186,7 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 
 		//antlr4::tree::ParseTreeWalker::DEFAULT.walk(extractor, tree);
 
-		std::vector<HashData> output = lf->parseData(data, filepath);
+		std::vector<HashData> output = lf->parseData(data, filepath.erase(0,path.length() + 1));
 
 		outputLock.lock();
 		meths.insert(meths.end(), output.begin(), output.end());
