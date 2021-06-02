@@ -20,17 +20,23 @@ Utrecht University within the Software Project course.
 
 #include "antlrParser.h"
 #include "languages/LanguageBase.h"
-#include "languages/c/CAntlrImplementation.h"
-#include "languages/cpp/CPP14AntlrImplementation.h"
+//#include "languages/c/CAntlrImplementation.h"
+//#include "languages/cpp/CPP14AntlrImplementation.h"
 #include "languages/py3/Python3AntlrImplementation.h"
 
+#define DEFAULT_NUMBER_THREADS 16
+
 // Method practically copied from Spider Revisited.
-std::vector<HashData> antlrParsing::parseDir(std::string repoPath)
+std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfThreads)
 {
 	std::vector<HashData> meths;
 	std::mutex outputLock;
-
 	std::vector<std::thread> threads;
+
+	if (numberOfThreads == -1)
+	{
+		numberOfThreads = DEFAULT_NUMBER_THREADS;
+	}
 
 	// Thread-safe queue (with lock).
 	std::queue<std::string> files;
@@ -48,7 +54,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath)
 	}
 
 	// Construct threads to process the queue.
-	for (int i = 0; i < MAX_THREADS; i++)
+	for (int i = 0; i < numberOfThreads; i++)
 	{
 		threads.push_back(std::thread(&antlrParsing::singleThread, std::ref(meths), std::ref(outputLock),
 									  std::ref(files), std::ref(queueLock), std::ref(repoPath)));

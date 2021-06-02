@@ -18,11 +18,13 @@ Utrecht University within the Software Project course.
 class antlrParsing
 {
 public:
-    /// <summary>
+	/// <summary>
     /// Parses all parseable files in given directory.
     /// </summary>
     /// <param name = "repoPath"> The directory to be parsed. </param>
-	static std::vector<HashData> parseDir(std::string repoPath);
+    /// <param name="numberOfThreads"> Max amount of threads to use</param>
+	/// <returns></returns>
+	static std::vector<HashData> parseDir(std::string repoPath, int numberOfThreads);
 
 private:
     /// <summary>

@@ -21,7 +21,6 @@ Utrecht University within the Software Project course.
 std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {
 	loguru::set_thread_name("parser");
-
 	
 	Logger::logInfo("Starting Parser", __FILE__, __LINE__);
 
@@ -46,7 +45,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 
 	Logger::logDebug("Starting custom parser ", __FILE__, __LINE__);
 
-	std::vector<HashData> hashes2 = pser.parseDir(path);
+	std::vector<HashData> hashes2 = pser.parseDir(path, numberThreads);
 
 	log = "Custom parser parsing finished, number of methods found: " + std::to_string(hashes2.size());
 	Logger::logDebug(log.c_str(), __FILE__, __LINE__);
