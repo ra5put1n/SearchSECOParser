@@ -8,7 +8,7 @@ Utrecht University within the Software Project course.
 
 #include "antlr4-runtime.h"
 #include "../HashData.h"
-
+#include "../Logger.h"
 
 class LanguageBase
 {
@@ -18,18 +18,51 @@ public:
         antlr4::ANTLRInputStream* input = new antlr4::ANTLRInputStream(data);
 
         antlr4::Lexer* l = lexer(input);
+        l->removeErrorListeners();
         antlr4::CommonTokenStream* tokens = new antlr4::CommonTokenStream(l);
-        tokens->fill();
+
+        try
+        {
+            tokens->fill();
+        }
+        catch (const std::exception& e)
+        {
+            std::string log = "Error while tokenizing file: " + filePath + ", skipping \n Error: " + e.what();
+            Logger::logWarn(log.c_str(), __FILE__, __LINE__);
+            return std::vector<HashData>();
+        }
+
         //for (auto token : tokens->getTokens()) {
         //    std::cout << token->toString() << std::endl;
         //}
         antlr4::Parser* p = parser(tokens);
+        p->removeErrorListeners();
         antlr4::TokenStreamRewriter* rewriter = new antlr4::TokenStreamRewriter(tokens);
         antlr4::tree::ParseTreeListener* e = listener(p, rewriter, filePath);
+        antlr4::tree::ParseTree* t;
 
-        antlr4::tree::ParseTree* t = tree(p);
+        try
+        {
+            t = tree(p);
+        }
+        catch (const std::exception& e)
+        {
+            std::string log = "Error while Parsing file: " + filePath + ", skipping \n Error: " + e.what();
+            Logger::logWarn(log.c_str(), __FILE__, __LINE__);
+            return std::vector<HashData>();
+        }       
 
-        antlr4::tree::ParseTreeWalker::DEFAULT.walk(e, t);
+        try
+        {
+            antlr4::tree::ParseTreeWalker::DEFAULT.walk(e, t);
+        }
+        catch (const std::exception& e)
+        {
+            std::string log = "Error while walking file: " + filePath + ", skipping \n Error: " + e.what();
+            Logger::logWarn(log.c_str(), __FILE__, __LINE__);
+            return std::vector<HashData>();
+        }
+
         //std::cout << t->toStringTree(p, true) << std::endl;
 
         return getHashes(e);

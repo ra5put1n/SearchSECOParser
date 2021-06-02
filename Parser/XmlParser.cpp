@@ -17,16 +17,18 @@ std::vector<HashData> XmlParser::parseXML(StringStream *stringStream, bool parse
 {
 	// The base node of the tree.
 	tree = new Node(unknown_tag, nullptr);
+	
+	// The first tag should always be the <?xml> tag, which we want to ignore.
+	TagData td = getNextTag(stringStream);
 
-	if (stringStream->stop())
+	// If srcML returns nothing, no need to worry, there were no files SrcML could parse
+	if (stringStream->stop() && td.tag == "")
 	{
 		std::string log = "SrcML returned nothing.";
 		Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 		return hashes;
 	}
 
-	// The first tag should always be the <?xml> tag, which we want to ignore.
-	TagData td = getNextTag(stringStream);
 	if (!(td.tag == "?xml"))
 	{
 		// Received invalid input.

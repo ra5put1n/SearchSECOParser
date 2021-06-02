@@ -55,7 +55,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	hashes.insert(hashes.end(), hashes2.begin(), hashes2.end());
 
 	log = "Parsing finished, total number of methods found: " + std::to_string(hashes.size());
-	Logger::logDebug(log.c_str(), __FILE__, __LINE__);
+	Logger::logInfo(log.c_str(), __FILE__, __LINE__);
 
 	return hashes;
 }
