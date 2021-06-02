@@ -11,8 +11,6 @@ build_install:
   before_script:
     - apt-get update
     - apt-get -y install gcc g++ cmake autoconf git libantlr4-runtime-dev libantlr4-runtime4.8
-    - cd /usr/lib/x86_64-linux-gnu
-    - ls
   script:
     - echo "Install complete."
     - mkdir build
