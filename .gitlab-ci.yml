@@ -17,8 +17,9 @@ build_install:
     - cd build
     - cmake ../
     - cmake --build .
-    - cd Parser_Test
+    - pwd
     - cd /usr/lib/x86_64-linux-gnu
+    - pwd
     - cp libantlr4-runtime.so ../../../build/Parser_Test/Integration
     - cd ../../../build/Parser_Test/Integration
     - mv libantlr4-runtime.so libantlr4-runtime.so.4.8
