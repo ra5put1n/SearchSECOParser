@@ -4,7 +4,7 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Information and Computing Sciences)
 */
 
-//#define ANTLR4CPP_STATIC
+// NOLINTNEXTLINE
 #define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
 
 #include <experimental/filesystem>
@@ -103,7 +103,7 @@ LanguageBase* getFacade(std::string fileName)
 	}
 }
 
-std::string to_utf8(const std::string& str, const std::locale& loc = std::locale{})
+std::string toUtf8(const std::string& str, const std::locale& loc = std::locale{})
 {
 	using wcvt = std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t>;
 	std::u32string wstr(str.size(), U'\0');

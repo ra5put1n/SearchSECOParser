@@ -10,7 +10,7 @@ build_install:
     DEBIAN_FRONTEND: "noninteractive"
   before_script:
     - apt-get update
-    - apt-get -y install gcc g++ cmake autoconf git libantlr4-runtime-dev
+    - apt-get -y install gcc g++ cmake autoconf git libantlr4-runtime4.8
   script:
     - echo "Install complete."
     - mkdir build
@@ -56,5 +56,5 @@ linting:
     - apt-get -y install clang clang-tidy clang-format
   script:
     - cd Parser
-    - clang-tidy *.cpp -- 
-    - clang *.cpp -fsyntax-only -Werror
+    - clang-tidy *.cpp -- -I../src
+    - clang *.cpp -I../src -fsyntax-only -Werror
