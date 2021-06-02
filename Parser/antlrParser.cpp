@@ -139,7 +139,7 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		}
 		else
 		{
-#ifdef _WIN32 or WIN32
+#ifdef _WIN32 || WIN32
 			try
 			{
 				data = toUtf8(buffer);

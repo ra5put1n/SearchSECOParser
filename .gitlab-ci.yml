@@ -17,18 +17,11 @@ build_install:
     - cd build
     - cmake ../
     - cmake --build .
-    - cd /usr/lib/x86_64-linux-gnu
-    - cp libantlr4-runtime.so /builds/searchseco/parser/build/Parser_Test/Integration
-    - cd /builds/searchseco/parser/build/Parser_Test/Integration
-    - mv libantlr4-runtime.so libantlr4-runtime.so.4.8
   artifacts:
     paths:
       - build/StandAlone/parser_standalone
       - build/Parser_Test/parser_tests
       - build/Parser_Test/Integration/parser_tests_integration
-      - build/Parser_Test/Integration/libantlr4-runtime.so.4.8
-      - usr/lib/x86_64-linux-gnu/libantlr4-runtime.so.4.8
-      - usr/lib/x86_64-linux-gnu/libantlr4-runtime.so
       - build/Parser_Test/Integration/data
     expire_in: 1 day
       
