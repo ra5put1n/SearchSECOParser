@@ -214,7 +214,7 @@ TEST(integrationPython3, integrationPython3Base)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/python3");
 
-	ASSERT_EQ(hds.size(), 25);
+	ASSERT_EQ(hds.size(), 11);
 
 	// Check regardless of permutation because of multithreading.
 	for (int i = 0; i < hds.size(); i++)
@@ -227,14 +227,9 @@ TEST(integrationPython3, integrationPython3Base)
 	std::vector<HashData> hds_exp = std::vector<HashData>
 	{
 		HashData("", "__init__", "hash_table.py", 12, 18),
-		HashData("", "keys", "hash_table.py", 20, 21),
-		HashData("", "balanced_factor", "hash_table.py", 23, 26),
-		HashData("", "_step_by_step", "hash_table.py", 31, 35),
 		HashData("", "_collision_resolution", "hash_table.py", 52, 63),
 		HashData("", "insert_data", "hash_table.py", 73, 88),
 		HashData("", "__init__", "tool.py", 12, 17),
-		HashData("", "startup", "tool.py", 20, 21),
-		HashData("", "cleanup", "tool.py", 23, 25),
 		HashData("", "update", "tool.py", 28, 29),
 		HashData("", "event_loop", "tool.py", 68, 79),
 		HashData("", "load_all_gfx", "tool.py", 123, 156),
@@ -261,17 +256,12 @@ TEST(integrationPython3, integrationPython3Hash)
 	// Check for several expected hashes.
 	std::vector<std::string> hds_exp = std::vector<std::string>{
 		"3c085b3350ba3845848966ded5c5270a",
-		"b2f2028d391c8cfc0cf84f0ec49ec7b7",
-		"bd9467881eb745507178573ca52ef5b7",
-		"cafd825d07c5468012322218a800ae69",
 		"be9829d537340b830fde528c0036b7e8",
 		"a0c3121f66df414f47517bc0e9e0e61c",
-		"5a43d4315b71831feea5270c3d4a5478",
 		"78e30bcecd0e0368149c199e80c6d9d5",
 		"7d50b200c1daff6aa321c5fad7c9a680",
 		"1201c61b79c65ae041cf4b3db2edf852",
 		"8881a990ed16c075065c239e50433f64",
-		"367637850a8da3bebcae76a90932b22d",
 	};
 
 	for (int i = 0; i < hds_exp.size(); i++)

@@ -11,6 +11,7 @@ Utrecht University within the Software Project course.
 // Constants.
 #define MIN_FUNCTION_CHARACTERS 50
 #define MIN_FUNCTION_LINES 6
+#define FILENAME_OFFSET 10
 
 XmlParser::XmlParser(std::string path)
 {
@@ -172,8 +173,8 @@ void XmlParser::handleUnitTag(TagData tagData)
 		Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 	}
 
-	size_t filenamePosition = tagData.textInTag.find("filename=") + 10;
-	if (filenamePosition >= 10)
+	size_t filenamePosition = tagData.textInTag.find("filename=") + FILENAME_OFFSET;
+	if (filenamePosition >= FILENAME_OFFSET)
 	{
 		int filenameBuffer = 0;
 		// If the filename is a full path, remove the path prefix
