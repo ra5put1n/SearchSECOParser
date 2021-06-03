@@ -1,4 +1,16 @@
+# This program has been developed by students from the bachelor Computer Science at
+# Utrecht University within the Software Project course.
+# © Copyright Utrecht University (Department of Information and Computing Sciences)
 
+message("Building the parser...")
+if(NOT DEFINED LOGURU_INCLUDED)
+   set(LOGURU_FILES
+   loguru/loguru.hpp
+   loguru/loguru.cpp
+   )
+   set(LOGURU_INCLUDED true PARENT_SCOPE)
+   message("Including loguru files...")
+endif()
 
 set(PARSER_HEADER_LIST
    AbstractSyntaxToHashable.h
@@ -12,7 +24,6 @@ set(PARSER_HEADER_LIST
    Tag.h
    XmlParser.h
    ./md5/md5.h
-   ./loguru/loguru.hpp
    ./languages/c/CAntlrImplementation.h
    ./languages/c/CParserListenerCustom.h
    ./languages/c/generated/CBaseListener.h
@@ -51,7 +62,6 @@ add_library(parser
   Tag.cpp
   XmlParser.cpp
   ./md5/md5.cpp
-  ./loguru/loguru.cpp
   ./languages/c/CParserListenerCustom.cpp
   ./languages/c/generated/CBaseListener.cpp
   ./languages/c/generated/CBaseVisitor.cpp
@@ -74,6 +84,7 @@ add_library(parser
   ./languages/py3/generated/Python3Parser.cpp
   ./languages/py3/generated/Python3Visitor.cpp
   ${PARSER_HEADER_LIST}
+  ${LOGURU_FILES}
 )
 
 if(WIN32)
@@ -86,5 +97,3 @@ else()
   target_link_libraries(parser PRIVATE ${antlr} stdc++fs)
   include_directories(/usr/include/antlr4-runtime)
 endif()
-
-
