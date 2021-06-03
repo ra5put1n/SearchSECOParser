@@ -229,8 +229,8 @@ TEST(integrationPython3, integrationPython3Base)
 		HashData("", "__init__", "hash_table.py", 12, 18),
 		HashData("", "_collision_resolution", "hash_table.py", 52, 63),
 		HashData("", "insert_data", "hash_table.py", 73, 88),
-		HashData("", "__init__", "tool.py", 12, 17),
-		HashData("", "update", "tool.py", 28, 29),
+		HashData("", "__init__", "tool.py", 32, 45),
+		HashData("", "update", "tool.py", 53, 60),
 		HashData("", "event_loop", "tool.py", 68, 79),
 		HashData("", "load_all_gfx", "tool.py", 123, 156),
 	};
