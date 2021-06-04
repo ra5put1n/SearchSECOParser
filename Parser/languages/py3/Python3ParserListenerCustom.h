@@ -28,25 +28,24 @@ public:
 	CustomPython3Listener(Python3Parser *parser, antlr4::TokenStreamRewriter *tsr, std::string fileName);
 
 	virtual void enterFuncdef(Python3Parser::FuncdefContext *ctx) override;
-    virtual void exitFuncdef(Python3Parser::FuncdefContext *ctx) override;
+	virtual void exitFuncdef(Python3Parser::FuncdefContext *ctx) override;
 
-    virtual void enterFuncbody(Python3Parser::FuncbodyContext *ctx) override;
-    virtual void exitFuncbody(Python3Parser::FuncbodyContext *ctx) override;
+	virtual void enterFuncbody(Python3Parser::FuncbodyContext *ctx) override;
+	virtual void exitFuncbody(Python3Parser::FuncbodyContext *ctx) override;
 
-    virtual void enterName(Python3Parser::NameContext *ctx) override;
+	virtual void enterName(Python3Parser::NameContext *ctx) override;
 
-    virtual void enterFunccallname(Python3Parser::FunccallnameContext *ctx) override;
+	virtual void enterFunccallname(Python3Parser::FunccallnameContext *ctx) override;
 
-    virtual void enterExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx) override;
-    virtual void exitExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx) override;
+	virtual void enterExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx) override;
+	virtual void exitExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx) override;
 
-    virtual void enterString(Python3Parser::StringContext *ctx) override;
+	virtual void enterString(Python3Parser::StringContext *ctx) override;
 
 private:
-    Python3Parser *parser;
+	Python3Parser *parser;
 	antlr4::TokenStreamRewriter* tsr;
 	size_t start, stop;
-	//std::map<std::string,antlr4::Token*> funccallTokens;
-    std::string functionName, functionBody, fileName = "filenametest";//funccallName = "";
+	std::string functionName, functionBody, fileName = "filenametest";
 	bool inFunction = false, inSingleStatement = false;
 };

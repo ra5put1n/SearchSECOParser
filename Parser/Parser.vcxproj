@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../antlr/src</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
@@ -149,7 +149,7 @@
       <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>../lib/debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../antlr/lib/debug</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -161,7 +161,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
-      <AdditionalIncludeDirectories>../src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../antlr/src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -173,7 +173,7 @@
       <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>../lib/release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../antlr/lib/release</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -182,19 +182,6 @@
   <ItemGroup>
     <ClCompile Include="AbstractSyntaxToHashable.cpp" />
     <ClCompile Include="antlrParser.cpp" />
-    <ClCompile Include="languages\cpp\CPP14ParserListenerCustom.cpp" />
-    <ClCompile Include="languages\cpp\generated\CPP14Lexer.cpp" />
-    <ClCompile Include="languages\cpp\generated\CPP14Parser.cpp" />
-    <ClCompile Include="languages\cpp\generated\CPP14ParserBaseListener.cpp" />
-    <ClCompile Include="languages\cpp\generated\CPP14ParserListener.cpp" />
-    <ClCompile Include="languages\cpp\generated\CPP14ParserVisitor.cpp" />
-    <ClCompile Include="languages\c\CParserListenerCustom.cpp" />
-    <ClCompile Include="languages\c\generated\CBaseListener.cpp" />
-    <ClCompile Include="languages\c\generated\CBaseVisitor.cpp" />
-    <ClCompile Include="languages\c\generated\CLexer.cpp" />
-    <ClCompile Include="languages\c\generated\CListener.cpp" />
-    <ClCompile Include="languages\c\generated\CParser.cpp" />
-    <ClCompile Include="languages\c\generated\CVisitor.cpp" />
     <ClCompile Include="languages\py3\generated\Python3BaseListener.cpp" />
     <ClCompile Include="languages\py3\generated\Python3BaseVisitor.cpp" />
     <ClCompile Include="languages\py3\generated\Python3Lexer.cpp" />
@@ -216,21 +203,6 @@
     <ClInclude Include="AbstractSyntaxToHashable.h" />
     <ClInclude Include="antlrParser.h" />
     <ClInclude Include="HashData.h" />
-    <ClInclude Include="languages\cpp\CPP14AntlrImplementation.h" />
-    <ClInclude Include="languages\cpp\CPP14ParserListenerCustom.h" />
-    <ClInclude Include="languages\cpp\generated\CPP14Lexer.h" />
-    <ClInclude Include="languages\cpp\generated\CPP14Parser.h" />
-    <ClInclude Include="languages\cpp\generated\CPP14ParserBaseListener.h" />
-    <ClInclude Include="languages\cpp\generated\CPP14ParserListener.h" />
-    <ClInclude Include="languages\cpp\generated\CPP14ParserVisitor.h" />
-    <ClInclude Include="languages\c\CAntlrImplementation.h" />
-    <ClInclude Include="languages\c\CParserListenerCustom.h" />
-    <ClInclude Include="languages\c\generated\CBaseListener.h" />
-    <ClInclude Include="languages\c\generated\CBaseVisitor.h" />
-    <ClInclude Include="languages\c\generated\CLexer.h" />
-    <ClInclude Include="languages\c\generated\CListener.h" />
-    <ClInclude Include="languages\c\generated\CParser.h" />
-    <ClInclude Include="languages\c\generated\CVisitor.h" />
     <ClInclude Include="languages\LanguageBase.h" />
     <ClInclude Include="languages\py3\generated\Python3BaseListener.h" />
     <ClInclude Include="languages\py3\generated\Python3BaseVisitor.h" />

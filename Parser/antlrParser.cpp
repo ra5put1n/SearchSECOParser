@@ -20,8 +20,6 @@ Utrecht University within the Software Project course.
 
 #include "antlrParser.h"
 #include "languages/LanguageBase.h"
-//#include "languages/c/CAntlrImplementation.h"
-//#include "languages/cpp/CPP14AntlrImplementation.h"
 #include "languages/py3/Python3AntlrImplementation.h"
 
 #define DEFAULT_NUMBER_THREADS 16
@@ -91,18 +89,10 @@ void antlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &output
 LanguageBase* getFacade(std::string fileName)
 {
 	std::experimental::filesystem::path path = std::experimental::filesystem::path(fileName);
-	/*if (path.extension() == ".c")
+	if (path.extension() == ".py")
 	{
-		return new CAntlrImplementation();
+		return new Python3AntlrImplementation();
 	}
-	else if (path.extension() == ".cpp" || path.extension() == ".hpp" || path.extension() == ".h")
-	{
-		return new CPP14AntlrImplementation();
-    }
-    else*/ if (path.extension() == ".py")
-    {
-        return new Python3AntlrImplementation();
-    }
 	else
 	{
 		return nullptr;

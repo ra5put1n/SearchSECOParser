@@ -18,18 +18,6 @@
     <Filter Include="languages">
       <UniqueIdentifier>{65750931-f84c-4b93-beb3-d6f1bc834495}</UniqueIdentifier>
     </Filter>
-    <Filter Include="languages\cpp">
-      <UniqueIdentifier>{f26589e9-2877-459b-ad9c-a0fb1cdf90f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="languages\cpp\generated">
-      <UniqueIdentifier>{bf32e6c1-42b3-4870-bc88-750ee9905778}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="languages\c">
-      <UniqueIdentifier>{0a81736b-fb1c-43d6-8ccf-fbd6843d35ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="languages\c\generated">
-      <UniqueIdentifier>{ff4f66a6-8657-49aa-908a-83ea989eb3a8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="languages\py3">
       <UniqueIdentifier>{f9da27aa-dec8-4bcf-b895-99bc7c09fc3b}</UniqueIdentifier>
     </Filter>
@@ -65,47 +53,8 @@
     <ClCompile Include="loguru\loguru.cpp">
       <Filter>loguru</Filter>
     </ClCompile>
-    <ClCompile Include="languages\cpp\generated\CPP14Lexer.cpp">
-      <Filter>languages\cpp\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\cpp\generated\CPP14Parser.cpp">
-      <Filter>languages\cpp\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\cpp\generated\CPP14ParserBaseListener.cpp">
-      <Filter>languages\cpp\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\cpp\generated\CPP14ParserListener.cpp">
-      <Filter>languages\cpp\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\cpp\CPP14ParserListenerCustom.cpp">
-      <Filter>languages\cpp</Filter>
-    </ClCompile>
     <ClCompile Include="antlrParser.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\cpp\generated\CPP14ParserVisitor.cpp">
-      <Filter>languages\cpp\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\c\generated\CBaseListener.cpp">
-      <Filter>languages\c\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\c\generated\CBaseVisitor.cpp">
-      <Filter>languages\c\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\c\generated\CLexer.cpp">
-      <Filter>languages\c\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\c\generated\CListener.cpp">
-      <Filter>languages\c\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\c\generated\CParser.cpp">
-      <Filter>languages\c\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\c\generated\CVisitor.cpp">
-      <Filter>languages\c\generated</Filter>
-    </ClCompile>
-    <ClCompile Include="languages\c\CParserListenerCustom.cpp">
-      <Filter>languages\c</Filter>
     </ClCompile>
     <ClCompile Include="languages\py3\Python3ParserListenerCustom.cpp">
       <Filter>languages\py3</Filter>
@@ -163,53 +112,11 @@
     <ClInclude Include="loguru\loguru.hpp">
       <Filter>loguru</Filter>
     </ClInclude>
-    <ClInclude Include="languages\cpp\generated\CPP14Lexer.h">
-      <Filter>languages\cpp\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\cpp\generated\CPP14Parser.h">
-      <Filter>languages\cpp\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\cpp\generated\CPP14ParserBaseListener.h">
-      <Filter>languages\cpp\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\cpp\generated\CPP14ParserListener.h">
-      <Filter>languages\cpp\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\cpp\CPP14ParserListenerCustom.h">
-      <Filter>languages\cpp</Filter>
-    </ClInclude>
     <ClInclude Include="antlrParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="languages\cpp\generated\CPP14ParserVisitor.h">
-      <Filter>languages\cpp\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\c\generated\CBaseListener.h">
-      <Filter>languages\c\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\c\generated\CBaseVisitor.h">
-      <Filter>languages\c\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\c\generated\CLexer.h">
-      <Filter>languages\c\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\c\generated\CListener.h">
-      <Filter>languages\c\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\c\generated\CParser.h">
-      <Filter>languages\c\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\c\generated\CVisitor.h">
-      <Filter>languages\c\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\c\CParserListenerCustom.h">
-      <Filter>languages\c</Filter>
-    </ClInclude>
     <ClInclude Include="languages\LanguageBase.h">
       <Filter>languages</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\c\CAntlrImplementation.h">
-      <Filter>languages\c</Filter>
     </ClInclude>
     <ClInclude Include="languages\py3\Python3ParserListenerCustom.h">
       <Filter>languages\py3</Filter>
@@ -237,9 +144,6 @@
     </ClInclude>
     <ClInclude Include="languages\py3\Python3AntlrImplementation.h">
       <Filter>languages\py3</Filter>
-    </ClInclude>
-    <ClInclude Include="languages\cpp\CPP14AntlrImplementation.h">
-      <Filter>languages\cpp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
