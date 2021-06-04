@@ -56,5 +56,5 @@ linting:
     - apt-get -y install clang clang-tidy clang-format
   script:
     - cd Parser
-    - clang-tidy *.cpp -- -I../src
-    - clang *.cpp -I../src -fsyntax-only -Werror
+    - clang-tidy *.cpp -- -I../antlr/src
+    - clang *.cpp -I../antlr/src -fsyntax-only -Werror
