@@ -89,11 +89,18 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>../src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>../lib/debug</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -104,6 +111,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>../src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,6 +119,15 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>../lib/release</AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -118,9 +135,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>../antlr/src</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +145,12 @@
       </AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>../antlr/lib/debug</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -138,7 +160,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalIncludeDirectories>../antlr/src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,9 +169,27 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>../antlr/lib/release</AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbstractSyntaxToHashable.cpp" />
+    <ClCompile Include="antlrParser.cpp" />
+    <ClCompile Include="languages\py3\generated\Python3BaseListener.cpp" />
+    <ClCompile Include="languages\py3\generated\Python3BaseVisitor.cpp" />
+    <ClCompile Include="languages\py3\generated\Python3Lexer.cpp" />
+    <ClCompile Include="languages\py3\generated\Python3Listener.cpp" />
+    <ClCompile Include="languages\py3\generated\Python3Parser.cpp" />
+    <ClCompile Include="languages\py3\generated\Python3Visitor.cpp" />
+    <ClCompile Include="languages\py3\Python3ParserListenerCustom.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="loguru\loguru.cpp" />
     <ClCompile Include="md5\md5.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -160,7 +201,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractSyntaxToHashable.h" />
+    <ClInclude Include="antlrParser.h" />
     <ClInclude Include="HashData.h" />
+    <ClInclude Include="languages\LanguageBase.h" />
+    <ClInclude Include="languages\py3\generated\Python3BaseListener.h" />
+    <ClInclude Include="languages\py3\generated\Python3BaseVisitor.h" />
+    <ClInclude Include="languages\py3\generated\Python3Lexer.h" />
+    <ClInclude Include="languages\py3\generated\Python3Listener.h" />
+    <ClInclude Include="languages\py3\generated\Python3Parser.h" />
+    <ClInclude Include="languages\py3\generated\Python3Visitor.h" />
+    <ClInclude Include="languages\py3\Python3AntlrImplementation.h" />
+    <ClInclude Include="languages\py3\Python3ParserListenerCustom.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="loguru\loguru.hpp" />
     <ClInclude Include="md5\md5.h" />
     <ClInclude Include="Node.h" />

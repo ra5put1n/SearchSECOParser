@@ -6,11 +6,12 @@ Utrecht University within the Software Project course.
 #include "Tag.h"
 #include "XmlParser.h"
 #include "md5/md5.h"
-#include "loguru/loguru.hpp"
+#include "Logger.h"
 
 // Constants.
 #define MIN_FUNCTION_CHARACTERS 50
 #define MIN_FUNCTION_LINES 6
+#define FILENAME_OFFSET 10
 
 XmlParser::XmlParser(std::string path)
 {
@@ -21,16 +22,25 @@ std::vector<HashData> XmlParser::parseXML(StringStream *stringStream, bool parse
 {
 	// The base node of the tree.
 	tree = new Node(unknown_tag, nullptr);
-
+	
 	// The first tag should always be the <?xml> tag, which we want to ignore.
 	TagData td = getNextTag(stringStream);
+
+	// If srcML returns nothing, no need to worry, there were no files SrcML could parse
+	if (stringStream->stop() && td.tag == "")
+	{
+		std::string log = "SrcML returned nothing.";
+		Logger::logDebug(log.c_str(), __FILE__, __LINE__);
+		return hashes;
+	}
+
 	if (!(td.tag == "?xml"))
 	{
 		// Received invalid input.
 		tree = nullptr;
 
 		std::string log = "wrong first tag, tag in doc was: " + td.tag;
-		LOG_F(ERROR, "%s", log.c_str());
+		Logger::logWarn(log.c_str(), __FILE__, __LINE__);
 
 		return hashes;
 	}
@@ -76,7 +86,7 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
 	if (TagMap::getTag(tagData.tag.substr(1)) != current->getTag())
 	{
 		std::string log = "Closing tags don't line up in " + currentFileName + " on line " + std::to_string(lineNumber) + " skipping function";
-		LOG_F(WARNING, "%s", log.c_str());
+		Logger::logWarn(log.c_str(), __FILE__, __LINE__);
 
 		// In case the closing tags don't line up, we will just give up on this function.
 		// and continue to the next function.
@@ -101,7 +111,7 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
 			hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction, lineNumber));
 
 			std::string log = "Found function: " + s->funcName + " in File: " + currentFileName + " " + std::to_string(startLastFunction) + " - " + std::to_string(lineNumber);
-			LOG_F(1, "%s", log.c_str());
+			Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 
 			functionCount++;
 		}        
@@ -160,11 +170,11 @@ void XmlParser::handleUnitTag(TagData tagData)
 	if (currentFileName != "")
 	{
 		std::string log = "Finished parsing file: " + currentFileName + ", number of functions found: " + std::to_string(functionCount);
-		LOG_F(INFO, "%s", log.c_str());
+		Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 	}
 
-	size_t filenamePosition = tagData.textInTag.find("filename=") + 10;
-	if (filenamePosition >= 10)
+	size_t filenamePosition = tagData.textInTag.find("filename=") + FILENAME_OFFSET;
+	if (filenamePosition >= FILENAME_OFFSET)
 	{
 		int filenameBuffer = 0;
 		// If the filename is a full path, remove the path prefix

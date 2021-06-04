@@ -2,16 +2,16 @@
 Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)*/
 
-#include "Parser.h"
 #include "../pch.h"
+#include "Parser.h"
 
+#include <map>
 
 #if defined(WIN32) || defined(_WIN32)
 std::string dataLoc = "../data";
 #else
 std::string dataLoc = "data";
 #endif // WIN32 OR _WIN32
-
 
 // GetTag function
 TEST(integrationCpp, integrationCppBase)
@@ -35,7 +35,7 @@ TEST(integrationCpp, integrationCppBase)
 	ASSERT_EQ(hd3.fileName, "tools/objstrip.c");
 	ASSERT_EQ(hd3.lineNumber, 52);
 	ASSERT_EQ(hd3.lineNumberEnd, 284);
-} 
+}
 
 TEST(integrationCpp, integrationCppHash)
 {
@@ -50,7 +50,6 @@ TEST(integrationCpp, integrationCppHash)
 	HashData hd3 = hds[2];
 	ASSERT_EQ(hd3.hash, "79d26f0be79270fcda7037b11e2b7fcc");
 }
-
 
 TEST(integrationJava, integrationJavaBase)
 {
@@ -209,4 +208,65 @@ TEST(integrationCSharp, integrationCSharpHash)
 
 	hd1 = hds[22];
 	ASSERT_EQ(hd1.hash, "df16098f05883dda93d5b6f702935adf");
+}
+
+TEST(integrationPython3, integrationPython3Base)
+{
+	std::vector<HashData> hds = Parser::parse(dataLoc + "/python3");
+
+	ASSERT_EQ(hds.size(), 11);
+
+	// Check regardless of permutation because of multithreading.
+	for (int i = 0; i < hds.size(); i++)
+	{
+		// Ignore hashes for now.
+		hds[i].hash = "";
+	}
+
+	// Check for several expected functions.
+	std::vector<HashData> hds_exp = std::vector<HashData>
+	{
+		HashData("", "__init__", "hash_table.py", 12, 18),
+		HashData("", "_collision_resolution", "hash_table.py", 52, 63),
+		HashData("", "insert_data", "hash_table.py", 73, 88),
+		HashData("", "__init__", "tool.py", 32, 45),
+		HashData("", "update", "tool.py", 53, 60),
+		HashData("", "event_loop", "tool.py", 68, 79),
+		HashData("", "load_all_gfx", "tool.py", 123, 156),
+	};
+
+	for (int i = 0; i < hds_exp.size(); i++)
+	{
+		ASSERT_NE(std::find(begin(hds), end(hds), hds_exp[i]), end(hds));
+	}
+}
+
+TEST(integrationPython3, integrationPython3Hash)
+{
+	std::vector<HashData> hds = Parser::parse(dataLoc + "/python3");
+
+	// Check regardless of permutation because of multithreading.
+	std::map<std::string, int> hm;
+	for (int i = 0; i < hds.size(); i++)
+	{
+		// Only check hashes.
+		hm[hds[i].hash]++;
+	}
+
+	// Check for several expected hashes.
+	std::vector<std::string> hds_exp = std::vector<std::string>{
+		"3c085b3350ba3845848966ded5c5270a",
+		"be9829d537340b830fde528c0036b7e8",
+		"a0c3121f66df414f47517bc0e9e0e61c",
+		"78e30bcecd0e0368149c199e80c6d9d5",
+		"7d50b200c1daff6aa321c5fad7c9a680",
+		"1201c61b79c65ae041cf4b3db2edf852",
+		"8881a990ed16c075065c239e50433f64",
+	};
+
+	for (int i = 0; i < hds_exp.size(); i++)
+	{
+		ASSERT_NE(hm[hds_exp[i]], 0);
+		hm[hds_exp[i]]--;
+	}
 }

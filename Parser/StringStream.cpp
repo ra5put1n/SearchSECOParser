@@ -6,7 +6,7 @@ Utrecht University within the Software Project course.
 #include "StringStream.h"
 #include <iostream>
 
-
+#define INITIAL_STRINGBUFFER_SIZE 10
 
 StringStream::StringStream(int bufferSize)
 {
@@ -81,7 +81,7 @@ void StringStream::setInputEnded(bool b)
 
 StringBuffer::StringBuffer(int bufferSize)
 {
-	bufferCap = 10;
+	bufferCap = INITIAL_STRINGBUFFER_SIZE;
 	buffers = new char*[bufferCap];
 	bufferAmount = 0;
 	this->bufferSize = bufferSize;

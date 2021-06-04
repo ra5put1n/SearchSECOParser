@@ -10,7 +10,7 @@ build_install:
     DEBIAN_FRONTEND: "noninteractive"
   before_script:
     - apt-get update
-    - apt-get -y install gcc g++ cmake autoconf git
+    - apt-get -y install gcc g++ cmake autoconf git libantlr4-runtime-dev libantlr4-runtime4.8
   script:
     - echo "Install complete."
     - mkdir build
@@ -40,7 +40,7 @@ integration_testing:
   needs: [build_install]
   before_script:
     - apt-get update
-    - apt-get -y install wget
+    - apt-get -y install wget g++ cmake libantlr4-runtime-dev libantlr4-runtime4.8
     - wget http://131.123.42.38/lmcrs/v1.0.0/srcml_1.0.0-1_ubuntu18.04.deb
     - apt-get -y install ./srcml_1.0.0-1_ubuntu18.04.deb
   script:
@@ -56,5 +56,5 @@ linting:
     - apt-get -y install clang clang-tidy clang-format
   script:
     - cd Parser
-    - clang-tidy *.cpp -- 
-    - clang *.cpp -fsyntax-only -Werror
+    - clang-tidy *.cpp -- -I../antlr/src
+    - clang *.cpp -I../antlr/src -fsyntax-only -Werror

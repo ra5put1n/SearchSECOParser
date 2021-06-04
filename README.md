@@ -9,13 +9,14 @@ This is the Parser used by the SearchSECO project, it uses [srcML](https://www.s
 * Windows 10+, Ubuntu 18.04. Might work on older Windows versions or other UNIX systems but has not been tested.
 * [srcML.](https://www.srcml.org/#home)
 Make sure srcML is installed and registered in your path
+* [antlr](https://www.antlr.org/), for Windows the files are included, on UNIX make sure to download libantlr4-runtime-dev and libantlr4-runtime4.8 (using apt/apt-get).
 
 
 ## Building
 
 ### Stand-alone
 #### Visual-Studio
-Open solution and simply build the project
+Open solution and simply build the project, copy and past the antlr dll file in the lib folder to the appropriate location (where you have build the executable).
 #### Cmake
 Run Cmake and build in the StandAlone folder.
 

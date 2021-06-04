@@ -14,7 +14,9 @@ endif()
 
 set(PARSER_HEADER_LIST
    AbstractSyntaxToHashable.h
+   antlrParser.h
    HashData.h
+   Logger.h
    Node.h
    Parser.h
    SrcMLCaller.h
@@ -22,11 +24,21 @@ set(PARSER_HEADER_LIST
    Tag.h
    XmlParser.h
    ./md5/md5.h
+   ./languages/py3/Python3AntlrImplementation.h
+   ./languages/py3/Python3ParserListenerCustom.h
+   ./languages/py3/generated/Python3BaseListener.h
+   ./languages/py3/generated/Python3BaseVisitor.h
+   ./languages/py3/generated/Python3Lexer.h
+   ./languages/py3/generated/Python3Listener.h
+   ./languages/py3/generated/Python3Parser.h
+   ./languages/py3/generated/Python3Visitor.h
 )
 
 
 add_library(parser
   AbstractSyntaxToHashable.cpp
+  antlrParser.cpp
+  Logger.cpp
   Node.cpp
   Parser.cpp
   SrcMLCaller.cpp
@@ -34,6 +46,23 @@ add_library(parser
   Tag.cpp
   XmlParser.cpp
   ./md5/md5.cpp
+  ./languages/py3/Python3ParserListenerCustom.cpp
+  ./languages/py3/generated/Python3BaseListener.cpp
+  ./languages/py3/generated/Python3BaseVisitor.cpp
+  ./languages/py3/generated/Python3Lexer.cpp
+  ./languages/py3/generated/Python3Listener.cpp
+  ./languages/py3/generated/Python3Parser.cpp
+  ./languages/py3/generated/Python3Visitor.cpp
   ${PARSER_HEADER_LIST}
   ${LOGURU_FILES}
 )
+
+if(WIN32)
+  find_library(antlr REQUIRED NAMES antlr4-runtime PATHS ../antlr/lib/release)
+  target_link_libraries(parser PUBLIC ${antlr})
+  target_include_directories(parser PUBLIC ../antlr/src)
+else()
+  find_library(antlr REQUIRED NAMES antlr antlr4 antlr4-runtime)
+  target_link_libraries(parser PRIVATE ${antlr} stdc++fs)
+  include_directories(/usr/include/antlr4-runtime)
+endif()

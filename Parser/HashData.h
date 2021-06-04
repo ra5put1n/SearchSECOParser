@@ -26,4 +26,10 @@ struct HashData
 	};
 	std::string hash, fileName, functionName;
 	int lineNumber, lineNumberEnd;
+
+	friend bool operator==(const HashData &lhs, const HashData &rhs)
+	{
+			return (lhs.hash == rhs.hash) && (lhs.fileName == rhs.fileName) && (lhs.functionName == rhs.functionName) &&
+				   (lhs.lineNumber == rhs.lineNumber) && (lhs.lineNumberEnd == rhs.lineNumberEnd);
+	}
 };
