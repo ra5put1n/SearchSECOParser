@@ -113,12 +113,14 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 	if (file.is_open())
 	{
 
-		// Convert utf8 based on cdycdr's answer to https://stackoverflow.com/questions/17562736/how-to-convert-from-utf-8-to-ansi-using-standard-c.
 		file.seekg(0, std::ios::end);
 		size_t size = file.tellg();
 		std::string buffer(size, ' ');
 		file.seekg(0);
 		file.read(&buffer[0], size);
+
+		// Convert utf8 based on cdycdr's answer to 
+		// https://stackoverflow.com/questions/17562736/how-to-convert-from-utf-8-to-ansi-using-standard-c.
 
 		const char* bom = "\xef\xbb\xbf";
 		std::string data;
