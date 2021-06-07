@@ -22,7 +22,7 @@ Utrecht University within the Software Project course.
 #include "languages/LanguageBase.h"
 #include "languages/py3/Python3AntlrImplementation.h"
 
-#define DEFAULT_NUMBER_THREADS 16
+
 
 // Method practically copied from Spider Revisited.
 std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfThreads)
@@ -64,6 +64,8 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 		th.join();
 	}
 
+	getFacade(".py")->ClearCache();
+
 	return meths;
 }
 
@@ -86,7 +88,8 @@ void antlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &output
 	}
 }
 
-LanguageBase* getFacade(std::string fileName)
+
+LanguageBase* antlrParsing::getFacade(std::string fileName)
 {
 	std::experimental::filesystem::path path = std::experimental::filesystem::path(fileName);
 	if (path.extension() == ".py")
@@ -99,7 +102,7 @@ LanguageBase* getFacade(std::string fileName)
 	}
 }
 
-std::string toUtf8(const std::string& str, const std::locale& loc = std::locale{})
+std::string antlrParsing::toUtf8(const std::string& str, const std::locale& loc)
 {
 	using wcvt = std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t>;
 	std::u32string wstr(str.size(), U'\0');

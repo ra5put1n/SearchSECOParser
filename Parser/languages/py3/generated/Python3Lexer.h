@@ -39,6 +39,7 @@ public:
   explicit Python3Lexer(antlr4::CharStream *input);
   ~Python3Lexer();
 
+  void clearCache();
 
     private:
     // A queue where extra tokens are pushed on (see the NEWLINE lexer rule).

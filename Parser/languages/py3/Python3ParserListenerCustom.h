@@ -23,9 +23,11 @@ Utrecht University within the Software Project course.
 class CustomPython3Listener : public Python3BaseListener
 {
 public:
-	std::vector<HashData> output;
+	std::vector<HashData>* output;
 
-	CustomPython3Listener(Python3Parser *parser, antlr4::TokenStreamRewriter *tsr, std::string fileName);
+	CustomPython3Listener(antlr4::TokenStreamRewriter *tsr, std::string fileName);
+
+	~CustomPython3Listener();
 
 	virtual void enterFuncdef(Python3Parser::FuncdefContext *ctx) override;
 	virtual void exitFuncdef(Python3Parser::FuncdefContext *ctx) override;
@@ -43,7 +45,6 @@ public:
 	virtual void enterString(Python3Parser::StringContext *ctx) override;
 
 private:
-	Python3Parser *parser;
 	antlr4::TokenStreamRewriter* tsr;
 	size_t start, stop;
 	std::string functionName, functionBody, fileName = "filenametest";
