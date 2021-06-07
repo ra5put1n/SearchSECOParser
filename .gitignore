@@ -28,8 +28,8 @@ bld/
 [Ll]og/
 
 # Exceptions for used libs
-!lib/debug/
-!lib/release/
+!antlr/lib/debug/
+!antlr/lib/release/
 
 
 # Visual Studio 2015/2017 cache/options directory

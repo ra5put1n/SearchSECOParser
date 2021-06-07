@@ -19,6 +19,12 @@ Python3Parser::~Python3Parser() {
   delete _interpreter;
 }
 
+void Python3Parser::clearCache()
+{
+    _interpreter->clearDFA();
+    _sharedContextCache.clear();
+}
+
 std::string Python3Parser::getGrammarFileName() const {
   return "Python3.g4";
 }

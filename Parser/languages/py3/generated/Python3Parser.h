@@ -63,6 +63,7 @@ public:
 
   explicit Python3Parser(antlr4::TokenStream *input);
   ~Python3Parser();
+  void clearCache();
 
   virtual std::string getGrammarFileName() const override;
   virtual const antlr4::atn::ATN& getATN() const override { return _atn; };

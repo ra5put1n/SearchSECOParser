@@ -9,10 +9,12 @@ Utrecht University within the Software Project course.
 #include <vector>
 #include <string>
 #include <queue>
+#include <mutex>
 
 #include "HashData.h"
+#include "languages/LanguageBase.h"
 
-#define MAX_THREADS 8
+#define DEFAULT_NUMBER_THREADS 16
 
 
 class antlrParsing
@@ -22,8 +24,8 @@ public:
 	/// Parses all parseable files in given directory.
 	/// </summary>
 	/// <param name = "repoPath"> The directory to be parsed. </param>
-	/// <param name="numberOfThreads"> Max amount of threads to use</param>
-	/// <returns></returns>
+	/// <param name="numberOfThreads"> Max amount of threads to use. </param>
+	/// <returns> A vector of hashes found in the files in the directory. </returns>
 	static std::vector<HashData> parseDir(std::string repoPath, int numberOfThreads);
 
 private:
@@ -44,4 +46,19 @@ private:
 	/// <param name = "meths"> The returned HashData. </param>
 	/// <param name = "outputLock"> Mutex that restricts access to meths. </param>
 	static void parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path);
+
+	/// <summary>
+	/// Get the appropriate parser for a file.
+	/// </summary>
+	/// <param name = "fileName"> The filename including extension to get a parser for. </param>
+	/// <returns> A concrete instance of LanguageBase containing methods necessary for parsing. </returns>
+	static LanguageBase* getFacade(std::string fileName);
+
+	/// <summary>
+	/// Parses ANSI files to UTF-8.
+	/// </summary>
+	/// <param name = "str"> Text to convert. </param>
+	/// <param name="loc"> Location to use, default current one. </param>
+	/// <returns> The converted text </returns>
+	static std::string toUtf8(const std::string& str, const std::locale& loc = std::locale{});
 };

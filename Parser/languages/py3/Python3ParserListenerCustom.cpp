@@ -10,15 +10,19 @@ Utrecht University within the Software Project course.
 #define MIN_FUNCTION_CHARACTERS 50
 #define MIN_FUNCTION_LINES 6
 
-
-CustomPython3Listener::CustomPython3Listener(Python3Parser *parser, antlr4::TokenStreamRewriter *tsr,
+CustomPython3Listener::CustomPython3Listener(antlr4::TokenStreamRewriter *tsr,
 											 std::string fileName)
 {
-	this->parser = parser;
 	this->tsr = tsr;
 	this->fileName = fileName;
+	output = new std::vector<HashData>();
 	start = 0;
 	stop = 0;
+}
+
+CustomPython3Listener::~CustomPython3Listener()
+{
+	delete output;
 }
 
 void CustomPython3Listener::enterFuncdef(Python3Parser::FuncdefContext *ctx)
@@ -37,7 +41,7 @@ void CustomPython3Listener::exitFuncdef(Python3Parser::FuncdefContext *ctx)
 
 	if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
 	{
-		output.push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
+		output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
 	}
 	inFunction = false;
 }

@@ -19,6 +19,12 @@ Python3Lexer::~Python3Lexer() {
   delete _interpreter;
 }
 
+void Python3Lexer::clearCache()
+{
+    _interpreter->clearDFA();
+    _sharedContextCache.clear();
+}
+
 std::string Python3Lexer::getGrammarFileName() const {
   return "Python3.g4";
 }

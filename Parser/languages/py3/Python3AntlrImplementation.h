@@ -12,32 +12,76 @@ Utrecht University within the Software Project course.
 
 class Python3AntlrImplementation : public virtual LanguageBase
 {
-private:
-	virtual antlr4::Lexer* lexer(antlr4::ANTLRInputStream* input) override
-	{
-		return new Python3Lexer(input);
-	};
 
-	virtual antlr4::Parser* parser(antlr4::CommonTokenStream* tokens) override
+public:
+	virtual std::vector<HashData> parseData(std::string data, std::string filePath)
 	{
-		return new Python3Parser(tokens);
-	};
+		antlr4::ANTLRInputStream input(data);
 
-	virtual antlr4::tree::ParseTreeListener* listener(antlr4::Parser* parser, antlr4::TokenStreamRewriter* tsr, std::string fileName) override
-	{
-		Python3Parser *pp = (Python3Parser *)parser;
-		return new CustomPython3Listener(pp, tsr, fileName);
-	};
+		Python3Lexer l(&input);
+		l.removeErrorListeners();
+		antlr4::CommonTokenStream tokens(&l);
 
-	virtual antlr4::tree::ParseTree* tree(antlr4::Parser* p) override
-	{
-		Python3Parser *pp = (Python3Parser *)p;
-		return pp->file_input();
-	};
+		try
+		{
+			tokens.fill();
+		}
+		catch (const std::exception& e)
+		{
+			std::string log = "Error while tokenizing file: " + filePath + ", skipping \n Error: " + e.what();
+			Logger::logWarn(log.c_str(), __FILE__, __LINE__);
+			return std::vector<HashData>();
+		}
 
-	virtual std::vector<HashData> getHashes(antlr4::tree::ParseTreeListener* e) override
+		Python3Parser p(&tokens);
+		p.removeErrorListeners();
+		antlr4::TokenStreamRewriter rewriter(&tokens);
+		CustomPython3Listener e(&rewriter, filePath);
+		antlr4::tree::ParseTree* t;
+
+		try
+		{
+			t = p.file_input();
+		}
+		catch (const std::exception& e)
+		{
+			std::string log = "Error while Parsing file: " + filePath + ", skipping \n Error: " + e.what();
+			Logger::logWarn(log.c_str(), __FILE__, __LINE__);
+			return std::vector<HashData>();
+		}
+
+		try
+		{
+			antlr4::tree::ParseTreeWalker::DEFAULT.walk(&e, t);
+		}
+		catch (const std::exception& e)
+		{
+			std::string log = "Error while walking file: " + filePath + ", skipping \n Error: " + e.what();
+			Logger::logWarn(log.c_str(), __FILE__, __LINE__);
+			return std::vector<HashData>();
+		}
+		std::vector<HashData> hashes = std::vector<HashData>(*e.output);
+
+		std::string log = "Finished parsing file: " + filePath + ", number of functions found: " + std::to_string(hashes.size());
+		Logger::logDebug(log.c_str(), __FILE__, __LINE__);
+		
+		return hashes;
+	}
+
+	virtual void ClearCache()
 	{
-		CustomPython3Listener *cpl = (CustomPython3Listener *)e;
-		return cpl->output;
-	};
+		// Simulate the building of the lexer and parser to create the objects.
+		antlr4::ANTLRInputStream input("");
+
+		Python3Lexer l(&input);
+		l.removeErrorListeners();
+		antlr4::CommonTokenStream tokens(&l);
+
+		tokens.fill();
+
+		Python3Parser p(&tokens);
+
+		l.clearCache();
+		p.clearCache();
+	}
 };
