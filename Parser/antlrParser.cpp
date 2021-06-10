@@ -22,6 +22,7 @@ Utrecht University within the Software Project course.
 #include "antlrParser.h"
 #include "languages/LanguageBase.h"
 #include "languages/py3/Python3AntlrImplementation.h"
+#include "languages/js/JavaScriptAntlrImplementation.h"
 
 
 
@@ -46,7 +47,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 	for (const auto &path : dirIter)
 	{
 		std::string s = (path.path()).string();
-		if (path.path().has_extension() && path.path().extension() == ".py")
+        if (path.path().has_extension() && (path.path().extension() == ".py" || path.path().extension() == ".js"))
 		{
 			files.push(s);
 		}
@@ -66,6 +67,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 	}
 
 	getFacade(".py")->ClearCache();
+    getFacade(".js")->ClearCache();
 
 	return meths;
 }
@@ -96,6 +98,10 @@ LanguageBase* antlrParsing::getFacade(std::string fileName)
 	if (path.extension() == ".py")
 	{
 		return new Python3AntlrImplementation();
+	}
+	else if (path.extension() == ".js")
+	{
+		return new JavaScriptAntlrImplementation();
 	}
 	else
 	{

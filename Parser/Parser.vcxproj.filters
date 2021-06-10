@@ -24,6 +24,12 @@
     <Filter Include="languages\py3\generated">
       <UniqueIdentifier>{1661daf0-45c9-43db-9314-19e8e620147a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="languages\js">
+      <UniqueIdentifier>{71deff34-7b57-4f30-be08-ae00f6321665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="languages\js\generated">
+      <UniqueIdentifier>{742f4009-ce7c-45cd-ba42-2a6da27a1547}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractSyntaxToHashable.cpp">
@@ -79,6 +85,33 @@
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\js\JavaScriptParserListenerCustom.cpp">
+      <Filter>languages\js</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\js\generated\JavaScriptLexer.cpp">
+      <Filter>languages\js\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\js\generated\JavaScriptParser.cpp">
+      <Filter>languages\js\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\js\generated\JavaScriptParserBaseListener.cpp">
+      <Filter>languages\js\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\js\generated\JavaScriptParserBaseVisitor.cpp">
+      <Filter>languages\js\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\js\generated\JavaScriptParserListener.cpp">
+      <Filter>languages\js\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\js\generated\JavaScriptParserVisitor.cpp">
+      <Filter>languages\js\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\js\generated\JavaScriptLexerBase.cpp">
+      <Filter>languages\js\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\js\generated\JavaScriptParserBase.cpp">
+      <Filter>languages\js\generated</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +177,36 @@
     </ClInclude>
     <ClInclude Include="languages\py3\Python3AntlrImplementation.h">
       <Filter>languages\py3</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\JavaScriptAntlrImplementation.h">
+      <Filter>languages\js</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\JavaScriptParserListenerCustom.h">
+      <Filter>languages\js</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\generated\JavaScriptLexer.h">
+      <Filter>languages\js\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\generated\JavaScriptParser.h">
+      <Filter>languages\js\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\generated\JavaScriptParserBaseListener.h">
+      <Filter>languages\js\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\generated\JavaScriptParserBaseVisitor.h">
+      <Filter>languages\js\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\generated\JavaScriptParserListener.h">
+      <Filter>languages\js\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\generated\JavaScriptParserVisitor.h">
+      <Filter>languages\js\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\generated\JavaScriptLexerBase.h">
+      <Filter>languages\js\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\js\generated\JavaScriptParserBase.h">
+      <Filter>languages\js\generated</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
