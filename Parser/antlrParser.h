@@ -29,6 +29,7 @@ public:
 	static std::vector<HashData> parseDir(std::string repoPath, int numberOfThreads);
 
 private:
+
 	/// <summary>
 	/// Program run on a single thread to parse a queue of files.
 	/// </summary>
@@ -39,6 +40,13 @@ private:
 	static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
 								 std::mutex &queueLock, std::string path);
 	
+
+	/// <summary>
+	/// Converts any non windows linebreak to windows line breaks.
+	/// </summary>
+	/// <param name="data">The string whose linebreaks need to be replaced.</param>
+	static void toWindowsLineBreak(std::string& data);
+
 	/// <summary>
 	/// Parses a single file.
 	/// </summary>

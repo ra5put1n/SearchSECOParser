@@ -140,16 +140,35 @@ std::string antlrParsing::toUtf8(std::string& str, const std::locale& loc)
 	return strOut;
 }
 #endif
+
+void antlrParsing::toWindowsLineBreak(std::string &data)
+{
+	std::vector<std::string> incorrectLinebreaks{ "\n", "\r", "\036", "\025", "\n\r" };
+	for(int i = 0; i < incorrectLinebreaks.size(); i++){
+		std::string linebreak = incorrectLinebreaks[i];
+		// Replace in string from https://stackoverflow.com/questions/2896600/how-to-replace-all-occurrences-of-a-character-in-string
+		size_t start_pos = 0;
+		std::string windowsLineBreak = "\r\n";
+		while ((start_pos = data.find(linebreak, start_pos)) != std::string::npos)
+		{
+			data.replace(start_pos, linebreak.length(), windowsLineBreak);
+			start_pos += windowsLineBreak.length(); // Handles case where 'to' is a substring of 'from'
+		}
+	}
+}
+
 void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path)
 {
 	std::ifstream file(filepath);
 	if (file.is_open())
 	{
-
 		std::stringstream ss;
 		ss << file.rdbuf();
 		std::string buffer = ss.str();
-		
+
+		// Convert utf8 based on cdycdr's answer to 
+		// https://stackoverflow.com/questions/17562736/how-to-convert-from-utf-8-to-ansi-using-standard-c.
+
 		const char* bom = "\xef\xbb\xbf";
 		std::string data;
 
