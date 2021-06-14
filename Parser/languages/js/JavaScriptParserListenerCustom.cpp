@@ -25,16 +25,54 @@ CustomJavaScriptListener::~CustomJavaScriptListener()
 	delete output;
 }
 
+void CustomJavaScriptListener::enterAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx)
+{
+    functionName = "";
+    start = ctx->start->getLine();
+    inFuncDef = false;
+}
+
+void CustomJavaScriptListener::exitAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx)
+{
+    stop = ctx->stop->getLine();
+    std::cout << functionBody << std::endl << std::endl;
+    if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
+    {
+        output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
+    }
+}
+
+void CustomJavaScriptListener::enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx)
+{
+    functionName = "";
+    start = ctx->start->getLine();
+    inFuncDef = true;
+}
+
+void CustomJavaScriptListener::exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx)
+{
+    stop = ctx->stop->getLine();
+    std::cout << functionName << std::endl << std::endl << functionBody << std::endl << std::endl;
+    if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
+    {
+        output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
+    }
+}
+
 void CustomJavaScriptListener::enterFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
 {
-    std::cout << ctx->start->getLine() << std::endl;
-    inFunction = true;
+    inFuncDef = false;
 }
 
 void CustomJavaScriptListener::exitFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
 {
-    std::cout << ctx->start->getLine() << std::endl;
-
     functionBody = tsr->getText(ctx->getSourceInterval());
-    std::cout << functionBody << std::endl;
+}
+
+void CustomJavaScriptListener::enterIdentifier(JavaScriptParser::IdentifierContext *ctx)
+{
+    if (inFuncDef && functionName == "")
+    {
+        functionName = ctx->start->getText();
+    }
 }

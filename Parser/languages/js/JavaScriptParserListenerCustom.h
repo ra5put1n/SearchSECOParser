@@ -29,12 +29,20 @@ public:
 
 	~CustomJavaScriptListener();
 
+    virtual void enterAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx) override;
+    virtual void exitAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx) override;
+
+    virtual void enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx) override;
+    virtual void exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx) override;
+
 	virtual void enterFunctionBody(JavaScriptParser::FunctionBodyContext *ctx) override;
     virtual void exitFunctionBody(JavaScriptParser::FunctionBodyContext *ctx) override;
+
+    virtual void enterIdentifier(JavaScriptParser::IdentifierContext *ctx) override;
 
 private:
 	antlr4::TokenStreamRewriter* tsr;
 	size_t start, stop;
 	std::string functionName, functionBody, fileName = "filenametest";
-	bool inFunction = false, inSingleStatement = false;
+    bool inFunction = false, inSingleStatement = false, inFuncDef = false;
 };

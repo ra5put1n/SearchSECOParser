@@ -86,6 +86,8 @@ private:
 
 
   // Individual action functions triggered by action() above.
+  void MultiLineCommentAction(antlr4::RuleContext *context, size_t actionIndex);
+  void SingleLineCommentAction(antlr4::RuleContext *context, size_t actionIndex);
   void OpenBraceAction(antlr4::RuleContext *context, size_t actionIndex);
   void CloseBraceAction(antlr4::RuleContext *context, size_t actionIndex);
   void StringLiteralAction(antlr4::RuleContext *context, size_t actionIndex);

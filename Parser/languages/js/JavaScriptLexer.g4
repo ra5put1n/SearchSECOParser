@@ -45,8 +45,8 @@ options { superClass=JavaScriptLexerBase; }
 }
 
 HashBangLine:                   { this->IsStartOfFile()}? '#!' ~[\r\n\u2028\u2029]*; // only allowed at start
-MultiLineComment:               '/*' .*? '*/'             -> skip();	// Skip instead of hiding.
-SingleLineComment:              '//' ~[\r\n\u2028\u2029]* -> skip();	// Skip instead of hiding.
+MultiLineComment:               '/*' .*? '*/'             {this->skip();};
+SingleLineComment:              '//' ~[\r\n\u2028\u2029]* {this->skip();};
 RegularExpressionLiteral:       '/' RegularExpressionFirstChar RegularExpressionChar* {this->IsRegexPossible()}? '/' IdentifierPart*;
 
 OpenBracket:                    '[';
