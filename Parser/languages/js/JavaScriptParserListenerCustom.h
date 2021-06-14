@@ -29,6 +29,9 @@ public:
 
 	~CustomJavaScriptListener();
 
+	virtual void enterFunctionBody(JavaScriptParser::FunctionBodyContext *ctx) override;
+    virtual void exitFunctionBody(JavaScriptParser::FunctionBodyContext *ctx) override;
+
 private:
 	antlr4::TokenStreamRewriter* tsr;
 	size_t start, stop;

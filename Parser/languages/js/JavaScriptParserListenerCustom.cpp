@@ -24,3 +24,17 @@ CustomJavaScriptListener::~CustomJavaScriptListener()
 {
 	delete output;
 }
+
+void CustomJavaScriptListener::enterFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
+{
+    std::cout << ctx->start->getLine() << std::endl;
+    inFunction = true;
+}
+
+void CustomJavaScriptListener::exitFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
+{
+    std::cout << ctx->start->getLine() << std::endl;
+
+    functionBody = tsr->getText(ctx->getSourceInterval());
+    std::cout << functionBody << std::endl;
+}
