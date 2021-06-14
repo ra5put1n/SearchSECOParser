@@ -147,12 +147,12 @@ void antlrParsing::toWindowsLineBreak(std::string &data)
 	for(int i = 0; i < incorrectLinebreaks.size(); i++){
 		std::string linebreak = incorrectLinebreaks[i];
 		// Replace in string from https://stackoverflow.com/questions/2896600/how-to-replace-all-occurrences-of-a-character-in-string
-		size_t start_pos = 0;
+		size_t startPos = 0;
 		std::string windowsLineBreak = "\r\n";
-		while ((start_pos = data.find(linebreak, start_pos)) != std::string::npos)
+		while ((startPos = data.find(linebreak, startPos)) != std::string::npos)
 		{
-			data.replace(start_pos, linebreak.length(), windowsLineBreak);
-			start_pos += windowsLineBreak.length(); // Handles case where 'to' is a substring of 'from'
+			data.replace(startPos, linebreak.length(), windowsLineBreak);
+			startPos += windowsLineBreak.length(); // Handles case where 'to' is a substring of 'from'
 		}
 	}
 }
