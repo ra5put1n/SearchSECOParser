@@ -46,5 +46,5 @@ private:
     std::stack<std::string> functionNames, functionBodies; 
 	size_t stop;
 	std::string fileName = "filenametest";
-    bool inFunction = false, inFunccall = false, inFuncDef = false;
+    bool inFuncDef = false;
 };

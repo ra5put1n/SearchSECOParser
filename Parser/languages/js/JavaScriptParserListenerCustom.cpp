@@ -28,29 +28,34 @@ CustomJavaScriptListener::~CustomJavaScriptListener()
 
 void CustomJavaScriptListener::enterAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx)
 {
+    // Push initial values to stacks.
     functionNames.push("");
     starts.push(ctx->start->getLine());
+
+    // Entered anonymous function definition.
     inFuncDef = false;
 }
 
 void CustomJavaScriptListener::exitAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx)
 {
+    // Retrieve relevant data from stacks.
     std::string functionName = functionNames.top();
     functionNames.pop();
 
     std::string functionBody = functionBodies.top();
     functionBodies.pop();
+
+    size_t start = starts.top();
+    starts.pop();
+    stop = ctx->stop->getLine();
+
     // Remove all whitespace.
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\n'), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\r'), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), ' '), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
 
-    std::cout << functionBody << std::endl << std::endl;
-
-    size_t start = starts.top();
-    starts.pop();
-    stop = ctx->stop->getLine();
+    // Store method if complex enough.
     if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
     {
         output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
@@ -62,29 +67,34 @@ void CustomJavaScriptListener::exitAnonymousFunctionDecl(JavaScriptParser::Anony
 
 void CustomJavaScriptListener::enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx)
 {
+    // Push initial values to stacks.
     functionNames.push("");
     starts.push(ctx->start->getLine());
+
+    // Entered non-anonymous function definition.
     inFuncDef = true;
 }
 
 void CustomJavaScriptListener::exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx)
 {
+    // Retrieve relevant data from stacks.
     std::string functionName = functionNames.top();
     functionNames.pop();
 
     std::string functionBody = functionBodies.top();
     functionBodies.pop();
+
+    size_t start = starts.top();
+    starts.pop();
+    stop = ctx->stop->getLine();
+
     // Remove all whitespace.
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\n'), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\r'), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), ' '), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
 
-    std::cout << functionBody << std::endl << std::endl;
-
-    size_t start = starts.top();
-    starts.pop();
-    stop = ctx->stop->getLine();
+    // Store method if complex enough.
     if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
     {
         output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
@@ -96,22 +106,27 @@ void CustomJavaScriptListener::exitFunctionDeclaration(JavaScriptParser::Functio
 
 void CustomJavaScriptListener::enterFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
 {
+    // Entered function body, so we must have exited the definition.
     inFuncDef = false;
 }
 
 void CustomJavaScriptListener::exitFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
 {
+    // Store function body.
     functionBodies.push(tsr->getText(ctx->getSourceInterval()));
 }
 
 void CustomJavaScriptListener::enterIdentifier(JavaScriptParser::IdentifierContext *ctx)
 {
+    // Function name has not yet been decided and currently in non-anonymnous function definition.
     if (inFuncDef && functionNames.top() == "")
     {
+        // Then identifier is function name.
         functionNames.top() = ctx->start->getText();
     }
     else
     {
+        // Abstract other identifiers.
         tsr->replace(ctx->start, "var");
     }
 }

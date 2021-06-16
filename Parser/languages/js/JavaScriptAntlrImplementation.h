@@ -66,8 +66,6 @@ public:
 
 		std::string log = "Finished parsing file: " + filePath + ", number of functions found: " + std::to_string(hashes.size());
 		Logger::logDebug(log.c_str(), __FILE__, __LINE__);
-
-		std::cout << t->toStringTree(&p, true) << std::endl;
 		
 		return hashes;
 	}

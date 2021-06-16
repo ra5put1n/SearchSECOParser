@@ -17,6 +17,18 @@ if (false) {
 
 // Single line comment.
 
+function a(x){
+  return x.toUpperCase();
+}
+  
+function identicalFunction0(str) {
+  i++;
+  i++;
+  i++;
+  var res = str.replace("uppercase", a);
+  return res;
+}
+
 function identicalFunction1(str) {
   i++;
   i++;
