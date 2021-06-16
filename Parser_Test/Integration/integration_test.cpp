@@ -136,8 +136,8 @@ TEST(integrationCSharp, integrationCSharpBase)
 	ASSERT_EQ(hd1.functionName, "BitmapOpslaan");
 	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
 	ASSERT_EQ(hd1.lineNumber, 446);
-	ASSERT_EQ(hd1.lineNumberEnd, 467);	
-	
+	ASSERT_EQ(hd1.lineNumberEnd, 467);
+
 	hd1 = hds[1];
 	ASSERT_EQ(hd1.functionName, "HaalInteressantPuntOp");
 	ASSERT_EQ(hd1.fileName, "Mandelbrot.cs");
@@ -187,7 +187,7 @@ TEST(integrationCSharp, integrationCSharpHash)
 
 	HashData hd1 = hds[0];
 	ASSERT_EQ(hd1.hash, "685624834b651e79f6fce1edf416d381");
-	
+
 	hd1 = hds[1];
 	ASSERT_EQ(hd1.hash, "ede20d2efb3a471951edb1448fb5327e");
 
@@ -224,8 +224,7 @@ TEST(integrationPython3, integrationPython3Base)
 	}
 
 	// Check for several expected functions.
-	std::vector<HashData> hds_exp = std::vector<HashData>
-	{
+	std::vector<HashData> hds_exp = std::vector<HashData>{
 		HashData("", "__init__", "hash_table.py", 12, 18),
 		HashData("", "_collision_resolution", "hash_table.py", 52, 63),
 		HashData("", "insert_data", "hash_table.py", 73, 88),
@@ -255,12 +254,8 @@ TEST(integrationPython3, integrationPython3Hash)
 
 	// Check for several expected hashes.
 	std::vector<std::string> hds_exp = std::vector<std::string>{
-		"3c085b3350ba3845848966ded5c5270a",
-		"be9829d537340b830fde528c0036b7e8",
-		"a0c3121f66df414f47517bc0e9e0e61c",
-		"78e30bcecd0e0368149c199e80c6d9d5",
-		"7d50b200c1daff6aa321c5fad7c9a680",
-		"1201c61b79c65ae041cf4b3db2edf852",
+		"3c085b3350ba3845848966ded5c5270a", "be9829d537340b830fde528c0036b7e8", "a0c3121f66df414f47517bc0e9e0e61c",
+		"78e30bcecd0e0368149c199e80c6d9d5", "7d50b200c1daff6aa321c5fad7c9a680", "1201c61b79c65ae041cf4b3db2edf852",
 		"8881a990ed16c075065c239e50433f64",
 	};
 
@@ -268,5 +263,64 @@ TEST(integrationPython3, integrationPython3Hash)
 	{
 		ASSERT_NE(hm[hds_exp[i]], 0);
 		hm[hds_exp[i]]--;
+	}
+}
+
+TEST(integrationJavaScript, integrationJavaScriptBase)
+{
+	std::vector<HashData> hds = Parser::parse(dataLoc + "/javascript");
+
+	// Ignore hashes.
+	for (int i = 0; i < hds.size(); i++)
+	{
+		hds[i].hash = "";
+	}
+
+	// Check for expected functions.
+	std::vector<HashData> hds_exp = std::vector<HashData>{
+		HashData("", "identicalFunction0", "nested.js", 24, 30),
+		HashData("", "identicalFunction1", "nested.js", 32, 41),
+		HashData("", "identicalFunction2", "nested.js", 43, 51),
+		HashData("", "childFunction", "nested.js", 58, 65),
+		HashData("", "parentFunction", "nested.js", 53, 78),
+		HashData("", "commentFunction", "nested.js", 84, 96),
+	};
+
+	for (int i = 0; i < hds_exp.size(); i++)
+	{
+		ASSERT_NE(std::find(begin(hds), end(hds), hds_exp[i]), end(hds));
+	}
+
+	// Check for non-expected functions.
+	for (int i = 0; i < hds.size(); i++)
+	{
+		ASSERT_NE(hds[i].functionName, "a");
+		ASSERT_NE(hds[i].functionName, "d");
+		ASSERT_NE(hds[i].functionName, "shortFunction");
+		ASSERT_NE(hds[i].functionName, "incarceratedFunction");
+	}
+}
+
+TEST(integrationJavaScript, integrationJavaScriptAbstraction)
+{
+	std::vector<HashData> hds = Parser::parse(dataLoc + "/javascript");
+
+	// Test if similar functions are abstracted the same.
+	std::string hash = "";
+	for (int i = 0; i < hds.size(); i++)
+	{
+		if (hds[i].functionName == "identicalFunction0" || 
+			hds[i].functionName == "identicalFunction1" ||
+			hds[i].functionName == "identicalFunction2")
+		{
+			if (hash == "")
+			{
+				hash = hds[i].hash;
+			}
+			else
+			{
+				ASSERT_EQ(hash, hds[i].hash);
+			}
+		}
 	}
 }
