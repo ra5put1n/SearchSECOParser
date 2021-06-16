@@ -19,6 +19,12 @@ JavaScriptParser::~JavaScriptParser() {
   delete _interpreter;
 }
 
+void JavaScriptParser::clearCache()
+{
+    _interpreter->clearDFA();
+    _sharedContextCache.clear();
+}
+
 std::string JavaScriptParser::getGrammarFileName() const {
   return "JavaScriptParser.g4";
 }

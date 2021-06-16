@@ -72,6 +72,8 @@ public:
   explicit JavaScriptParser(antlr4::TokenStream *input);
   ~JavaScriptParser();
 
+  void clearCache();
+
   virtual std::string getGrammarFileName() const override;
   virtual const antlr4::atn::ATN& getATN() const override { return _atn; };
   virtual const std::vector<std::string>& getTokenNames() const override { return _tokenNames; }; // deprecated: use vocabulary instead.

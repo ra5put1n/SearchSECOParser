@@ -49,6 +49,8 @@ public:
     UnexpectedCharacter = 124
   };
 
+  void clearCache();
+
   enum {
     ERROR = 2
   };

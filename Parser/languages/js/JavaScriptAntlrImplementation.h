@@ -83,7 +83,7 @@ public:
 
 		JavaScriptParser p(&tokens);
 
-		//l.clearCache();
-		//p.clearCache();
+		l.clearCache();
+		p.clearCache();
 	}
 };

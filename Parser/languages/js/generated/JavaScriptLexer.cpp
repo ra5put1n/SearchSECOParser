@@ -24,6 +24,12 @@ JavaScriptLexer::~JavaScriptLexer() {
   delete _interpreter;
 }
 
+void JavaScriptLexer::clearCache()
+{
+    _interpreter->clearDFA();
+    _sharedContextCache.clear();
+}
+
 std::string JavaScriptLexer::getGrammarFileName() const {
   return "JavaScriptLexer.g4";
 }
