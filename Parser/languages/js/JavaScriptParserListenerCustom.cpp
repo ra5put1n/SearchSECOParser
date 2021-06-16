@@ -10,53 +10,88 @@ Utrecht University within the Software Project course.
 #define MIN_FUNCTION_CHARACTERS 50
 #define MIN_FUNCTION_LINES 6
 
-CustomJavaScriptListener::CustomJavaScriptListener(antlr4::TokenStreamRewriter *tsr,
-											 std::string fileName)
+CustomJavaScriptListener::CustomJavaScriptListener(antlr4::TokenStreamRewriter *tsr, std::string fileName)
 {
-	this->tsr = tsr;
-	this->fileName = fileName;
-	output = new std::vector<HashData>();
-	start = 0;
-	stop = 0;
+    this->tsr = tsr;
+    this->fileName = fileName;
+    output = new std::vector<HashData>();
+    starts = std::stack<size_t>();
+    functionNames = std::stack<std::string>();
+    functionBodies = std::stack<std::string>();
+    stop = 0;
 }
 
 CustomJavaScriptListener::~CustomJavaScriptListener()
 {
-	delete output;
+    delete output;
 }
 
 void CustomJavaScriptListener::enterAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx)
 {
-    functionName = "";
-    start = ctx->start->getLine();
+    functionNames.push("");
+    starts.push(ctx->start->getLine());
     inFuncDef = false;
 }
 
 void CustomJavaScriptListener::exitAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx)
 {
-    stop = ctx->stop->getLine();
+    std::string functionName = functionNames.top();
+    functionNames.pop();
+
+    std::string functionBody = functionBodies.top();
+    functionBodies.pop();
+    // Remove all whitespace.
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\n'), functionBody.end());
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\r'), functionBody.end());
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), ' '), functionBody.end());
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
+
     std::cout << functionBody << std::endl << std::endl;
+
+    size_t start = starts.top();
+    starts.pop();
+    stop = ctx->stop->getLine();
     if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
     {
         output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
     }
+
+    // Anonymous functions are used immediately, so abstract to variable (the function itself is passed as an argument).
+    tsr->replace(ctx->start, ctx->stop, "var");
 }
 
 void CustomJavaScriptListener::enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx)
 {
-    functionName = "";
-    start = ctx->start->getLine();
+    functionNames.push("");
+    starts.push(ctx->start->getLine());
     inFuncDef = true;
 }
 
 void CustomJavaScriptListener::exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx)
 {
+    std::string functionName = functionNames.top();
+    functionNames.pop();
+
+    std::string functionBody = functionBodies.top();
+    functionBodies.pop();
+    // Remove all whitespace.
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\n'), functionBody.end());
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\r'), functionBody.end());
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), ' '), functionBody.end());
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
+
+    std::cout << functionBody << std::endl << std::endl;
+
+    size_t start = starts.top();
+    starts.pop();
     stop = ctx->stop->getLine();
-    std::cout << functionName << std::endl << std::endl << functionBody << std::endl << std::endl;
     if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
     {
         output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
     }
+
+    // Definition could also be done outside of function, so remove definition entirely.
+    tsr->replace(ctx->start, ctx->stop, "");
 }
 
 void CustomJavaScriptListener::enterFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
@@ -66,13 +101,17 @@ void CustomJavaScriptListener::enterFunctionBody(JavaScriptParser::FunctionBodyC
 
 void CustomJavaScriptListener::exitFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
 {
-    functionBody = tsr->getText(ctx->getSourceInterval());
+    functionBodies.push(tsr->getText(ctx->getSourceInterval()));
 }
 
 void CustomJavaScriptListener::enterIdentifier(JavaScriptParser::IdentifierContext *ctx)
 {
-    if (inFuncDef && functionName == "")
+    if (inFuncDef && functionNames.top() == "")
     {
-        functionName = ctx->start->getText();
+        functionNames.top() = ctx->start->getText();
+    }
+    else
+    {
+        tsr->replace(ctx->start, "var");
     }
 }
