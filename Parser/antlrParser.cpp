@@ -13,6 +13,7 @@ Utrecht University within the Software Project course.
 #include <thread>
 #include <codecvt>
 #include <cstring>
+#include <sstream>
 
 #include "antlr4-runtime.h"
 
@@ -139,12 +140,9 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 	if (file.is_open())
 	{
 
-		file.seekg(0, std::ios::end);
-		size_t size = file.tellg();
-		std::string buffer(size, ' ');
-		file.seekg(0);
-		file.read(&buffer[0], size);
-
+		std::stringstream ss;
+		ss << file.rdbuf();
+		std::string buffer = ss.str();
 		
 		const char* bom = "\xef\xbb\xbf";
 		std::string data;
