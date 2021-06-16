@@ -9,12 +9,17 @@ Utrecht University within the Software Project course.
 
 #include "HashData.h"
 
-
+#define PARSER_HASH_VERSION 1
 
 
 class Parser
 {
 public:
+	static int getHashVersion()
+	{
+		return PARSER_HASH_VERSION;
+	}
+
 	/// <summary>
 	/// Parse the files in a location, return hashes with metadata of found functions.
 	/// </summary>
