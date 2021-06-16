@@ -13,6 +13,7 @@ Utrecht University within the Software Project course.
 #include <thread>
 #include <codecvt>
 #include <cstring>
+#include <sstream>
 
 #include "antlr4-runtime.h"
 
@@ -101,7 +102,9 @@ LanguageBase* antlrParsing::getFacade(std::string fileName)
 		return nullptr;
 	}
 }
-
+#if defined(WIN32) || defined(_WIN32)
+// Convert utf8 based on cdycdr's answer to 
+// https://stackoverflow.com/questions/17562736/how-to-convert-from-utf-8-to-ansi-using-standard-c.
 std::string antlrParsing::toUtf8(const std::string& str, const std::locale& loc)
 {
 	using wcvt = std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t>;
@@ -109,22 +112,38 @@ std::string antlrParsing::toUtf8(const std::string& str, const std::locale& loc)
 	std::use_facet<std::ctype<char32_t>>(loc).widen(str.data(), str.data() + str.size(), &wstr[0]);
 	return wcvt{}.to_bytes(wstr.data(), wstr.data() + wstr.size());
 }
-
+#else
+// different method in UNIX
+// source: https://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
+std::string antlrParsing::toUtf8(std::string& str, const std::locale& loc)
+{
+	std::string strOut;
+	for (std::string::iterator it = str.begin(); it != str.end(); ++it)
+	{
+		uint8_t ch = *it;
+		if (ch < 0x80)
+		{
+			strOut.push_back(ch);
+		}
+		else
+		{
+			strOut.push_back(0xc0 | ch >> 6);
+			strOut.push_back(0x80 | (ch & 0x3f));
+		}
+	}
+	return strOut;
+}
+#endif
 void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path)
 {
 	std::ifstream file(filepath);
 	if (file.is_open())
 	{
 
-		file.seekg(0, std::ios::end);
-		size_t size = file.tellg();
-		std::string buffer(size, ' ');
-		file.seekg(0);
-		file.read(&buffer[0], size);
-
-		// Convert utf8 based on cdycdr's answer to 
-		// https://stackoverflow.com/questions/17562736/how-to-convert-from-utf-8-to-ansi-using-standard-c.
-
+		std::stringstream ss;
+		ss << file.rdbuf();
+		std::string buffer = ss.str();
+		
 		const char* bom = "\xef\xbb\xbf";
 		std::string data;
 
@@ -134,7 +153,6 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		}
 		else
 		{
-#if defined(WIN32) || defined(_WIN32)
 			try
 			{
 				data = toUtf8(buffer);
@@ -145,10 +163,6 @@ void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 				Logger::logWarn(log.c_str(), __FILE__, __LINE__);
 				return;
 			}
-#else
-			// toUtf8 function doesn't work in UNIX system
-			data = buffer;
-#endif
 		}
 
 		// Retrieve parser for this file, if available

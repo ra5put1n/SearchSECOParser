@@ -60,5 +60,9 @@ private:
 	/// <param name = "str"> Text to convert. </param>
 	/// <param name="loc"> Location to use, default current one. </param>
 	/// <returns> The converted text </returns>
-	static std::string toUtf8(const std::string& str, const std::locale& loc = std::locale{});
+	static std::string toUtf8(
+#if defined(WIN32) || defined(_WIN32)
+		const
+#endif
+		std::string& str, const std::locale& loc = std::locale{});
 };
