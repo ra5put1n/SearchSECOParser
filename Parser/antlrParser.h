@@ -14,7 +14,7 @@ Utrecht University within the Software Project course.
 #include "HashData.h"
 #include "languages/LanguageBase.h"
 
-#define DEFAULT_NUMBER_THREADS 1
+#define DEFAULT_NUMBER_THREADS 16
 
 
 class antlrParsing
