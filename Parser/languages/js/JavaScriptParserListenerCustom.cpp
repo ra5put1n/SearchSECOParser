@@ -57,8 +57,6 @@ void CustomJavaScriptListener::exitAnonymousFunctionDecl(JavaScriptParser::Anony
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), ' '), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
 
-    std::cout << functionBody << std::endl << std::endl;
-
     // Store method if complex enough.
     if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
     {
@@ -104,8 +102,6 @@ void CustomJavaScriptListener::exitFunctionDeclaration(JavaScriptParser::Functio
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\r'), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), ' '), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
-
-    std::cout << functionBody << std::endl << std::endl;
 
     // Store method if complex enough.
     if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
