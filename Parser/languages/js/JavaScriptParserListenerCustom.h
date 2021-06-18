@@ -41,10 +41,11 @@ public:
     virtual void enterIdentifier(JavaScriptParser::IdentifierContext *ctx) override;
 
 private:
-	antlr4::TokenStreamRewriter* tsr;
+	antlr4::TokenStreamRewriter *baseTsr;
+    std::stack<antlr4::TokenStreamRewriter *> tsrs;
     std::stack<size_t> starts;
     std::stack<std::string> functionNames, functionBodies; 
 	size_t stop;
 	std::string fileName = "filenametest";
-    bool inFuncDef = false;
+    bool inNonAbsFuncDef = false;
 };

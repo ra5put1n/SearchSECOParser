@@ -12,10 +12,11 @@ Utrecht University within the Software Project course.
 
 CustomJavaScriptListener::CustomJavaScriptListener(antlr4::TokenStreamRewriter *tsr, std::string fileName)
 {
-    this->tsr = tsr;
+    this->baseTsr = tsr;
     this->fileName = fileName;
     output = new std::vector<HashData>();
     starts = std::stack<size_t>();
+    tsrs = std::stack<antlr4::TokenStreamRewriter *>();
     functionNames = std::stack<std::string>();
     functionBodies = std::stack<std::string>();
     stop = 0;
@@ -29,11 +30,12 @@ CustomJavaScriptListener::~CustomJavaScriptListener()
 void CustomJavaScriptListener::enterAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx)
 {
     // Push initial values to stacks.
+    tsrs.push(new antlr4::TokenStreamRewriter(baseTsr->getTokenStream()));
     functionNames.push("");
     starts.push(ctx->start->getLine());
 
     // Entered anonymous function definition.
-    inFuncDef = false;
+    inNonAbsFuncDef = false;
 }
 
 void CustomJavaScriptListener::exitAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx)
@@ -55,24 +57,33 @@ void CustomJavaScriptListener::exitAnonymousFunctionDecl(JavaScriptParser::Anony
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), ' '), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
 
+    std::cout << functionBody << std::endl << std::endl;
+
     // Store method if complex enough.
     if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
     {
         output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
     }
 
+    // Change tsr to that of encapsulating function definition.
+    tsrs.pop();
+
     // Anonymous functions are used immediately, so abstract to variable (the function itself is passed as an argument).
-    tsr->replace(ctx->start, ctx->stop, "var");
+    if (!tsrs.empty())
+    {
+        tsrs.top()->replace(ctx->start, ctx->stop, "var");
+    }
 }
 
 void CustomJavaScriptListener::enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx)
 {
     // Push initial values to stacks.
+    tsrs.push(new antlr4::TokenStreamRewriter(baseTsr->getTokenStream()));
     functionNames.push("");
     starts.push(ctx->start->getLine());
 
     // Entered non-anonymous function definition.
-    inFuncDef = true;
+    inNonAbsFuncDef = true;
 }
 
 void CustomJavaScriptListener::exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx)
@@ -94,39 +105,48 @@ void CustomJavaScriptListener::exitFunctionDeclaration(JavaScriptParser::Functio
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), ' '), functionBody.end());
     functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
 
+    std::cout << functionBody << std::endl << std::endl;
+
     // Store method if complex enough.
     if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
     {
         output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
     }
 
+    // Change tsr to that of encapsulating function definition.
+    tsrs.pop();
+
     // Definition could also be done outside of function, so remove definition entirely.
-    tsr->replace(ctx->start, ctx->stop, "");
+    if (!tsrs.empty())
+    {
+        tsrs.top()->replace(ctx->start, ctx->stop, "");
+    }
 }
 
 void CustomJavaScriptListener::enterFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
 {
     // Entered function body, so we must have exited the definition.
-    inFuncDef = false;
+    inNonAbsFuncDef = false;
 }
 
 void CustomJavaScriptListener::exitFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
 {
     // Store function body.
-    functionBodies.push(tsr->getText(ctx->getSourceInterval()));
+    functionBodies.push(tsrs.top()->getText(ctx->getSourceInterval()));
 }
 
 void CustomJavaScriptListener::enterIdentifier(JavaScriptParser::IdentifierContext *ctx)
 {
     // Function name has not yet been decided and currently in non-anonymnous function definition.
-    if (inFuncDef && functionNames.top() == "")
+    if (inNonAbsFuncDef && functionNames.top() == "")
     {
         // Then identifier is function name.
         functionNames.top() = ctx->start->getText();
     }
-    else
+    // Check if in a function definition.
+    else if (!tsrs.empty())
     {
         // Abstract other identifiers.
-        tsr->replace(ctx->start, "var");
+        tsrs.top()->replace(ctx->start, "var");
     }
 }

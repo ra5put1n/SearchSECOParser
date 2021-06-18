@@ -54,6 +54,7 @@ void CustomPython3Listener::enterFuncbody(Python3Parser::FuncbodyContext *ctx)
 void CustomPython3Listener::exitFuncbody(Python3Parser::FuncbodyContext *ctx)
 {
 	functionBody = tsr->getText(ctx->getSourceInterval());
+    tsr = new antlr4::TokenStreamRewriter(tsr->getTokenStream());
 }
 
 void CustomPython3Listener::enterName(Python3Parser::NameContext *ctx)
