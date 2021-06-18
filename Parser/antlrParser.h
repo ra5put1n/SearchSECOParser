@@ -39,13 +39,6 @@ private:
 	/// <param name = "queueLock"> Mutex that restricts access to files queue. </param>
 	static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
 								 std::mutex &queueLock, std::string path);
-	
-
-	/// <summary>
-	/// Converts any non windows linebreak to windows line breaks.
-	/// </summary>
-	/// <param name="data">The string whose linebreaks need to be replaced.</param>
-	static void toWindowsLineBreak(std::string& data);
 
 	/// <summary>
 	/// Parses a single file.
