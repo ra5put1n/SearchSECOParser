@@ -29,6 +29,7 @@ public:
 	static std::vector<HashData> parseDir(std::string repoPath, int numberOfThreads);
 
 private:
+
 	/// <summary>
 	/// Program run on a single thread to parse a queue of files.
 	/// </summary>
@@ -38,7 +39,7 @@ private:
 	/// <param name = "queueLock"> Mutex that restricts access to files queue. </param>
 	static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
 								 std::mutex &queueLock, std::string path);
-	
+
 	/// <summary>
 	/// Parses a single file.
 	/// </summary>

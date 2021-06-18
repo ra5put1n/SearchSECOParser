@@ -395,7 +395,7 @@ namespace loguru
 		// Set to nullptr to if you don't want Loguru to parse verbosity from the args.'
 		const char* verbosity_flag = "-v";
 
-		// loguru::init will set the name of the calling thread to this.
+		// loguru::init will set the name of the calling thread to this->
 		// If you don't want Loguru to set the name of the main thread,
 		// set this to nullptr.
 		// NOTE: on SOME platforms loguru::init will only overwrite the thread name
@@ -439,7 +439,7 @@ namespace loguru
 	void init(int& argc, char* argv[], const Options& options = {});
 
 	// Will call remove_all_callbacks(). After calling this, logging will still go to stderr.
-	// You generally don't need to call this.
+	// You generally don't need to call this->
 	LOGURU_EXPORT
 	void shutdown();
 

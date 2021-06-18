@@ -22,6 +22,7 @@ Utrecht University within the Software Project course.
 #include "antlrParser.h"
 #include "languages/LanguageBase.h"
 #include "languages/py3/Python3AntlrImplementation.h"
+#include "languages/js/JavaScriptAntlrImplementation.h"
 
 
 
@@ -46,7 +47,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 	for (const auto &path : dirIter)
 	{
 		std::string s = (path.path()).string();
-		if (path.path().has_extension() && path.path().extension() == ".py")
+        if (path.path().has_extension() && (path.path().extension() == ".py" || path.path().extension() == ".js"))
 		{
 			files.push(s);
 		}
@@ -66,6 +67,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 	}
 
 	getFacade(".py")->ClearCache();
+    getFacade(".js")->ClearCache();
 
 	return meths;
 }
@@ -96,6 +98,10 @@ LanguageBase* antlrParsing::getFacade(std::string fileName)
 	if (path.extension() == ".py")
 	{
 		return new Python3AntlrImplementation();
+	}
+	else if (path.extension() == ".js")
+	{
+		return new JavaScriptAntlrImplementation();
 	}
 	else
 	{
@@ -134,16 +140,19 @@ std::string antlrParsing::toUtf8(std::string& str, const std::locale& loc)
 	return strOut;
 }
 #endif
+
 void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path)
 {
 	std::ifstream file(filepath);
 	if (file.is_open())
 	{
-
 		std::stringstream ss;
 		ss << file.rdbuf();
 		std::string buffer = ss.str();
-		
+
+		// Convert utf8 based on cdycdr's answer to 
+		// https://stackoverflow.com/questions/17562736/how-to-convert-from-utf-8-to-ansi-using-standard-c.
+
 		const char* bom = "\xef\xbb\xbf";
 		std::string data;
 

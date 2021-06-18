@@ -182,6 +182,15 @@
   <ItemGroup>
     <ClCompile Include="AbstractSyntaxToHashable.cpp" />
     <ClCompile Include="antlrParser.cpp" />
+    <ClCompile Include="languages\js\generated\JavaScriptLexer.cpp" />
+    <ClCompile Include="languages\js\generated\JavaScriptLexerBase.cpp" />
+    <ClCompile Include="languages\js\generated\JavaScriptParser.cpp" />
+    <ClCompile Include="languages\js\generated\JavaScriptParserBase.cpp" />
+    <ClCompile Include="languages\js\generated\JavaScriptParserBaseListener.cpp" />
+    <ClCompile Include="languages\js\generated\JavaScriptParserBaseVisitor.cpp" />
+    <ClCompile Include="languages\js\generated\JavaScriptParserListener.cpp" />
+    <ClCompile Include="languages\js\generated\JavaScriptParserVisitor.cpp" />
+    <ClCompile Include="languages\js\JavaScriptParserListenerCustom.cpp" />
     <ClCompile Include="languages\py3\generated\Python3BaseListener.cpp" />
     <ClCompile Include="languages\py3\generated\Python3BaseVisitor.cpp" />
     <ClCompile Include="languages\py3\generated\Python3Lexer.cpp" />
@@ -203,6 +212,16 @@
     <ClInclude Include="AbstractSyntaxToHashable.h" />
     <ClInclude Include="antlrParser.h" />
     <ClInclude Include="HashData.h" />
+    <ClInclude Include="languages\js\generated\JavaScriptLexer.h" />
+    <ClInclude Include="languages\js\generated\JavaScriptLexerBase.h" />
+    <ClInclude Include="languages\js\generated\JavaScriptParser.h" />
+    <ClInclude Include="languages\js\generated\JavaScriptParserBase.h" />
+    <ClInclude Include="languages\js\generated\JavaScriptParserBaseListener.h" />
+    <ClInclude Include="languages\js\generated\JavaScriptParserBaseVisitor.h" />
+    <ClInclude Include="languages\js\generated\JavaScriptParserListener.h" />
+    <ClInclude Include="languages\js\generated\JavaScriptParserVisitor.h" />
+    <ClInclude Include="languages\js\JavaScriptAntlrImplementation.h" />
+    <ClInclude Include="languages\js\JavaScriptParserListenerCustom.h" />
     <ClInclude Include="languages\LanguageBase.h" />
     <ClInclude Include="languages\py3\generated\Python3BaseListener.h" />
     <ClInclude Include="languages\py3\generated\Python3BaseVisitor.h" />
