@@ -45,7 +45,10 @@ public:
 	virtual void enterString(Python3Parser::StringContext *ctx) override;
 
 private:
-	antlr4::TokenStreamRewriter* tsr;
+    antlr4::TokenStreamRewriter *baseTsr;
+    std::stack<antlr4::TokenStreamRewriter *> tsrs;
+    std::stack<size_t> starts;
+    std::stack<std::string> functionNames, functionBodies;
 	size_t start, stop;
 	std::string functionName, functionBody, fileName = "filenametest";
 	bool inFunction = false, inSingleStatement = false;
