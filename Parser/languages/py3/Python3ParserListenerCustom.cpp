@@ -83,7 +83,7 @@ void CustomPython3Listener::enterName(Python3Parser::NameContext *ctx)
 {
 	if (functionName == "")
 	{
-		functionName = ctx->start->getText();
+		functionNames.push(ctx->start->getText());
 	}
 
 	if (inFunction && !tsrs.empty())
