@@ -10,22 +10,21 @@ Utrecht University within the Software Project course.
 #define MIN_FUNCTION_CHARACTERS 50
 #define MIN_FUNCTION_LINES 6
 
-CustomPython3Listener::CustomPython3Listener(antlr4::TokenStreamRewriter *tsr,
-											 std::string fileName)
+CustomPython3Listener::CustomPython3Listener(antlr4::TokenStreamRewriter *tsr, std::string fileName)
 {
     this->baseTsr = tsr;
-	this->fileName = fileName;
-	output = new std::vector<HashData>();
+    this->fileName = fileName;
+    output = new std::vector<HashData>();
     starts = std::stack<size_t>();
     tsrs = std::stack<antlr4::TokenStreamRewriter *>();
     functionNames = std::stack<std::string>();
     functionBodies = std::stack<std::string>();
-	stop = 0;
+    stop = 0;
 }
 
 CustomPython3Listener::~CustomPython3Listener()
 {
-	delete output;
+    delete output;
 }
 
 void CustomPython3Listener::enterFuncdef(Python3Parser::FuncdefContext *ctx)
@@ -46,16 +45,16 @@ void CustomPython3Listener::exitFuncdef(Python3Parser::FuncdefContext *ctx)
 
     size_t start = starts.top();
     starts.pop();
-	stop = ctx->stop->getLine();
+    stop = ctx->stop->getLine();
 
-	// Remove all newlines and carriage returns.
-	functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\n'), functionBody.end());
-	functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\r'), functionBody.end());
+    // Remove all newlines and carriage returns.
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\n'), functionBody.end());
+    functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\r'), functionBody.end());
 
-	if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
-	{
-		output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
-	}
+    if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
+    {
+        output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
+    }
     inFunction = false;
 
     // Change tsr to that of encapsulating function definition.
@@ -70,7 +69,7 @@ void CustomPython3Listener::exitFuncdef(Python3Parser::FuncdefContext *ctx)
 
 void CustomPython3Listener::enterFuncbody(Python3Parser::FuncbodyContext *ctx)
 {
-	inFunction = true;
+    inFunction = true;
 }
 
 void CustomPython3Listener::exitFuncbody(Python3Parser::FuncbodyContext *ctx)
@@ -81,15 +80,18 @@ void CustomPython3Listener::exitFuncbody(Python3Parser::FuncbodyContext *ctx)
 
 void CustomPython3Listener::enterName(Python3Parser::NameContext *ctx)
 {
-	if (functionName == "")
-	{
-		functionNames.push(ctx->start->getText());
-	}
+    if (!tsrs.empty())
+    {
+        if (functionNames.top() == "")
+        {
+            functionNames.push(ctx->start->getText());
+        }
 
-	if (inFunction && !tsrs.empty())
-	{
-		tsrs.top()->replace(ctx->start, "var");
-	}
+        if (inFunction)
+        {
+            tsrs.top()->replace(ctx->start, "var");
+        }
+    }
 }
 
 void CustomPython3Listener::enterFunccallname(Python3Parser::FunccallnameContext *ctx)
@@ -103,18 +105,18 @@ void CustomPython3Listener::enterFunccallname(Python3Parser::FunccallnameContext
 
 void CustomPython3Listener::enterExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx)
 {
-	inSingleStatement = true;
+    inSingleStatement = true;
 }
 
 void CustomPython3Listener::exitExpr_stmt_single(Python3Parser::Expr_stmt_singleContext *ctx)
 {
-	inSingleStatement = false;
+    inSingleStatement = false;
 }
 
 void CustomPython3Listener::enterString(Python3Parser::StringContext *ctx)
 {
-	if (inSingleStatement && !tsrs.empty())
-	{
+    if (inSingleStatement && !tsrs.empty())
+    {
         tsrs.top()->replace(ctx->start, "");
-	}
+    }
 }
