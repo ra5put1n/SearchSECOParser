@@ -51,7 +51,6 @@ public:
 			Logger::logWarn(log.c_str(), __FILE__, __LINE__);
 			return std::vector<HashData>();
 		}
-
 		try
 		{
 			antlr4::tree::ParseTreeWalker::DEFAULT.walk(&e, t);

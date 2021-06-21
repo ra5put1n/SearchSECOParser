@@ -234,7 +234,7 @@ debuggerStatement
     ;
 
 functionDeclaration
-    : Async? Function_ '*'? identifier '(' formalParameterList? ')' functionBody
+    : Async? Function_ '*'? identifier '(' formalParameterList? ')' parseFunctionBody
     ;
 
 classDeclaration
@@ -273,6 +273,8 @@ lastFormalParameterArg                        // ECMAScript 6: Rest Parameter
 functionBody
     : '{' sourceElements? '}'
     ;
+	
+parseFunctionBody : functionBody;			// Custom
 
 sourceElements
     : sourceElement+
@@ -293,9 +295,9 @@ arrayElement
 propertyAssignment
     : propertyName ':' singleExpression                                             # PropertyExpressionAssignment
     | '[' singleExpression ']' ':' singleExpression                                 # ComputedPropertyExpressionAssignment
-    | Async? '*'? propertyName '(' formalParameterList?  ')'  functionBody  # FunctionProperty
-    | getter '(' ')' functionBody                                           # PropertyGetter
-    | setter '(' formalParameterArg ')' functionBody                        # PropertySetter
+    | Async? '*'? propertyName '(' formalParameterList?  ')'  functionBody  		# FunctionProperty
+    | getter '(' ')' functionBody                                           		# PropertyGetter
+    | setter '(' formalParameterArg ')' functionBody                        		# PropertySetter
     | Ellipsis? singleExpression                                                    # PropertyShorthand
     ;
 
@@ -379,7 +381,7 @@ objectLiteral
 
 anonymousFunction
     : functionDeclaration                                                       # FunctionDecl
-    | Async? Function_ '*'? '(' formalParameterList? ')' functionBody    # AnonymousFunctionDecl
+    | Async? Function_ '*'? '(' formalParameterList? ')' parseFunctionBody    # AnonymousFunctionDecl
     | Async? arrowFunctionParameters '=>' arrowFunctionBody                     # ArrowFunction
     ;
 

@@ -35,8 +35,8 @@ public:
     virtual void enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx) override;
     virtual void exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx) override;
 
-	virtual void enterFunctionBody(JavaScriptParser::FunctionBodyContext *ctx) override;
-    virtual void exitFunctionBody(JavaScriptParser::FunctionBodyContext *ctx) override;
+	virtual void enterParseFunctionBody(JavaScriptParser::ParseFunctionBodyContext *ctx) override;
+    virtual void exitParseFunctionBody(JavaScriptParser::ParseFunctionBodyContext *ctx) override;
 
     virtual void enterIdentifier(JavaScriptParser::IdentifierContext *ctx) override;
 
