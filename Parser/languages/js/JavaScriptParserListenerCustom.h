@@ -29,23 +29,23 @@ public:
 
 	~CustomJavaScriptListener();
 
-    virtual void enterAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx) override;
-    virtual void exitAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx) override;
+	virtual void enterAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx) override;
+	virtual void exitAnonymousFunctionDecl(JavaScriptParser::AnonymousFunctionDeclContext *ctx) override;
 
-    virtual void enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx) override;
-    virtual void exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx) override;
+	virtual void enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx) override;
+	virtual void exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext *ctx) override;
 
 	virtual void enterParseFunctionBody(JavaScriptParser::ParseFunctionBodyContext *ctx) override;
-    virtual void exitParseFunctionBody(JavaScriptParser::ParseFunctionBodyContext *ctx) override;
+	virtual void exitParseFunctionBody(JavaScriptParser::ParseFunctionBodyContext *ctx) override;
 
-    virtual void enterIdentifier(JavaScriptParser::IdentifierContext *ctx) override;
+	virtual void enterIdentifier(JavaScriptParser::IdentifierContext *ctx) override;
 
 private:
 	antlr4::TokenStreamRewriter *baseTsr;
-    std::stack<antlr4::TokenStreamRewriter *> tsrs;
-    std::stack<size_t> starts;
-    std::stack<std::string> functionNames, functionBodies; 
+	std::stack<antlr4::TokenStreamRewriter *> tsrs;
+	std::stack<size_t> starts;
+	std::stack<std::string> functionNames, functionBodies; 
 	size_t stop;
 	std::string fileName = "filenametest";
-    bool inNonAbsFuncDef = false;
+	bool inNonAbsFuncDef = false;
 };

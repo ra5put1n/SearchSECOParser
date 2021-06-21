@@ -47,7 +47,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 	for (const auto &path : dirIter)
 	{
 		std::string s = (path.path()).string();
-        if (path.path().has_extension() && (path.path().extension() == ".py" || path.path().extension() == ".js"))
+		if (path.path().has_extension() && (path.path().extension() == ".py" || path.path().extension() == ".js"))
 		{
 			files.push(s);
 		}
@@ -67,7 +67,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 	}
 
 	getFacade(".py")->ClearCache();
-    getFacade(".js")->ClearCache();
+	getFacade(".js")->ClearCache();
 
 	return meths;
 }
