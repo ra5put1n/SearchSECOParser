@@ -1,11 +1,18 @@
 
+#include "JavaScriptLexerBase.h"
+#include "JavaScriptParserBase.h"
+// Enable this macro definition when compiled to a static library
+// #define ANTLR4CPP_STATIC
+
+// TODO: add some include
+
+
 // Generated from JavaScriptParser.g4 by ANTLR 4.9.2
 
 #pragma once
 
 
 #include "antlr4-runtime.h"
-#include "JavaScriptParserBase.h"
 
 
 
@@ -58,20 +65,19 @@ public:
     RuleFunctionDeclaration = 39, RuleClassDeclaration = 40, RuleClassTail = 41, 
     RuleClassElement = 42, RuleMethodDefinition = 43, RuleFormalParameterList = 44, 
     RuleFormalParameterArg = 45, RuleLastFormalParameterArg = 46, RuleFunctionBody = 47, 
-    RuleSourceElements = 48, RuleArrayLiteral = 49, RuleElementList = 50, 
-    RuleArrayElement = 51, RulePropertyAssignment = 52, RulePropertyName = 53, 
-    RuleArguments = 54, RuleArgument = 55, RuleExpressionSequence = 56, 
-    RuleSingleExpression = 57, RuleAssignable = 58, RuleObjectLiteral = 59, 
-    RuleAnonymousFunction = 60, RuleArrowFunctionParameters = 61, RuleArrowFunctionBody = 62, 
-    RuleAssignmentOperator = 63, RuleLiteral = 64, RuleNumericLiteral = 65, 
-    RuleBigintLiteral = 66, RuleGetter = 67, RuleSetter = 68, RuleIdentifierName = 69, 
-    RuleIdentifier = 70, RuleReservedWord = 71, RuleKeyword = 72, RuleLet_ = 73, 
-    RuleEos = 74
+    RuleParseFunctionBody = 48, RuleSourceElements = 49, RuleArrayLiteral = 50, 
+    RuleElementList = 51, RuleArrayElement = 52, RulePropertyAssignment = 53, 
+    RulePropertyName = 54, RuleArguments = 55, RuleArgument = 56, RuleExpressionSequence = 57, 
+    RuleSingleExpression = 58, RuleAssignable = 59, RuleObjectLiteral = 60, 
+    RuleAnonymousFunction = 61, RuleArrowFunctionParameters = 62, RuleArrowFunctionBody = 63, 
+    RuleAssignmentOperator = 64, RuleLiteral = 65, RuleNumericLiteral = 66, 
+    RuleBigintLiteral = 67, RuleGetter = 68, RuleSetter = 69, RuleIdentifierName = 70, 
+    RuleIdentifier = 71, RuleReservedWord = 72, RuleKeyword = 73, RuleLet_ = 74, 
+    RuleEos = 75
   };
 
   explicit JavaScriptParser(antlr4::TokenStream *input);
   ~JavaScriptParser();
-
   void clearCache();
 
   virtual std::string getGrammarFileName() const override;
@@ -129,6 +135,7 @@ public:
   class FormalParameterArgContext;
   class LastFormalParameterArgContext;
   class FunctionBodyContext;
+  class ParseFunctionBodyContext;
   class SourceElementsContext;
   class ArrayLiteralContext;
   class ElementListContext;
@@ -968,7 +975,7 @@ public:
     IdentifierContext *identifier();
     antlr4::tree::TerminalNode *OpenParen();
     antlr4::tree::TerminalNode *CloseParen();
-    FunctionBodyContext *functionBody();
+    ParseFunctionBodyContext *parseFunctionBody();
     antlr4::tree::TerminalNode *Async();
     antlr4::tree::TerminalNode *Multiply();
     FormalParameterListContext *formalParameterList();
@@ -1139,6 +1146,21 @@ public:
   };
 
   FunctionBodyContext* functionBody();
+
+  class  ParseFunctionBodyContext : public antlr4::ParserRuleContext {
+  public:
+    ParseFunctionBodyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    FunctionBodyContext *functionBody();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ParseFunctionBodyContext* parseFunctionBody();
 
   class  SourceElementsContext : public antlr4::ParserRuleContext {
   public:
@@ -2039,7 +2061,7 @@ public:
     antlr4::tree::TerminalNode *Function_();
     antlr4::tree::TerminalNode *OpenParen();
     antlr4::tree::TerminalNode *CloseParen();
-    FunctionBodyContext *functionBody();
+    ParseFunctionBodyContext *parseFunctionBody();
     antlr4::tree::TerminalNode *Async();
     antlr4::tree::TerminalNode *Multiply();
     FormalParameterListContext *formalParameterList();

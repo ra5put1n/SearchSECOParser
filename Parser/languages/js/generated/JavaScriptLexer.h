@@ -49,14 +49,13 @@ public:
     UnexpectedCharacter = 124
   };
 
-  void clearCache();
-
   enum {
     ERROR = 2
   };
 
   explicit JavaScriptLexer(antlr4::CharStream *input);
   ~JavaScriptLexer();
+  void clearCache();
 
   virtual std::string getGrammarFileName() const override;
   virtual const std::vector<std::string>& getRuleNames() const override;

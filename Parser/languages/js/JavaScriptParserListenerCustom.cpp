@@ -30,6 +30,7 @@ void CustomJavaScriptListener::enterAnonymousFunctionDecl(JavaScriptParser::Anon
 {
     // Push initial values to stacks.
     functionNames.push("");
+    functionBodies.push("");
     starts.push(ctx->start->getLine());
 
     // Entered anonymous function definition.
@@ -69,6 +70,7 @@ void CustomJavaScriptListener::enterFunctionDeclaration(JavaScriptParser::Functi
 {
     // Push initial values to stacks.
     functionNames.push("");
+    functionBodies.push("");
     starts.push(ctx->start->getLine());
 
     // Entered non-anonymous function definition.
@@ -104,16 +106,20 @@ void CustomJavaScriptListener::exitFunctionDeclaration(JavaScriptParser::Functio
     tsr->replace(ctx->start, ctx->stop, "");
 }
 
-void CustomJavaScriptListener::enterFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
+void CustomJavaScriptListener::enterParseFunctionBody(JavaScriptParser::ParseFunctionBodyContext *ctx)
 {
     // Entered function body, so we must have exited the definition.
     inFuncDef = false;
 }
 
-void CustomJavaScriptListener::exitFunctionBody(JavaScriptParser::FunctionBodyContext *ctx)
+void CustomJavaScriptListener::exitParseFunctionBody(JavaScriptParser::ParseFunctionBodyContext *ctx)
 {
     // Store function body.
+<<<<<<< Updated upstream
     functionBodies.push(tsr->getText(ctx->getSourceInterval()));
+=======
+    functionBodies.top() = tsrs.top()->getText(ctx->getSourceInterval());
+>>>>>>> Stashed changes
 }
 
 void CustomJavaScriptListener::enterIdentifier(JavaScriptParser::IdentifierContext *ctx)

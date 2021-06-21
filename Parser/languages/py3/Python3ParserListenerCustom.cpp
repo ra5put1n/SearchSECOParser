@@ -27,8 +27,15 @@ CustomPython3Listener::~CustomPython3Listener()
 
 void CustomPython3Listener::enterFuncdef(Python3Parser::FuncdefContext *ctx)
 {
+<<<<<<< Updated upstream
 	functionName = "";
 	start = ctx->start->getLine();
+=======
+    tsrs.push(new antlr4::TokenStreamRewriter(baseTsr->getTokenStream()));
+    functionNames.push("");
+    functionBodies.push("");
+    starts.push(ctx->start->getLine());
+>>>>>>> Stashed changes
 }
 
 void CustomPython3Listener::exitFuncdef(Python3Parser::FuncdefContext *ctx)
@@ -53,7 +60,12 @@ void CustomPython3Listener::enterFuncbody(Python3Parser::FuncbodyContext *ctx)
 
 void CustomPython3Listener::exitFuncbody(Python3Parser::FuncbodyContext *ctx)
 {
+<<<<<<< Updated upstream
 	functionBody = tsr->getText(ctx->getSourceInterval());
+=======
+    // Store function body.
+    functionBodies.top() = tsrs.top()->getText(ctx->getSourceInterval());
+>>>>>>> Stashed changes
 }
 
 void CustomPython3Listener::enterName(Python3Parser::NameContext *ctx)
