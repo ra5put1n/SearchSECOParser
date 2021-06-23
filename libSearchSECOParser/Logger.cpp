@@ -3,12 +3,11 @@ This program has been developed by students from the bachelor Computer Science a
 Utrecht University within the Software Project course.
 © Copyright Utrecht University (Department of Information and Computing Sciences)
 */
+#include <stdlib.h> 
 
 #include "loguru/loguru.hpp"
-#include "Logger.h"
-#include <stdlib.h> 
-#define BASE 300
 
+#include "Logger.h"
 
 void Logger::logInfo(const char* message, const char* file, unsigned int line)
 {
@@ -29,7 +28,7 @@ void Logger::logDebug(const char* message, const char* file, unsigned int line)
 
 std::string Logger::getErrorMessage(const char* message, int code)
 {
-	std::string c = std::to_string(BASE + code);
+	std::string c = std::to_string(SEARCHSECOPARSER_ERRORCODE_BASE + code);
 	std::string s = "E" + c + ": " + message;
 	return s;
 }

@@ -5,17 +5,13 @@ Utrecht University within the Software Project course.
 */
 
 #include <vector>
+
 #include "AbstractSyntaxToHashable.h"
-
-
 
 #define ABSTRACT_FUNCCALL
 //#define ABSTRACT_TYPE
 #define ABSTRACT_VARIABLE
 
-
-// INPUT: top most node of abstract syntax tree. 
-// OUTPUT: string representation of abstract syntax tree.
 AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd, bool testing)
 {
 	AbstractionData* ad = new AbstractionData("", "");
@@ -44,7 +40,6 @@ AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd, bool testing)
 	return ad;
 }
 
-// Collapse a node and all it's children recursively.
 void AbstractSyntaxToHashable::collapseNodes(Node *nd, AbstractionData* ad, bool inFunction)
 {
 	std::vector<Node*> children = nd->getBranches();

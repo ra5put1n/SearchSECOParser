@@ -4,9 +4,12 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University (Department of Information and Computing Sciences)
 */
 #pragma once
+
 #include <string>
 #include <sstream>
 #include <mutex>
+
+#define SEARCHSECOPARSER_STRINGSTREAM_INITIAL_STRINGBUFFER_SIZE 10
 
 class StringBuffer
 {
@@ -15,16 +18,19 @@ public:
 	/// Basic constructor.
 	/// </summary>
 	StringBuffer(int bufferSize);
+
 	~StringBuffer()
 	{
 		delete[] buffers;
 	};
+
 	/// <summary>
 	/// Adds the given buffer to this string buffer.
 	/// It is assumed that the buffer given is the same size as the bufferSize that
 	/// was given in the constructor.
 	/// </summary>
 	void addBuffer(char* buffer);
+
 	/// <summary>
 	/// Will read the next char in the buffer.
 	/// There is no check in place to see if we still have data left,

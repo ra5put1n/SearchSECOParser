@@ -3,19 +3,22 @@ This program has been developed by students from the bachelor Computer Science a
 Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Information and Computing Sciences)
 */
-
 #pragma once
 
 #include "../LanguageBase.h"
-
 #include "generated/JavaScriptLexer.h"
 #include "generated/JavaScriptParser.h"
 #include "JavaScriptParserListenerCustom.h"
 
 class JavaScriptAntlrImplementation : public virtual LanguageBase
 {
-
 public:
+	/// <summary>
+	/// Parses the data given using ANTLR, returns found methods.
+	/// </summary>
+	/// <param name="data">File content in UTF-8 format.</param>
+	/// <param name="filePath">Location of file.</param>
+	/// <returns>Vector of HashData containing info on found methods.</returns>
 	virtual std::vector<HashData> parseData(std::string data, std::string filePath)
 	{
 		antlr4::ANTLRInputStream input(data);
@@ -69,6 +72,9 @@ public:
 		return hashes;
 	}
 
+	/// <summary>
+	/// Clears the cache of the ANTLR parser and lexer, to free memory.
+	/// </summary>
 	virtual void ClearCache()
 	{
 		// Simulate the building of the lexer and parser to create the objects.

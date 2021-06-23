@@ -14,9 +14,7 @@ Utrecht University within the Software Project course.
 #include "StringStream.h"
 #include "SrcMLCaller.h"
 #include "XmlParser.h"
-
 #include "antlrParser.h"
-
 
 std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {
@@ -41,7 +39,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 
 
-	antlrParsing pser;
+	AntlrParsing pser;
 
 	Logger::logDebug("Starting custom parser ", __FILE__, __LINE__);
 

@@ -7,6 +7,8 @@ Utrecht University within the Software Project course.
 
 #include <string>
 
+#define SEARCHSECOPARSER_ERRORCODE_BASE 300
+
 class Logger
 {
 private:

@@ -10,11 +10,6 @@ Utrecht University within the Software Project course.
 #include "md5/md5.h"
 #include "Logger.h"
 
-// Constants.
-#define MIN_FUNCTION_CHARACTERS 50
-#define MIN_FUNCTION_LINES 6
-#define FILENAME_OFFSET 10
-
 XmlParser::XmlParser(std::string path)
 {
 	this->path = path;
@@ -108,7 +103,7 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
 		// meaning we can go ahead and hash it.
 		AbstractionData *s = AbstractSyntaxToHashable::getHashable(current);
 		std::string mdHash = md5(s->string);
-		if (s->string.length() >= MIN_FUNCTION_CHARACTERS && lineNumber - startLastFunction >= MIN_FUNCTION_LINES)
+		if (s->string.length() >= SEARCHSECOPARSER_MIN_FUNCTION_CHARACTERS && lineNumber - startLastFunction >= SEARCHSECOPARSER_MIN_FUNCTION_LINES)
 		{
 			hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction, lineNumber));
 
@@ -175,8 +170,8 @@ void XmlParser::handleUnitTag(TagData tagData)
 		Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 	}
 
-	size_t filenamePosition = tagData.textInTag.find("filename=") + FILENAME_OFFSET;
-	if (filenamePosition >= FILENAME_OFFSET)
+	size_t filenamePosition = tagData.textInTag.find("filename=") + SEARCHSECOPARSER_SRCML_FILENAME_OFFSET;
+	if (filenamePosition >= SEARCHSECOPARSER_SRCML_FILENAME_OFFSET)
 	{
 		int filenameBuffer = 0;
 		// If the filename is a full path, remove the path prefix

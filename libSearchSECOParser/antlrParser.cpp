@@ -9,25 +9,19 @@ Utrecht University within the Software Project course.
 
 #include <experimental/filesystem>
 #include <fstream>
-#include <iostream>
 #include <thread>
 #include <codecvt>
 #include <cstring>
 #include <sstream>
 
-#include "antlr4-runtime.h"
-
 #include "Logger.h"
-
 #include "antlrParser.h"
 #include "languages/LanguageBase.h"
 #include "languages/py3/Python3AntlrImplementation.h"
 #include "languages/js/JavaScriptAntlrImplementation.h"
 
-
-
 // Method practically copied from Spider Revisited.
-std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfThreads)
+std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfThreads)
 {
 	std::vector<HashData> meths;
 	std::mutex outputLock;
@@ -35,7 +29,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 
 	if (numberOfThreads == -1)
 	{
-		numberOfThreads = DEFAULT_NUMBER_THREADS;
+		numberOfThreads = SEARCHSECOPARSER_DEFAULT_NUMBER_THREADS;
 	}
 
 	// Thread-safe queue (with lock).
@@ -56,7 +50,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 	// Construct threads to process the queue.
 	for (int i = 0; i < numberOfThreads; i++)
 	{
-		threads.push_back(std::thread(&antlrParsing::singleThread, std::ref(meths), std::ref(outputLock),
+		threads.push_back(std::thread(&AntlrParsing::singleThread, std::ref(meths), std::ref(outputLock),
 									  std::ref(files), std::ref(queueLock), std::ref(repoPath)));
 	}
 
@@ -72,7 +66,7 @@ std::vector<HashData> antlrParsing::parseDir(std::string repoPath, int numberOfT
 	return meths;
 }
 
-void antlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
+void AntlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
 								std::mutex &queueLock, std::string path)
 {
 	while (true)
@@ -92,7 +86,7 @@ void antlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &output
 }
 
 
-LanguageBase* antlrParsing::getFacade(std::string fileName)
+LanguageBase* AntlrParsing::getFacade(std::string fileName)
 {
 	std::experimental::filesystem::path path = std::experimental::filesystem::path(fileName);
 	if (path.extension() == ".py")
@@ -111,7 +105,7 @@ LanguageBase* antlrParsing::getFacade(std::string fileName)
 #if defined(WIN32) || defined(_WIN32)
 // Convert utf8 based on cdycdr's answer to 
 // https://stackoverflow.com/questions/17562736/how-to-convert-from-utf-8-to-ansi-using-standard-c.
-std::string antlrParsing::toUtf8(const std::string& str, const std::locale& loc)
+std::string AntlrParsing::toUtf8(const std::string& str, const std::locale& loc)
 {
 	using wcvt = std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t>;
 	std::u32string wstr(str.size(), U'\0');
@@ -141,7 +135,7 @@ std::string antlrParsing::toUtf8(std::string& str, const std::locale& loc)
 }
 #endif
 
-void antlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path)
+void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path)
 {
 	std::ifstream file(filepath);
 	if (file.is_open())

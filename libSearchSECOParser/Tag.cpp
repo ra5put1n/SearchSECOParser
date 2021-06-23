@@ -4,8 +4,6 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)
 */
 
-#include <map>
-#include <string>
 #include "Tag.h"
 
 // Create map and save it.

@@ -4,10 +4,9 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University (Department of Information and Computing Sciences)
 */
 
-#include "StringStream.h"
 #include <iostream>
 
-#define INITIAL_STRINGBUFFER_SIZE 10
+#include "StringStream.h"
 
 StringStream::StringStream(int bufferSize)
 {
@@ -82,7 +81,7 @@ void StringStream::setInputEnded(bool b)
 
 StringBuffer::StringBuffer(int bufferSize)
 {
-	bufferCap = INITIAL_STRINGBUFFER_SIZE;
+	bufferCap = SEARCHSECOPARSER_STRINGSTREAM_INITIAL_STRINGBUFFER_SIZE;
 	buffers = new char*[bufferCap];
 	bufferAmount = 0;
 	this->bufferSize = bufferSize;

@@ -14,10 +14,9 @@ Utrecht University within the Software Project course.
 #include "HashData.h"
 #include "languages/LanguageBase.h"
 
-#define DEFAULT_NUMBER_THREADS 16
+#define SEARCHSECOPARSER_DEFAULT_NUMBER_THREADS 16
 
-
-class antlrParsing
+class AntlrParsing
 {
 public:
 	/// <summary>
@@ -29,7 +28,6 @@ public:
 	static std::vector<HashData> parseDir(std::string repoPath, int numberOfThreads);
 
 private:
-
 	/// <summary>
 	/// Program run on a single thread to parse a queue of files.
 	/// </summary>
@@ -37,6 +35,7 @@ private:
 	/// <param name = "outputLock"> Mutex that restricts access to meths. </param>
 	/// <param name = "files"> The queue of files to parse. </param>
 	/// <param name = "queueLock"> Mutex that restricts access to files queue. </param>
+	/// <param name = "path"> Root path the thread is working in. </param>
 	static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
 								 std::mutex &queueLock, std::string path);
 
@@ -46,6 +45,7 @@ private:
 	/// <param name = "filepath"> The file to be parsed. </param>
 	/// <param name = "meths"> The returned HashData. </param>
 	/// <param name = "outputLock"> Mutex that restricts access to meths. </param>
+	/// <param name = "path"> Root path the thread is working in. </param>
 	static void parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path);
 
 	/// <summary>

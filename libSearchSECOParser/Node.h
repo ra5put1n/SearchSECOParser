@@ -4,8 +4,10 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University (Department of Information and Computing Sciences)
 */
 #pragma once
+
 #include <string>
 #include <vector>
+
 #include "Tag.h"
 
 class Node
@@ -17,21 +19,46 @@ public:
 	Node(std::string text, Tag tag, Node* previous);
 	/// Destructor.
 	~Node();
-	/// Get child nodes of this node.
+	/// <summary>
+	/// Get the children of the Node.
+	/// </summary>
+	/// <returns>Vector containing children.</returns>
 	std::vector<Node*> getBranches();
-	/// Get (string) content of this node.
+	/// <summary>
+	/// Get the content of the node.
+	/// </summary>
+	/// <returns>Content of the node.</returns>
 	std::string getContents();
-	/// Get Tag of this Node.
+	/// <summary>
+	/// Get the tag of the node.
+	/// </summary>
+	/// <returns>Tag of the node.</returns>
 	Tag getTag();
-	/// Add a Child node to this node.
+	/// <summary>
+	/// Add a child to this node.
+	/// </summary>
+	/// <param name="node">Child node to add.</param>
 	void addNode(Node* node);
-	/// Set the (string) content of this node.
+	/// <summary>
+	/// Set the content of the node.
+	/// </summary>
+	/// <param name="contents">Value to set content to.</param>
 	void setContents(std::string contents);
+	/// <summary>
 	/// Get this nodes parent.
+	/// </summary>
+	/// <returns>Pointer to parent node (nullptr if none).</returns>
 	Node* getPrevious();
-	/// Check equality to this node.
+	/// <summary>
+	/// Check if a node is equal to another.
+	/// </summary>
+	/// <param name="n">Node to compare to.</param>
+	/// <returns>True if equal, false otherwise.</returns>
 	bool equal(Node* n);
-	/// Remove node from this nodes children.
+	/// <summary>
+	/// Remove a node from this node's children.
+	/// </summary>
+	/// <param name="node">Node to remove.</param>
 	void removeNode(Node* node);
 private:
 	std::string contents;

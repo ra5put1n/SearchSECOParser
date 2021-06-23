@@ -8,19 +8,15 @@ Utrecht University within the Software Project course.
 #include <iostream>
 #include <memory>
 #include <stdexcept>
-#include <string>
 #include <array>
 #include <thread>
 
 #include "Logger.h"
 #include "SrcMLCaller.h"
 
-#define BUFFER_SIZE 1024
-
-
 StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 {
-	StringStream *stream = new StringStream(BUFFER_SIZE);
+	StringStream *stream = new StringStream(SEARCHSECOPARSER_SRCML_BUFFER_SIZE);
 
 	std::string threads = "";
 	if (numberThreads != -1)
@@ -41,7 +37,7 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 {
 	// Buffer to read into and then put into stream.
-	std::array<char, BUFFER_SIZE>* buffer = new std::array<char, BUFFER_SIZE>();
+	std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>* buffer = new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
 
 	// Open console to interact with srcML, use proper open function depending on operating system.
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
@@ -62,10 +58,10 @@ void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 
 	// Read until there is nothing more to read, insert chunks into stream.
 
-	while ((bytesRead = fread(buffer->data(), 1, BUFFER_SIZE, pipe.get())) > 0)
+	while ((bytesRead = fread(buffer->data(), 1, SEARCHSECOPARSER_SRCML_BUFFER_SIZE, pipe.get())) > 0)
 	{
 		stream->addBuffer(buffer->data(), bytesRead);
-		buffer = new std::array<char, BUFFER_SIZE>();
+		buffer = new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
 	}
 
 	// Let stream know there won't be more data.

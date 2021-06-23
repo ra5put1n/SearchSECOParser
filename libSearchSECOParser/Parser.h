@@ -9,15 +9,18 @@ Utrecht University within the Software Project course.
 
 #include "HashData.h"
 
-#define PARSER_HASH_VERSION 1
-
+#define SEARCHSECOPARSER_HASH_VERSION 1
 
 class Parser
 {
 public:
+	/// <summary>
+	/// Returns the current version of the parser.
+	/// </summary>
+	/// <returns>Version (number) of the parser.</returns>
 	static int getHashVersion()
 	{
-		return PARSER_HASH_VERSION;
+		return SEARCHSECOPARSER_HASH_VERSION;
 	}
 
 	/// <summary>

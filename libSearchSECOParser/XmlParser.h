@@ -9,10 +9,12 @@ Utrecht University within the Software Project course.
 #include "Node.h"
 #include "HashData.h"
 
+#define SEARCHSECOPARSER_MIN_FUNCTION_CHARACTERS 50
+#define SEARCHSECOPARSER_MIN_FUNCTION_LINES 6
+#define SEARCHSECOPARSER_SRCML_FILENAME_OFFSET 10
 
 struct TagData
 {
-
 public:
 	/// <summary>
 	/// Information concerning a Tag.
@@ -97,13 +99,14 @@ private:
 	/// <param name="breakOn">The character on which it stops.</param>
 	/// <param name="removeWhiteSpace">Remove white space yes or no.</param>
 	std::string getDataUntil(StringStream *stringStream, char breakOn, bool removeWhiteSpace);
+
 	Node* tree;
-	std::string path;
+	Node* current;
 	int lineNumber = 0;
-	bool inFunction = false;
-	std::string currentFileName = "";
 	int startLastFunction = 0;
 	int functionCount = 0;
-	Node *current;
+	bool inFunction = false;
+	std::string currentFileName = "";
+	std::string path;
 	std::vector<HashData> hashes;
 };

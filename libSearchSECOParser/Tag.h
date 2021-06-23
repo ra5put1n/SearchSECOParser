@@ -4,6 +4,7 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Informationand Computing Sciences)
 */
 #pragma once
+
 #include <map>
 #include <string>
 
@@ -63,8 +64,6 @@ enum Tag
 	selector_tag,
 	sizeof_tag,
 	unknown_tag,
-
-
 	annotation_tag, 
 	annotation_defn_tag,
 	assert_tag,
@@ -133,7 +132,6 @@ enum Tag
 	unsafe_tag,
 	using_tag,
 	where_tag,
-	// TO DO: see if these require special treatment.
 	omp_argument_tag,
 	omp_argument_list_tag,
 	omp_clause_tag,
@@ -162,8 +160,6 @@ enum Tag
 	cpp_undef_tag,
 	cpp_value_tag,
 	cpp_warning_tag,
-
-	// Some miscellanaos tags, possibly needs some investigating.
 	argument_list_tag,
 	parameter_tag,
 	argument_tag,

@@ -7,8 +7,8 @@ Utrecht University within the Software Project course.
 #include "JavaScriptParserListenerCustom.h"
 #include "../../md5/md5.h"
 
-#define MIN_FUNCTION_CHARACTERS 50
-#define MIN_FUNCTION_LINES 6
+#define SEARCHSECOPARSER_MIN_FUNCTION_CHARACTERS 50
+#define SEARCHSECOPARSER_MIN_FUNCTION_LINES 6
 
 CustomJavaScriptListener::CustomJavaScriptListener(antlr4::TokenStreamRewriter *tsr, std::string fileName)
 {
@@ -59,7 +59,7 @@ void CustomJavaScriptListener::exitAnonymousFunctionDecl(JavaScriptParser::Anony
 	functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
 
 	// Store method if complex enough.
-	if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
+	if (stop - start >= SEARCHSECOPARSER_MIN_FUNCTION_LINES && functionBody.size() > SEARCHSECOPARSER_MIN_FUNCTION_CHARACTERS)
 	{
 		output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
 	}
@@ -106,7 +106,7 @@ void CustomJavaScriptListener::exitFunctionDeclaration(JavaScriptParser::Functio
 	functionBody.erase(std::remove(functionBody.begin(), functionBody.end(), '\t'), functionBody.end());
 
 	// Store method if complex enough.
-	if (stop - start >= MIN_FUNCTION_LINES && functionBody.size() > MIN_FUNCTION_CHARACTERS)
+	if (stop - start >= SEARCHSECOPARSER_MIN_FUNCTION_LINES && functionBody.size() > SEARCHSECOPARSER_MIN_FUNCTION_CHARACTERS)
 	{
 		output->push_back(HashData(md5(functionBody), functionName, fileName, start, stop));
 	}
