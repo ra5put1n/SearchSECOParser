@@ -1,6 +1,6 @@
 # Parser
 
-This is the Parser used by the SearchSECO project, it uses [srcML](https://www.srcml.org/#home) to structure code from different languages into a inform format. I then abstracts methods from code files which it can further Abstract to find Type-1 and Type-2 code clones. It has been tested on Windows 10 and Ubuntu 20.04, but should work on most UNIX systems.
+This is the Parser used by the SearchSECO project, it uses [srcML](https://www.srcml.org/#home) to structure code from different languages into a inform format. I then abstracts methods from code files which it can further Abstract to find Type-1 and Type-2 code clones. It has been tested on Windows 10 and Ubuntu 20.04/18.04, but should work on most UNIX systems.
 
 # Installation
 
@@ -9,24 +9,24 @@ This is the Parser used by the SearchSECO project, it uses [srcML](https://www.s
 * Windows 10+, Ubuntu 18.04. Might work on older Windows versions or other UNIX systems but has not been tested.
 * [srcML.](https://www.srcml.org/#home)
 Make sure srcML is installed and registered in your path
-* [antlr](https://www.antlr.org/), for Windows the files are included, on UNIX make sure to download libantlr4-runtime-dev and libantlr4-runtime4.8 (using apt/apt-get).
+* [antlr](https://www.antlr.org/), for Windows the files are included, on UNIX make sure to download libantlr4-runtime-dev (using apt/apt-get).
 
 
 ## Building
 
 ### Stand-alone
 #### Visual-Studio
-Open solution and simply build the project, copy and past the antlr dll file in the lib folder to the appropriate location (where you have build the executable).
+Open solution and simply build the project, copy and past the antlr dll file in the external/antlr folder to the appropriate location (where you have build the executable).
 #### Cmake
 Run Cmake and build in the StandAlone folder.
 
 ### Library
-Use Cmake to include the Parser folder, link the parser library, and reference the header files in the folder. Or use cmake in Parser folder to build library.
+Use Cmake to include the libSearchSECOParser folder, link the libSearchSECOParser library, and reference the header files in the folder. Or use cmake in libSearchSECOParser folder to build library.
 
 # Usage
 
 ## Stand-alone
-    C:\path\to\parser>Parser.exe location\of\files\to\parse
+    C:\path\to\parser>SearchSECOParserStandalone.exe location\of\files\to\parse
 
 Simply give the Parser either a directory, or compressed file containing the files you want parsed. 
 It will return a list of found methods with for each method:
