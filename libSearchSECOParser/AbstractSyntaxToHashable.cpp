@@ -22,10 +22,12 @@ AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd, bool testing)
 	}
 	for (Node* n : nd->getBranches())
 	{
+		// The block tag contains the block_content_tag.
 		if (n->getTag() == block_tag)
 		{
 			for (Node* n2 : n->getBranches())
 			{
+				// The block_content_tag containts the body of the method.
 				if (n2->getTag() == block_content_tag)
 				{
 					collapseNodes(n2, ad, true);

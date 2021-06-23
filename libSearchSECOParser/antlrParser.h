@@ -36,8 +36,8 @@ private:
 	/// <param name = "files"> The queue of files to parse. </param>
 	/// <param name = "queueLock"> Mutex that restricts access to files queue. </param>
 	/// <param name = "path"> Root path the thread is working in. </param>
-	static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
-								 std::mutex &queueLock, std::string path);
+	static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, 
+		std::queue<std::string> &files, std::mutex &queueLock, std::string path);
 
 	/// <summary>
 	/// Parses a single file.
@@ -46,7 +46,8 @@ private:
 	/// <param name = "meths"> The returned HashData. </param>
 	/// <param name = "outputLock"> Mutex that restricts access to meths. </param>
 	/// <param name = "path"> Root path the thread is working in. </param>
-	static void parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path);
+	static void parseSingleFile(std::string filepath, std::vector<HashData> &meths, 
+		std::mutex &outputLock, std::string path);
 
 	/// <summary>
 	/// Get the appropriate parser for a file.

@@ -15,7 +15,7 @@ Utrecht University within the Software Project course.
 #include <sstream>
 
 #include "Logger.h"
-#include "antlrParser.h"
+#include "AntlrParser.h"
 #include "languages/LanguageBase.h"
 #include "languages/py3/Python3AntlrImplementation.h"
 #include "languages/js/JavaScriptAntlrImplementation.h"
@@ -66,8 +66,8 @@ std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfT
 	return meths;
 }
 
-void AntlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &outputLock, std::queue<std::string> &files,
-								std::mutex &queueLock, std::string path)
+void AntlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &outputLock, 
+	std::queue<std::string> &files,	std::mutex &queueLock, std::string path)
 {
 	while (true)
 	{
@@ -135,7 +135,8 @@ std::string AntlrParsing::toUtf8(std::string& str, const std::locale& loc)
 }
 #endif
 
-void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, std::mutex &outputLock, std::string path)
+void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, 
+	std::mutex &outputLock, std::string path)
 {
 	std::ifstream file(filepath);
 	if (file.is_open())
@@ -144,9 +145,7 @@ void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		ss << file.rdbuf();
 		std::string buffer = ss.str();
 
-		// Convert utf8 based on cdycdr's answer to 
-		// https://stackoverflow.com/questions/17562736/how-to-convert-from-utf-8-to-ansi-using-standard-c.
-
+		// Look for UTF-8 BOM
 		const char* bom = "\xef\xbb\xbf";
 		std::string data;
 
@@ -170,7 +169,7 @@ void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 
 		// Retrieve parser for this file, if available
 		LanguageBase* lf = getFacade(filepath);
-
+				
 		if (lf == nullptr)
 		{
 			std::string log = "Can't find parser for file " + filepath + ", skipping";

@@ -59,9 +59,6 @@
     <ClCompile Include="..\libSearchSECOParser\loguru\loguru.cpp">
       <Filter>loguru</Filter>
     </ClCompile>
-    <ClCompile Include="..\libSearchSECOParser\antlrParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\libSearchSECOParser\languages\py3\Python3ParserListenerCustom.cpp">
       <Filter>languages\py3</Filter>
     </ClCompile>
@@ -113,6 +110,9 @@
     <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserBase.cpp">
       <Filter>languages\js\generated</Filter>
     </ClCompile>
+    <ClCompile Include="..\libSearchSECOParser\AntlrParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\libSearchSECOParser\Node.h">
@@ -144,9 +144,6 @@
     </ClInclude>
     <ClInclude Include="..\libSearchSECOParser\loguru\loguru.hpp">
       <Filter>loguru</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libSearchSECOParser\antlrParser.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\libSearchSECOParser\languages\LanguageBase.h">
       <Filter>languages</Filter>
@@ -207,6 +204,9 @@
     </ClInclude>
     <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserBase.h">
       <Filter>languages\js\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libSearchSECOParser\AntlrParser.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

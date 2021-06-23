@@ -186,7 +186,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\libSearchSECOParser\AbstractSyntaxToHashable.cpp" />
-    <ClCompile Include="..\libSearchSECOParser\antlrParser.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\AntlrParser.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptLexer.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptLexerBase.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParser.cpp" />
@@ -215,7 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\libSearchSECOParser\AbstractSyntaxToHashable.h" />
-    <ClInclude Include="..\libSearchSECOParser\antlrParser.h" />
+    <ClInclude Include="..\libSearchSECOParser\AntlrParser.h" />
     <ClInclude Include="..\libSearchSECOParser\HashData.h" />
     <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptLexer.h" />
     <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptLexerBase.h" />

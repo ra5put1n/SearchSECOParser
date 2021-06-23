@@ -66,9 +66,6 @@ std::map<std::string, Tag> TagMap::getMap()
 	m["association_list"] = association_list_tag;
 	m["selector"] = selector_tag;
 	m["sizeof"] = sizeof_tag;
-
-
-
 	m["annotation"] = annotation_tag;
 	m["annotation_defn"] = annotation_defn_tag;
 	m["assert"] = assert_tag;
@@ -137,7 +134,6 @@ std::map<std::string, Tag> TagMap::getMap()
 	m["unsafe"] = unsafe_tag;
 	m["using"] = using_tag;
 	m["where"] = where_tag;
-	// TO DO: see if these require special treatment
 	m["omp:argument"] = omp_argument_tag;
 	m["omp:argument_list"] = omp_argument_list_tag;
 	m["omp:clause"] = omp_clause_tag;
@@ -166,7 +162,6 @@ std::map<std::string, Tag> TagMap::getMap()
 	m["cpp:undef"] = cpp_undef_tag;
 	m["cpp:value"] = cpp_value_tag;
 	m["cpp:warning"] = cpp_warning_tag;
-	// Some miscellanaos tags, possibly needs some investigating.
 	m["argument_list"] = argument_list_tag;
 	m["parameter"] = parameter_tag;
 	m["argument"] = argument_tag;
@@ -179,7 +174,7 @@ Tag TagMap::getTag(std::string text)
 {
 	auto it = map.find(text);
 
-	// it points to map.end() if entry is not found.
+	// It points to map.end() if entry is not found.
 	if (it == map.end())
 	{
 		return unknown_tag;

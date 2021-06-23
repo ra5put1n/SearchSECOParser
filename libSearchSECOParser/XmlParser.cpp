@@ -82,7 +82,8 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
 	// Checking if the node we close actually has the same tag as the closing tag we just found.
 	if (TagMap::getTag(tagData.tag.substr(1)) != current->getTag())
 	{
-		std::string log = "Closing tags don't line up in " + currentFileName + " on line " + std::to_string(lineNumber) + " skipping function";
+		std::string log = "Closing tags don't line up in " + currentFileName 
+			+ " on line " + std::to_string(lineNumber) + " skipping function";
 		Logger::logWarn(log.c_str(), __FILE__, __LINE__);
 
 		// In case the closing tags don't line up, we will just give up on this function.
@@ -103,11 +104,13 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
 		// meaning we can go ahead and hash it.
 		AbstractionData *s = AbstractSyntaxToHashable::getHashable(current);
 		std::string mdHash = md5(s->string);
-		if (s->string.length() >= SEARCHSECOPARSER_MIN_FUNCTION_CHARACTERS && lineNumber - startLastFunction >= SEARCHSECOPARSER_MIN_FUNCTION_LINES)
+		if (s->string.length() >= SEARCHSECOPARSER_MIN_FUNCTION_CHARACTERS && 
+			lineNumber - startLastFunction >= SEARCHSECOPARSER_MIN_FUNCTION_LINES)
 		{
 			hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction, lineNumber));
 
-			std::string log = "Found function: " + s->funcName + " in File: " + currentFileName + " " + std::to_string(startLastFunction) + " - " + std::to_string(lineNumber);
+			std::string log = "Found function: " + s->funcName + " in File: " + currentFileName + " " 
+				+ std::to_string(startLastFunction) + " - " + std::to_string(lineNumber);
 			Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 
 			functionCount++;
@@ -166,7 +169,8 @@ void XmlParser::handleUnitTag(TagData tagData)
 {
 	if (currentFileName != "")
 	{
-		std::string log = "Finished parsing file: " + currentFileName + ", number of functions found: " + std::to_string(functionCount);
+		std::string log = "Finished parsing file: " + currentFileName + 
+			", number of functions found: " + std::to_string(functionCount);
 		Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 	}
 
@@ -230,8 +234,8 @@ std::string XmlParser::getDataUntil(StringStream *stringStream, char breakOn, bo
 	return ret;
 }
 
-std::string XmlParser::getDataUntil(StringStream *stringStream, std::vector<char> breakOn, bool removeWhiteSpace,
-									char &brokeOn)
+std::string XmlParser::getDataUntil(StringStream *stringStream, std::vector<char> breakOn, 
+	bool removeWhiteSpace, char &brokeOn)
 {
 	std::string ret = "";
 	while (!stringStream->stop())

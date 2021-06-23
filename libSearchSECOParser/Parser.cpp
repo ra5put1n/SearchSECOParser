@@ -14,7 +14,7 @@ Utrecht University within the Software Project course.
 #include "StringStream.h"
 #include "SrcMLCaller.h"
 #include "XmlParser.h"
-#include "antlrParser.h"
+#include "AntlrParser.h"
 
 std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {
