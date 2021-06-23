@@ -1,10 +1,12 @@
-/*This program has been developed by students from the bachelor Computer Science at
+/*
+This program has been developed by students from the bachelor Computer Science at
 Utrecht University within the Software Project course.
-© Copyright Utrecht University(Department of Informationand Computing Sciences)*/
+Â© Copyright Utrecht University(Department of Informationand Computing Sciences)
+*/
+
 #include "pch.h"
 #include "StringStreamMock.h"
 #include "XmlParser.h"
-//#include "../Parser/md5/md5.cpp"
 
 TEST(GetNextTagTests, BasicInput)
 {
