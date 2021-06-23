@@ -115,7 +115,7 @@ std::string AntlrParsing::toUtf8(const std::string& str, const std::locale& loc)
 #else
 // different method in UNIX
 // source: https://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
-std::string antlrParsing::toUtf8(std::string& str, const std::locale& loc)
+std::string AntlrParsing::toUtf8(std::string& str, const std::locale& loc)
 {
 	std::string strOut;
 	for (std::string::iterator it = str.begin(); it != str.end(); ++it)
