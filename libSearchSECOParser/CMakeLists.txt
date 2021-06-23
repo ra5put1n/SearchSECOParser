@@ -16,7 +16,7 @@ endif()
 
 set(PARSER_HEADER_LIST
    AbstractSyntaxToHashable.h
-   antlrParser.h
+   AntlrParser.h
    HashData.h
    Logger.h
    Node.h
@@ -49,7 +49,7 @@ set(PARSER_HEADER_LIST
 
 add_library(libSearchSECOParser
   AbstractSyntaxToHashable.cpp
-  antlrParser.cpp
+  AntlrParser.cpp
   Logger.cpp
   Node.cpp
   Parser.cpp
