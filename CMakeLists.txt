@@ -4,9 +4,9 @@
 
 # Required by FetchContent_MakeAvailable
 cmake_minimum_required(VERSION 3.13)
-project(parser_full)
+project(SearchSECOParser)
 
-add_subdirectory(Parser)
-add_subdirectory(StandAlone)
-add_subdirectory(Parser_Test)
-add_subdirectory(Parser_Test/Integration)
+add_subdirectory(libSearchSECOParser)
+add_subdirectory(SearchSECOParser)
+add_subdirectory(tests)
+add_subdirectory(tests/Integration)

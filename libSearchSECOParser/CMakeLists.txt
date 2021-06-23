@@ -2,6 +2,8 @@
 # Utrecht University within the Software Project course.
 # © Copyright Utrecht University (Department of Information and Computing Sciences)
 
+project(libSearchSECOParser)
+
 message("Building the parser...")
 if(NOT DEFINED LOGURU_INCLUDED)
    set(LOGURU_FILES
@@ -45,7 +47,7 @@ set(PARSER_HEADER_LIST
 )
 
 
-add_library(parser
+add_library(libSearchSECOParser
   AbstractSyntaxToHashable.cpp
   antlrParser.cpp
   Logger.cpp
@@ -77,11 +79,11 @@ add_library(parser
 )
 
 if(WIN32)
-  find_library(antlr REQUIRED NAMES antlr4-runtime PATHS ../antlr/lib/release)
-  target_link_libraries(parser PUBLIC ${antlr})
-  target_include_directories(parser PUBLIC ../antlr/src)
+  find_library(antlr REQUIRED NAMES antlr4-runtime PATHS ../external/antlr/lib/release)
+  target_link_libraries(libSearchSECOParser PUBLIC ${antlr})
+  target_include_directories(libSearchSECOParser PUBLIC ../external/antlr/src)
 else()
   find_library(antlr REQUIRED NAMES antlr antlr4 antlr4-runtime)
-  target_link_libraries(parser PRIVATE ${antlr} stdc++fs)
+  target_link_libraries(libSearchSECOParser PRIVATE ${antlr} stdc++fs)
   include_directories(/usr/include/antlr4-runtime)
 endif()

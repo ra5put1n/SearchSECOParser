@@ -22,13 +22,13 @@ endif()
 set(CMAKE_CXX_STANDARD 14)
 set(TEST_NAME parser_tests)
 add_executable(${TEST_NAME} StringStream_test.cpp Tag_test.cpp AbstractSyntaxToHashable_test.cpp XmlParser_test.cpp)
-target_link_libraries(${TEST_NAME} gtest_main parser)
+target_link_libraries(${TEST_NAME} gtest_main libSearchSECOParser)
 
 if(CMAKE_DL_LIBS)
     target_link_libraries(${TEST_NAME} ${CMAKE_DL_LIBS})
 endif()
 
-target_include_directories(${TEST_NAME} PUBLIC "${PROJECT_BINARY_DIR}" ../Parser)
+target_include_directories(${TEST_NAME} PUBLIC "${PROJECT_BINARY_DIR}" ../libSearchSECOParser)
 
 enable_testing()
 include(GoogleTest)

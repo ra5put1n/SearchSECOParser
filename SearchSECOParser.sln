@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Parser", "Parser\Parser.vcxproj", "{0B2ABD3C-F7B7-4BF9-ACDE-BA39C1D9EF30}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSearchSECOParser", "vs-projects\libSearchSECOParser.vcxproj", "{0B2ABD3C-F7B7-4BF9-ACDE-BA39C1D9EF30}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Parser_Test", "Parser_Test\Parser_Test.vcxproj", "{80A3DFBC-20AB-4C12-9DDA-8BA50C8D4DF2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "vs-projects\tests.vcxproj", "{80A3DFBC-20AB-4C12-9DDA-8BA50C8D4DF2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StandAlone", "StandAlone\StandAlone.vcxproj", "{221A32BD-CF1F-41B0-AD7C-EF0B2A5E1433}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SearchSECOParser", "vs-projects\SearchSECOParser.vcxproj", "{221A32BD-CF1F-41B0-AD7C-EF0B2A5E1433}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,7 +5,7 @@ Utrecht University within the Software Project course.
 */
 
 #pragma once
-#include "../Parser/StringStream.h"
+#include <StringStream.h>
 
 class StringStreamMock : public StringStream
 {
