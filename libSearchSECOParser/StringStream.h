@@ -17,6 +17,7 @@ public:
 	/// <summary>
 	/// Basic constructor.
 	/// </summary>
+	/// <param name="bufferSize">Size of the buffer.</param>
 	StringBuffer(int bufferSize);
 
 	~StringBuffer()
@@ -29,6 +30,7 @@ public:
 	/// It is assumed that the buffer given is the same size as the bufferSize that
 	/// was given in the constructor.
 	/// </summary>
+	/// <param name="buffer">Text to add to the buffer.</param>
 	void addBuffer(char* buffer);
 
 	/// <summary>
