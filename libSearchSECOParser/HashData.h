@@ -1,7 +1,7 @@
 /*
 This program has been developed by students from the bachelor Computer Science at
 Utrecht University within the Software Project course.
-© Copyright Utrecht University(Department of Informationand Computing Sciences)
+© Copyright Utrecht University(Department of Information and Computing Sciences)
 */
 #pragma once
 
@@ -12,7 +12,7 @@ struct HashData
   public:
 	/// <summary>
 	/// Hash(es) of function with metadata.
-	/// </summary>s
+	/// </summary>
 	/// <param name="hash">Hash of abstracted function.</param>
 	/// <param name="functionName">Name of function.</param>
 	/// <param name="fileName">File where function can be found.</param>

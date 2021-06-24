@@ -1,7 +1,7 @@
 /*
 This program has been developed by students from the bachelor Computer Science at
 Utrecht University within the Software Project course.
-© Copyright Utrecht University(Department of Informationand Computing Sciences)
+© Copyright Utrecht University(Department of Information and Computing Sciences)
 */
 #pragma once
 
@@ -16,7 +16,6 @@ struct AbstractionData
 	/// All info returned from a abstracted syntax tree.
 	/// </summary>
 	/// <param name="string">String representation of abstract syntax tree.</param>
-	/// <param name="funcCalls">Set of all functions called by this function.</param>
 	/// <param name="funcName">This functions name.</param>
 	AbstractionData(std::string string = "", std::string funcName = "")
 	{
@@ -33,6 +32,7 @@ public:
 	/// Create string representation from abract syntax tree, also abstracts.
 	/// </summary>
 	/// <param name="nd">The top most node of an abstract syntax tree.</param>
+	/// <param name="testing">Used for unit testing, can be ignored for normal use.</param>
 	/// <returns>string representation of abstract syntax tree.</returns>
   static AbstractionData* getHashable(Node *nd, bool testing = false);
 private:
