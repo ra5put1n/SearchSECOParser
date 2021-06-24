@@ -8,8 +8,6 @@ Utrecht University within the Software Project course.
 #include <gtest/gtest.h>
 #include "StringStream.h"
 
-// Basic format of tests: (add your's in individual files for each individual file, Node_test.cpp for Node.cpp)
-
 class ParameterizedStringStreamTests :public ::testing::TestWithParam<std::string> {
 protected:
 	std::string text;

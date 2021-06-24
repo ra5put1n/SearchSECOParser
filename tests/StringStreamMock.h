@@ -15,6 +15,5 @@ public:
 	bool stop() override { return pos >= data.length(); };
 private:
 	int pos = 0;
-	// Test string, will be replaces with an actual implementation at some point.
 	std::string data;
 };
