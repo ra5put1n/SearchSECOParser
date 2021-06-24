@@ -29,8 +29,10 @@ CustomPython3Listener::~CustomPython3Listener()
 
 void CustomPython3Listener::enterFuncdef(Python3Parser::FuncdefContext *ctx)
 {
+	// Push initial values to stacks.
 	tsrs.push(new antlr4::TokenStreamRewriter(baseTsr->getTokenStream()));
 	functionNames.push("");
+	functionBodies.push("");
 	starts.push(ctx->start->getLine());
 }
 
@@ -75,7 +77,7 @@ void CustomPython3Listener::enterFuncbody(Python3Parser::FuncbodyContext *ctx)
 void CustomPython3Listener::exitFuncbody(Python3Parser::FuncbodyContext *ctx)
 {
 	// Store function body.
-	functionBodies.push(tsrs.top()->getText(ctx->getSourceInterval()));
+	functionBodies.top() = tsrs.top()->getText(ctx->getSourceInterval());
 }
 
 void CustomPython3Listener::enterName(Python3Parser::NameContext *ctx)
@@ -84,11 +86,13 @@ void CustomPython3Listener::enterName(Python3Parser::NameContext *ctx)
 	{
 		if (functionNames.top() == "")
 		{
+			// First name found is always the function name.
 			functionNames.push(ctx->start->getText());
 		}
 
 		if (inFunction)
 		{
+			// Replace every other name with "var".
 			tsrs.top()->replace(ctx->start, "var");
 		}
 	}
@@ -117,6 +121,7 @@ void CustomPython3Listener::enterString(Python3Parser::StringContext *ctx)
 {
 	if (inSingleStatement && !tsrs.empty())
 	{
+		// Remove comments in the form of unassigned strings.
 		tsrs.top()->replace(ctx->start, "");
 	}
 }

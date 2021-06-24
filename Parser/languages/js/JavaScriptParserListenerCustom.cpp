@@ -130,7 +130,7 @@ void CustomJavaScriptListener::enterParseFunctionBody(JavaScriptParser::ParseFun
 void CustomJavaScriptListener::exitParseFunctionBody(JavaScriptParser::ParseFunctionBodyContext *ctx)
 {
 	// Store function body.
-	functionBodies.push(tsrs.top()->getText(ctx->getSourceInterval()));
+	functionBodies.top() = tsrs.top()->getText(ctx->getSourceInterval());
 }
 
 void CustomJavaScriptListener::enterIdentifier(JavaScriptParser::IdentifierContext *ctx)
