@@ -1,27 +1,28 @@
-# Parser
+# SearchSECOParser
 
-This is the Parser used by the SearchSECO project, it uses [srcML](https://www.srcml.org/#home) to structure code from different languages into a inform format. I then abstracts methods from code files which it can further Abstract to find Type-1 and Type-2 code clones. It has been tested on Windows 10 and Ubuntu 20.04/18.04, but should work on most UNIX systems.
+This is the Parser used by the SearchSECO project, it uses [srcML](https://www.srcml.org/#home) to structure C, C++, C#, and Java code into an xml format. It then extracts methods from code files which it then abstracts to find Type-1 and Type-2 code clones (abstracting comments, white spaces, variable names, and function calls). It also supports the parsing of Python and Javascript using a custom parser build using [ANTLR](https://www.antlr.org/).
+It has been tested on Windows 10 and Ubuntu 20.04/18.04, but should work on most UNIX systems.
 
 # Installation
 
 ## Dependencies
 
 * Windows 10+, Ubuntu 18.04. Might work on older Windows versions or other UNIX systems but has not been tested.
-* [srcML.](https://www.srcml.org/#home)
-Make sure srcML is installed and registered in your path
-* [antlr](https://www.antlr.org/), for Windows the files are included, on UNIX make sure to download libantlr4-runtime-dev (using apt/apt-get).
+* [SrcML.](https://www.srcml.org/#home)
+Make sure srcML is installed and registered in your path.
+* [ANTLR](https://www.antlr.org/), for Windows the files are included, on UNIX make sure to download libantlr4-runtime-dev (using apt/apt-get).
 
 
 ## Building
 
 ### Stand-alone
 #### Visual-Studio
-Open solution and simply build the project, copy and past the antlr dll file in the external/antlr folder to the appropriate location (where you have build the executable).
+Open solution and simply build the project, copy and past the ANTLR dll file in the external/(debug/release)/antlr folder to the appropriate location (where you build the executable).
 #### Cmake
-Run Cmake and build in the StandAlone folder.
+Use the Cmake file in the main directory to build both the library and the executable, or use the one in the SearchSECOParser folder to only build the executable.
 
 ### Library
-Use Cmake to include the libSearchSECOParser folder, link the libSearchSECOParser library, and reference the header files in the folder. Or use cmake in libSearchSECOParser folder to build library.
+Use Cmake to include the libSearchSECOParser folder, link the libSearchSECOParser library, and reference the header files in the folder. Or use the cmake file in libSearchSECOParser folder to build the library.
 
 # Usage
 
