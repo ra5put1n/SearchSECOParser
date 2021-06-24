@@ -30,5 +30,4 @@ public:
 	/// <param name="numberThreads">Maximum number of threads the parser may use.</param>
 	/// <returns>Vector containing a HashData element for every method, containing data.</returns>
 	static std::vector<HashData> parse(std::string path, int numberThreads = -1);
-private:
 };

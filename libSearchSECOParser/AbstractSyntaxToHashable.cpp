@@ -87,72 +87,72 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad, bool 
 	// Do proper abstraction for every tag.
 	switch (tag)
 	{
-	// Name tag can be a variable, functioncall or type. Look at parent to find out which.
-	case name_tag:
-	{
-		Node *parent = nd->getPrevious();
-
-		if (parent != nullptr)
+		// Name tag can be a variable, functioncall or type. Look at parent to find out which.
+		case name_tag:
 		{
-			while (parent->getTag() == name_tag)
-			{
-				parent = parent->getPrevious();
-			}
+			Node *parent = nd->getPrevious();
 
-			if (parent->getTag() == type_tag)
+			if (parent != nullptr)
 			{
-				if (inFunction)
+				while (parent->getTag() == name_tag)
 				{
+					parent = parent->getPrevious();
+				}
+
+				if (parent->getTag() == type_tag)
+				{
+					if (inFunction)
+					{
 #ifdef ABSTRACT_TYPE
-					ad->string += "type";
+						ad->string += "type";
 #else
-					ad->string += content;
+						ad->string += content;
 #endif                
+					}
+					return;
 				}
-				return;
-			}
-			else if (parent->getTag() == call_tag)
-			{
-				if (inFunction)
+				else if (parent->getTag() == call_tag)
 				{
+					if (inFunction)
+					{
 #ifdef ABSTRACT_FUNCCALL
-					ad->string += "funccall";
+						ad->string += "funccall";
 #else
-					ad->string += content;
+						ad->string += content;
 #endif                
+					}
+					return;
 				}
-				return;
-			}
-			else if (parent->getTag() == function_tag)
-			{
-
-				if (inFunction)
+				else if (parent->getTag() == function_tag)
 				{
-					ad->string += "funcname";
+
+					if (inFunction)
+					{
+						ad->string += "funcname";
+					}
+					ad->funcName = content;
+					return;
 				}
-				ad->funcName = content;
-				return;
 			}
-		}
-		if (inFunction)
-		{
+			if (inFunction)
+			{
 #ifdef ABSTRACT_VARIABLE
-			ad->string += "var";
+				ad->string += "var";
 #else
-			ad->string += content;
+				ad->string += content;
 #endif          
+			}
+			return;
+			break;
 		}
-		return;
-		break;
-	}
-	default:
-	{
-		// If no abstraction required, just return the content.
-		if (inFunction)
+		default:
 		{
-			ad->string += content;
+			// If no abstraction required, just return the content.
+			if (inFunction)
+			{
+				ad->string += content;
+			}
+			return;
 		}
-		return;
-	}
 	}
 };

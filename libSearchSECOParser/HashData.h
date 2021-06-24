@@ -9,7 +9,7 @@ Utrecht University within the Software Project course.
 
 struct HashData
 {
-  public:
+public:
 	/// <summary>
 	/// Hash(es) of function with metadata.
 	/// </summary>
