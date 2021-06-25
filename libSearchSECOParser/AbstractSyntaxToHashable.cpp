@@ -9,7 +9,7 @@ Utrecht University within the Software Project course.
 #include "AbstractSyntaxToHashable.h"
 
 #define ABSTRACT_FUNCCALL
-//#define ABSTRACT_TYPE
+//#define ABSTRACT_TYPE // Uncommend this to abstract types as well.
 #define ABSTRACT_VARIABLE
 
 AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd, bool testing)
