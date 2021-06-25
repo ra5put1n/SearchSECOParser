@@ -67,7 +67,7 @@ private:
 	std::stack<antlr4::TokenStreamRewriter *> tsrs;
 	std::stack<size_t> starts;
 	std::stack<std::string> functionNames, functionBodies;
-	size_t start, stop;
-	std::string functionName, functionBody, fileName = "filenametest";
+	size_t stop;
+	std::string fileName = "filenametest";
 	bool inFunction = false, inSingleStatement = false;
 };
