@@ -8,10 +8,6 @@ Utrecht University within the Software Project course.
 
 #include "AbstractSyntaxToHashable.h"
 
-#define ABSTRACT_FUNCCALL
-//#define ABSTRACT_TYPE // Uncomment this to abstract types as well.
-#define ABSTRACT_VARIABLE
-
 AbstractionData* AbstractSyntaxToHashable::getHashable(Node *nd, bool testing)
 {
 	AbstractionData* ad = new AbstractionData("", "");
@@ -103,7 +99,7 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad, bool 
 				{
 					if (inFunction)
 					{
-#ifdef ABSTRACT_TYPE
+#ifdef SEARCHSECOPARSER_ABSTRACT_TYPE
 						ad->string += "type";
 #else
 						ad->string += content;
@@ -115,7 +111,7 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad, bool 
 				{
 					if (inFunction)
 					{
-#ifdef ABSTRACT_FUNCCALL
+#ifdef SEARCHSECOPARSER_ABSTRACT_FUNCCALL
 						ad->string += "funccall";
 #else
 						ad->string += content;
@@ -136,7 +132,7 @@ void AbstractSyntaxToHashable::nodeToString(Node *nd, AbstractionData *ad, bool 
 			}
 			if (inFunction)
 			{
-#ifdef ABSTRACT_VARIABLE
+#ifdef SEARCHSECOPARSER_ABSTRACT_VARIABLE
 				ad->string += "var";
 #else
 				ad->string += content;

@@ -5,6 +5,8 @@ Utrecht University within the Software Project course.
 */
 #pragma once
 
+#include <string>
+
 #include "StringStream.h"
 #include "Node.h"
 #include "HashData.h"

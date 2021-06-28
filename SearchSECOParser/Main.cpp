@@ -7,8 +7,11 @@ Utrecht University within the Software Project course.
 #include <iostream>
 #include "Parser.h"
 
-void wrongArgs();
-
+// To be called when invalid arguments are given.
+void wrongArgs()
+{
+	std::cout << "\nUsage is as follows: Parser.exe <path> \n <path> - Path to the directory which contains the files which need parsing" << std::endl;
+}
 
 int main(int argc, char* argv[])
 {
@@ -34,11 +37,4 @@ int main(int argc, char* argv[])
 	}
 
 	return 0;
-}
-
-
-// To be called when invalid arguments are given.
-void wrongArgs()
-{
-	std::cout << "\nUsage is as follows: Parser.exe <path> \n <path> - Path to the directory which contains the files which need parsing" << std::endl;
 }

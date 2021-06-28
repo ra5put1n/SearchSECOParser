@@ -195,6 +195,7 @@
     <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserBaseVisitor.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserListener.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserVisitor.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\JavaScriptAntlrImplementation.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\js\JavaScriptParserListenerCustom.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3BaseListener.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3BaseVisitor.cpp" />
@@ -202,6 +203,7 @@
     <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3Listener.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3Parser.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3Visitor.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\Python3AntlrImplementation.cpp" />
     <ClCompile Include="..\libSearchSECOParser\languages\py3\Python3ParserListenerCustom.cpp" />
     <ClCompile Include="..\libSearchSECOParser\Logger.cpp" />
     <ClCompile Include="..\libSearchSECOParser\loguru\loguru.cpp" />

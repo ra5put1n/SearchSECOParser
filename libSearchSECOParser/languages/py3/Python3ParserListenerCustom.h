@@ -15,6 +15,11 @@ Utrecht University within the Software Project course.
 class CustomPython3Listener : public Python3BaseListener
 {
 public:
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="tsr">TokenStreamRewriter containing the tokens, for abstraction.</param>
+	/// <param name="fileName">Filename, will be added to hashes.</param>
 	CustomPython3Listener(antlr4::TokenStreamRewriter *tsr, std::string fileName);
 
 	~CustomPython3Listener();

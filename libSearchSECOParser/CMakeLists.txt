@@ -58,6 +58,7 @@ add_library(libSearchSECOParser
   Tag.cpp
   XmlParser.cpp
   ./md5/md5.cpp
+  ./languages/py3/Python3AntlrImplementation.cpp
   ./languages/py3/Python3ParserListenerCustom.cpp
   ./languages/py3/generated/Python3BaseListener.cpp
   ./languages/py3/generated/Python3BaseVisitor.cpp
@@ -65,15 +66,16 @@ add_library(libSearchSECOParser
   ./languages/py3/generated/Python3Listener.cpp
   ./languages/py3/generated/Python3Parser.cpp
   ./languages/py3/generated/Python3Visitor.cpp
-   ./languages/js/JavaScriptParserListenerCustom.cpp
-   ./languages/js/generated/JavaScriptLexer.cpp
-   ./languages/js/generated/JavaScriptLexerBase.cpp
-   ./languages/js/generated/JavaScriptParser.cpp
-   ./languages/js/generated/JavaScriptParserBase.cpp
-   ./languages/js/generated/JavaScriptParserBaseListener.cpp
-   ./languages/js/generated/JavaScriptParserBaseVisitor.cpp
-   ./languages/js/generated/JavaScriptParserListener.cpp
-   ./languages/js/generated/JavaScriptParserVisitor.cpp
+  ./languages/js/JavaScriptAntlrImplementation.cpp
+  ./languages/js/JavaScriptParserListenerCustom.cpp
+  ./languages/js/generated/JavaScriptLexer.cpp
+  ./languages/js/generated/JavaScriptLexerBase.cpp
+  ./languages/js/generated/JavaScriptParser.cpp
+  ./languages/js/generated/JavaScriptParserBase.cpp
+  ./languages/js/generated/JavaScriptParserBaseListener.cpp
+  ./languages/js/generated/JavaScriptParserBaseVisitor.cpp
+  ./languages/js/generated/JavaScriptParserListener.cpp
+  ./languages/js/generated/JavaScriptParserVisitor.cpp
   ${PARSER_HEADER_LIST}
   ${LOGURU_FILES}
 )

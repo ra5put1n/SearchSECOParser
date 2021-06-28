@@ -13,14 +13,17 @@ void Logger::logInfo(const char* message, const char* file, unsigned int line)
 {
 	loguru::log(loguru::Verbosity_INFO, file, line, "%s", message);
 }
+
 void Logger::logWarn(const char* message, const char* file, unsigned int line)
 {
 	loguru::log(loguru::Verbosity_WARNING, file, line, "%s", message);
 }
+
 void Logger::logFatal(const char* message, const char* file, unsigned int line, int code)
 {
 	loguru::log(loguru::Verbosity_ERROR, file, line, "%s", getErrorMessage(message, code).c_str());
 }
+
 void Logger::logDebug(const char* message, const char* file, unsigned int line)
 {
 	loguru::log(1, file, line, "%s", message);

@@ -15,6 +15,11 @@ Utrecht University within the Software Project course.
 class CustomJavaScriptListener : public JavaScriptParserBaseListener
 {
 public:
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="tsr">TokenStreamRewriter containing the tokens, for abstraction.</param>
+	/// <param name="fileName">Filename, will be added to hashes.</param>
 	CustomJavaScriptListener(antlr4::TokenStreamRewriter *tsr, std::string fileName);
 
 	~CustomJavaScriptListener();

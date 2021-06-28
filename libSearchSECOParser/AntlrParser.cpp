@@ -20,7 +20,6 @@ Utrecht University within the Software Project course.
 #include "languages/py3/Python3AntlrImplementation.h"
 #include "languages/js/JavaScriptAntlrImplementation.h"
 
-// Method practically copied from Spider Revisited.
 std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfThreads)
 {
 	std::vector<HashData> meths;
@@ -102,8 +101,9 @@ LanguageBase* AntlrParsing::getFacade(std::string fileName)
 		return nullptr;
 	}
 }
+
 #if defined(WIN32) || defined(_WIN32)
-// Convert utf8 based on cdycdr's answer to 
+// Convert to utf8 based on cdycdr's answer to
 // https://stackoverflow.com/questions/17562736/how-to-convert-from-utf-8-to-ansi-using-standard-c.
 std::string AntlrParsing::toUtf8(const std::string& str, const std::locale& loc)
 {
@@ -112,9 +112,11 @@ std::string AntlrParsing::toUtf8(const std::string& str, const std::locale& loc)
 	std::use_facet<std::ctype<char32_t>>(loc).widen(str.data(), str.data() + str.size(), &wstr[0]);
 	return wcvt{}.to_bytes(wstr.data(), wstr.data() + wstr.size());
 }
+
 #else
-// different method in UNIX
-// source: https://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c.
+
+// Different conversion method for UNIX.
+// Source: https://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c.
 std::string AntlrParsing::toUtf8(std::string& str, const std::locale& loc)
 {
 	std::string strOut;
@@ -133,6 +135,7 @@ std::string AntlrParsing::toUtf8(std::string& str, const std::locale& loc)
 	}
 	return strOut;
 }
+
 #endif
 
 void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, 
@@ -191,6 +194,3 @@ void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		Logger::logWarn(log.c_str(), __FILE__, __LINE__);
 	}
 }
-
-
-

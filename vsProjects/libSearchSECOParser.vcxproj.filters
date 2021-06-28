@@ -113,6 +113,12 @@
     <ClCompile Include="..\libSearchSECOParser\AntlrParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\Python3AntlrImplementation.cpp">
+      <Filter>languages\py3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libSearchSECOParser\languages\js\JavaScriptAntlrImplementation.cpp">
+      <Filter>languages\js</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\libSearchSECOParser\Node.h">

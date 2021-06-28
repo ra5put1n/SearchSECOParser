@@ -21,6 +21,7 @@ public:
 	/// <param name="numberThreads">Maximum number of threads the parser may use.</param>
 	/// <returns>StringStream object to which the output of srcML is written.</returns>
 	static StringStream* startSrcML(std::string path, int numberThreads = -1);
+
 private:
 	/// <summary>
 	/// Executes the given command and puts the output in the given string stream.

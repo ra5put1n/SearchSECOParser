@@ -5,8 +5,6 @@ Utrecht University within the Software Project course.
 */
 #pragma once
 
-#include <string>
-#include <sstream>
 #include <mutex>
 
 #define SEARCHSECOPARSER_STRINGSTREAM_INITIAL_STRINGBUFFER_SIZE 10
