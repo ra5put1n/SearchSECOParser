@@ -27,6 +27,7 @@ public:
 		this->lineNumberEnd = lineNumberEnd;
 	};
 
+	// Hash of method, and metadata for method.
 	std::string hash, fileName, functionName;
 	int lineNumber, lineNumberEnd;
 

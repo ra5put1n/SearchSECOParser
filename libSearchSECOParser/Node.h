@@ -72,9 +72,13 @@ public:
 	void removeNode(Node* node);
 
 private:
+	// Data concerning node.
 	std::string contents;
 	Tag tag;
+
+	// Child nodes.
 	std::vector<Node*> childNodes;
+
 	// Parent node.
 	Node* previous;
 };
