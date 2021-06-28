@@ -10,7 +10,7 @@ build_install:
     DEBIAN_FRONTEND: "noninteractive"
   before_script:
     - apt-get update
-    - apt-get -y install gcc g++ cmake autoconf git
+    - apt-get -y install gcc g++ cmake autoconf git libantlr4-runtime-dev libantlr4-runtime4.8
   script:
     - echo "Install complete."
     - mkdir build
@@ -19,10 +19,10 @@ build_install:
     - cmake --build .
   artifacts:
     paths:
-      - build/StandAlone/parser_standalone
-      - build/Parser_Test/parser_tests
-      - build/Parser_Test/Integration/parser_tests_integration
-      - build/Parser_Test/Integration/data
+      - build/SearchSECOParser/SearchSECOParserStandalone
+      - build/tests/parser_tests
+      - build/tests/Integration/parser_tests_integration
+      - build/tests/Integration/data
     expire_in: 1 day
       
   
@@ -32,7 +32,7 @@ unit_testing:
   stage: test
   needs: [build_install]
   script:
-    - build/Parser_Test/parser_tests --gtest_output="xml:report.xml"
+    - build/tests/parser_tests --gtest_output="xml:report.xml"
     
     
 integration_testing:
@@ -40,11 +40,11 @@ integration_testing:
   needs: [build_install]
   before_script:
     - apt-get update
-    - apt-get -y install wget
+    - apt-get -y install wget g++ cmake libantlr4-runtime-dev libantlr4-runtime4.8
     - wget http://131.123.42.38/lmcrs/v1.0.0/srcml_1.0.0-1_ubuntu18.04.deb
     - apt-get -y install ./srcml_1.0.0-1_ubuntu18.04.deb
   script:
-    - cd build/Parser_Test/Integration
+    - cd build/tests/Integration
     - ./parser_tests_integration --gtest_output="xml:report.xml"
 
 
@@ -55,6 +55,6 @@ linting:
     - apt-get update
     - apt-get -y install clang clang-tidy clang-format
   script:
-    - cd Parser
-    - clang-tidy *.cpp -- 
-    - clang *.cpp -fsyntax-only -Werror
+    - cd libSearchSECOParser
+    - clang-tidy *.cpp -- -I../external/antlr/src
+    - clang *.cpp -I../external/antlr/src -fsyntax-only -Werror

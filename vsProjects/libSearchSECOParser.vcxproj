@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{0b2abd3c-f7b7-4bf9-acde-ba39c1d9ef30}</ProjectGuid>
+    <RootNamespace>Parser</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>libSearchSECOParser</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>../src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>../lib/debug</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>../src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>../lib/release</AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../external/antlr/src</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>../external/antlr/lib/debug</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalIncludeDirectories>../external/antlr/src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>antlr4-runtime.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>../external/antlr/lib/release</AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\libSearchSECOParser\AbstractSyntaxToHashable.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\AntlrParser.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptLexer.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptLexerBase.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParser.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserBase.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserBaseListener.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserBaseVisitor.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserListener.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserVisitor.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\JavaScriptAntlrImplementation.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\js\JavaScriptParserListenerCustom.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3BaseListener.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3BaseVisitor.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3Lexer.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3Listener.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3Parser.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\generated\Python3Visitor.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\Python3AntlrImplementation.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\languages\py3\Python3ParserListenerCustom.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\Logger.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\loguru\loguru.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\md5\md5.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\Node.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\Parser.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\SrcMLCaller.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\StringStream.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\Tag.cpp" />
+    <ClCompile Include="..\libSearchSECOParser\XmlParser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\libSearchSECOParser\AbstractSyntaxToHashable.h" />
+    <ClInclude Include="..\libSearchSECOParser\AntlrParser.h" />
+    <ClInclude Include="..\libSearchSECOParser\HashData.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptLexer.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptLexerBase.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParser.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserBase.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserBaseListener.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserBaseVisitor.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserListener.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\generated\JavaScriptParserVisitor.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\JavaScriptAntlrImplementation.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\js\JavaScriptParserListenerCustom.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\LanguageBase.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\py3\generated\Python3BaseListener.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\py3\generated\Python3BaseVisitor.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\py3\generated\Python3Lexer.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\py3\generated\Python3Listener.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\py3\generated\Python3Parser.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\py3\generated\Python3Visitor.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\py3\Python3AntlrImplementation.h" />
+    <ClInclude Include="..\libSearchSECOParser\languages\py3\Python3ParserListenerCustom.h" />
+    <ClInclude Include="..\libSearchSECOParser\Logger.h" />
+    <ClInclude Include="..\libSearchSECOParser\loguru\loguru.hpp" />
+    <ClInclude Include="..\libSearchSECOParser\md5\md5.h" />
+    <ClInclude Include="..\libSearchSECOParser\Node.h" />
+    <ClInclude Include="..\libSearchSECOParser\Parser.h" />
+    <ClInclude Include="..\libSearchSECOParser\SrcMLCaller.h" />
+    <ClInclude Include="..\libSearchSECOParser\StringStream.h" />
+    <ClInclude Include="..\libSearchSECOParser\Tag.h" />
+    <ClInclude Include="..\libSearchSECOParser\XmlParser.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
