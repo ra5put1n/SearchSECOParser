@@ -66,13 +66,27 @@ public:
 	/// </summary>
 	virtual void enterString(Python3Parser::StringContext *ctx) override;
 
+	// Found methods.
 	std::vector<HashData>* output;
+
 private:
+	// Initial TokenStreamRewriter given to the listener.
 	antlr4::TokenStreamRewriter *baseTsr;
+
+	// Stack of TokenStreamRewriter for nested functions.
 	std::stack<antlr4::TokenStreamRewriter *> tsrs;
+
+	// Stack of method starting lines for nested functions.
 	std::stack<size_t> starts;
+
+	// Stack of method names and bodies for nested functions.
 	std::stack<std::string> functionNames, functionBodies;
+
+	// End line of function.
 	size_t stop;
+
 	std::string fileName = "filenametest";
+
+	// For keeping track of status in parse tree.
 	bool inFunction = false, inSingleStatement = false;
 };

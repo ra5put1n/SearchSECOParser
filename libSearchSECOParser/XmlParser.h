@@ -107,13 +107,22 @@ private:
 	/// <returns>The text found before the break value.</returns>
 	std::string getDataUntil(StringStream *stringStream, char breakOn, bool removeWhiteSpace);
 
+	// Complete tree of input.
 	Node* tree;
+
+	// Tree for method currently being parsed.
 	Node* current;
+
+	// Some vars for keeping track of current status in file.
 	int lineNumber = 0;
 	int startLastFunction = 0;
-	int functionCount = 0;
 	bool inFunction = false;
 	std::string currentFileName = "";
+
+	// File path currently operating in, for giving relative paths for files.
 	std::string path;
+
+	// Some vars for keeping track of found hashes/number of methods.
 	std::vector<HashData> hashes;
+	int functionCount = 0;
 };

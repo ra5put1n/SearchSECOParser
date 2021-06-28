@@ -40,11 +40,22 @@ public:
 	char readNextChar();
 
 private:
+	// Buffers.
 	char **buffers;
+
+	// Current buffer size.
 	int bufferSize;
+
+	// Index in the buffer.
 	int currentIndex = 0;
+
+	// Which buffer is currently being read.
 	int bufferIndex = 0;
+
+	// Current amount of buffers.
 	int bufferAmount;
+
+	// Current max amount of buffers.
 	int bufferCap;
 };
 
@@ -78,12 +89,26 @@ public:
 	/// </summary>
 	/// <param name="b">True if the input has ended, false otherwise.</param>
 	void setInputEnded(bool b);
+
 private:
+	// Stream currently being written to.
 	StringBuffer* writeStream;
+
+	// Stream currently being read from.
 	StringBuffer* readStream;
+
+	// Whether the data input has ended.
 	bool dataEnded = false;
+
+	// Lock for swapping buffers.
 	std::mutex lock;
+
+	// Size of writeStream.
 	int sizeWrite = 0;
+
+	// Size of readStream.
 	int sizeRead = 0;
+
+	// Size of the read/write buffers.
 	int buffersSize;
 };

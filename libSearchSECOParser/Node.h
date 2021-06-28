@@ -75,5 +75,6 @@ private:
 	std::string contents;
 	Tag tag;
 	std::vector<Node*> childNodes;
+	// Parent node.
 	Node* previous;
 };
