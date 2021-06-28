@@ -9,7 +9,7 @@ Utrecht University within the Software Project course.
 #include "Node.h"
 
 
-// getHashable function
+// Test the getHashable function.
 TEST(AbstractSyntaxToHashable_getHashable, oneNodeEmpty) {
 	Node* n = new Node("", unknown_tag, nullptr);
 	EXPECT_EQ(AbstractSyntaxToHashable::getHashable(n, true)->string, "");

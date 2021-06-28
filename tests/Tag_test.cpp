@@ -9,7 +9,7 @@ Utrecht University within the Software Project course.
 
 
 
-// GetTag function
+// Test the getTag function.
 TEST(TagMap_getTag, unknownTag) {
 	Tag t = TagMap::getTag("");
 	EXPECT_EQ(t, Tag::unknown_tag);
@@ -22,7 +22,7 @@ TEST(TagMap_getTag, knownTag) {
 
 
 
-// GetMap function
+// Test the getMap function.
 TEST(TagMap_getMap, notEmpty) {
 	std::map<std::string, Tag> m = TagMap::getMap();
 	EXPECT_NE(m.size(), 0);

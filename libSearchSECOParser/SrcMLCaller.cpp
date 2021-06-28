@@ -32,7 +32,7 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 
 /*
 * Partially copied and edited from:
-* https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po
+* https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po.
 */
 void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 {

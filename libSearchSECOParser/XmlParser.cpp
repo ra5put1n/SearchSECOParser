@@ -23,7 +23,7 @@ std::vector<HashData> XmlParser::parseXML(StringStream *stringStream, bool parse
 	// The first tag should always be the <?xml> tag, which we want to ignore.
 	TagData td = getNextTag(stringStream);
 
-	// If srcML returns nothing, no need to worry, there were no files SrcML could parse
+	// If srcML returns nothing, no need to worry, there were no files SrcML could parse.
 	if (stringStream->stop() && td.tag == "")
 	{
 		std::string log = "SrcML returned nothing.";

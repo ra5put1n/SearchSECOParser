@@ -114,7 +114,7 @@ std::string AntlrParsing::toUtf8(const std::string& str, const std::locale& loc)
 }
 #else
 // different method in UNIX
-// source: https://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
+// source: https://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c.
 std::string AntlrParsing::toUtf8(std::string& str, const std::locale& loc)
 {
 	std::string strOut;
@@ -145,7 +145,7 @@ void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		ss << file.rdbuf();
 		std::string buffer = ss.str();
 
-		// Look for UTF-8 BOM
+		// Look for UTF-8 BOM.
 		const char* bom = "\xef\xbb\xbf";
 		std::string data;
 
@@ -167,7 +167,7 @@ void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 			}
 		}
 
-		// Retrieve parser for this file, if available
+		// Retrieve parser for this file, if available.
 		LanguageBase* lf = getFacade(filepath);
 				
 		if (lf == nullptr)

@@ -12,7 +12,7 @@ void wrongArgs();
 
 int main(int argc, char* argv[])
 {
-	// Retrieve the given path from the arguments
+	// Retrieve the given path from the arguments.
 	std::string path;
 
 	if (argc > 1)
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 }
 
 
-// To be called when invalid arguments are given
+// To be called when invalid arguments are given.
 void wrongArgs()
 {
 	std::cout << "\nUsage is as follows: Parser.exe <path> \n <path> - Path to the directory which contains the files which need parsing" << std::endl;
