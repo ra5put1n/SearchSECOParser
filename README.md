@@ -44,5 +44,11 @@ This will return a vector containing a [HashData](https://git.science.uu.nl/sear
 
 # License
 
+This project is licensed under the GNU Affero General Public License v3.0. See [LICENSE](LICENSE) for more info.
+
 This program has been developed by students from the bachelor Computer Science at Utrecht University within the Software Project course.
 © Copyright Utrecht University (Department of Information and Computing Sciences)
+
+## Licenses for code from other projects
+* [ANTLR](https://www.antlr.org/). The license for ANTLR can be found in [external/antlr/LICENSE](external/curl/LICENSE.txt) and is applicable to everything in the [external/antlr](external/antlr) directory.
+* [GoogleTest](https://github.com/google/googletest). The license for GoogleTest can be found in the GoogleTest [GitHub repository](https://github.com/google/googletest/blob/355d57d90d9744c41ac7c99f1e960778f1c63040/LICENSE), and is applicable to the [pch.h and pch.cpp files](tests/) in the tests directory.
