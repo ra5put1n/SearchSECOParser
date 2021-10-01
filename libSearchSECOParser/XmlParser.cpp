@@ -109,9 +109,9 @@ void XmlParser::handleClosingTag(TagData tagData, bool parseFurther)
 		{
 			hashes.push_back(HashData(mdHash, s->funcName, currentFileName, startLastFunction, lineNumber));
 
-			std::string log = "Found function: " + s->funcName + " in File: " + currentFileName + " " 
-				+ std::to_string(startLastFunction) + " - " + std::to_string(lineNumber);
-			Logger::logDebug(log.c_str(), __FILE__, __LINE__);
+			//std::string log = "Found function: " + s->funcName + " in File: " + currentFileName + " " 
+			//	+ std::to_string(startLastFunction) + " - " + std::to_string(lineNumber);
+			//Logger::logDebug(log.c_str(), __FILE__, __LINE__);
 
 			functionCount++;
 		}        

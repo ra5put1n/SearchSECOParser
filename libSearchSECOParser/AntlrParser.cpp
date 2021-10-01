@@ -141,6 +141,7 @@ std::string AntlrParsing::toUtf8(std::string& str, const std::locale& loc)
 void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, 
 	std::mutex &outputLock, std::string path)
 {
+	Logger::logDebug(("Parsing: " + filepath).c_str(), __FILE__, __LINE__);
 	std::ifstream file(filepath);
 	if (file.is_open())
 	{
@@ -187,6 +188,7 @@ void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		outputLock.unlock();
 
 		file.close();
+		Logger::logDebug(("Finished parsing: " + filepath).c_str(), __FILE__, __LINE__);
 	}
 	else
 	{

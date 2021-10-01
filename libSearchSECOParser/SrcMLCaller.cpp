@@ -13,8 +13,9 @@ Utrecht University within the Software Project course.
 
 #include "Logger.h"
 #include "SrcMLCaller.h"
+#include <future>
 
-StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
+StringStream* SrcMLCaller::startSrcML(std::string cmd, long long timeout, int numberThreads)
 {
 	StringStream *stream = new StringStream(SEARCHSECOPARSER_SRCML_BUFFER_SIZE);
 
@@ -25,7 +26,7 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 	}
 
 	// Start srcML in new thread so the output can be read while it is being made.
-	new std::thread(exec, "srcml " + threads + cmd, stream);
+	new std::thread(exec, "srcml " + threads + cmd, timeout, stream);
 
 	return stream;
 }
@@ -34,11 +35,8 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 * Partially copied and edited from:
 * https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po.
 */
-void SrcMLCaller::exec(std::string cmd, StringStream* stream)
+void SrcMLCaller::exec(std::string cmd, long long timeout, StringStream* stream)
 {
-	// Buffer to read into and then put into stream.
-	std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>* buffer = new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
-
 	// Open console to interact with srcML, use proper open function depending on operating system.
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 	std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd.c_str(), "r"), _pclose);
@@ -53,15 +51,36 @@ void SrcMLCaller::exec(std::string cmd, StringStream* stream)
 		return;
 	}
 
-	// Amount of data read, is less then bufferSize if output ends.
-	size_t bytesRead;
+	auto pipeGet = pipe.get();
+	bool stopped = false;
 
-	// Read until there is nothing more to read, insert chunks into stream.
+	std::future<void> future = std::async([stream, pipeGet, stopped] {
+		// Buffer to read into and then put into stream.
+		std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE> *buffer =
+			new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
 
-	while ((bytesRead = fread(buffer->data(), 1, SEARCHSECOPARSER_SRCML_BUFFER_SIZE, pipe.get())) > 0)
+		// Amount of data read, is less then bufferSize if output ends.
+		size_t bytesRead;
+
+		// Read until there is nothing more to read, insert chunks into stream.
+		while (!stopped && (bytesRead = fread(buffer->data(), 1, SEARCHSECOPARSER_SRCML_BUFFER_SIZE, pipeGet)) > 0)
+		{
+			Logger::logDebug(("Read " + std::to_string(bytesRead) + " from srcml.").c_str(), __FILE__, __LINE__);
+			stream->addBuffer(buffer->data(), bytesRead);
+			buffer = new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
+		}
+	});
+
+	std::future_status result = future.wait_for(std::chrono::milliseconds(timeout));
+
+	if (result == std::future_status::timeout)
 	{
-		stream->addBuffer(buffer->data(), bytesRead);
-		buffer = new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
+		errno = EDOM;
+		stopped = true;
+		Logger::logWarn(("Parsing timed out after " + std::to_string(timeout/1000) + " seconds.").c_str(), __FILE__,
+						__LINE__);
+		stream->setFailed();
+		std::fclose(pipe.get());
 	}
 
 	// Let stream know there won't be more data.
