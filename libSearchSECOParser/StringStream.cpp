@@ -77,7 +77,7 @@ bool StringStream::stop()
 		return false;
 	}
 	std::unique_lock<std::mutex> l(lock);
-	Logger::logDebug(std::to_string(sizeWrite).c_str(), __FILE__, __LINE__);
+	//Logger::logDebug(std::to_string(sizeWrite).c_str(), __FILE__, __LINE__);
 	// The stringstream is done when the input is done and both streams are empty.
 	return (dataEnded && sizeWrite <= 0);
 }

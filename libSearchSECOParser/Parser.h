@@ -30,5 +30,5 @@ public:
 	/// <param name="path">Path to look for files, also looks in folders.</param>
 	/// <param name="numberThreads">Maximum number of threads the parser may use.</param>
 	/// <returns>Vector containing a HashData element for every method, containing data.</returns>
-	static std::vector<HashData> parse(long long timeout, std::string path, int numberThreads = -1);
+	static std::vector<HashData> parse(std::string path, int numberThreads = -1);
 };

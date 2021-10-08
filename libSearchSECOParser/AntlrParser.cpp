@@ -20,6 +20,8 @@ Utrecht University within the Software Project course.
 #include "languages/py3/Python3AntlrImplementation.h"
 #include "languages/js/JavaScriptAntlrImplementation.h"
 
+extern bool stopped;
+
 std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfThreads)
 {
 	std::vector<HashData> meths;
@@ -68,7 +70,7 @@ std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfT
 void AntlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &outputLock, 
 	std::queue<std::string> &files,	std::mutex &queueLock, std::string path)
 {
-	while (true)
+	while (!stopped)
 	{
 		// Lock the queue.
 		queueLock.lock();

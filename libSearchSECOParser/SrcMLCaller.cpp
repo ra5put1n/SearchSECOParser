@@ -10,12 +10,19 @@ Utrecht University within the Software Project course.
 #include <stdexcept>
 #include <array>
 #include <thread>
+#include <stdio.h>
+#if !defined(WIN32) && !defined(_WIN32) && !defined(__WIN32) || defined(__CYGWIN__)
+#include <sys/select.h>
+#endif
+
 
 #include "Logger.h"
 #include "SrcMLCaller.h"
 #include <future>
 
-StringStream* SrcMLCaller::startSrcML(std::string cmd, long long timeout, int numberThreads)
+extern bool stopped;
+
+StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 {
 	StringStream *stream = new StringStream(SEARCHSECOPARSER_SRCML_BUFFER_SIZE);
 
@@ -26,7 +33,7 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, long long timeout, int nu
 	}
 
 	// Start srcML in new thread so the output can be read while it is being made.
-	new std::thread(exec, "srcml " + threads + cmd, timeout, stream);
+	new std::thread(exec, "srcml " + threads + cmd, stream);
 
 	return stream;
 }
@@ -35,13 +42,17 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, long long timeout, int nu
 * Partially copied and edited from:
 * https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po.
 */
-void SrcMLCaller::exec(std::string cmd, long long timeout, StringStream* stream)
+void SrcMLCaller::exec(std::string cmd, StringStream *stream)
 {
 	// Open console to interact with srcML, use proper open function depending on operating system.
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-	std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd.c_str(), "r"), _pclose);
+	FILE *s = _popen(cmd.c_str(), "r");
+	int fd = _fileno(s);
+	std::unique_ptr<FILE, decltype(&_pclose)> pipe(s, _pclose);
 #else
-	std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+	FILE *s = popen(cmd.c_str(), "r");
+	int fd = fileno(s);
+	std::unique_ptr<FILE, decltype(&pclose)> pipe(s, pclose);
 #endif
 
 	if (!pipe)
@@ -52,33 +63,64 @@ void SrcMLCaller::exec(std::string cmd, long long timeout, StringStream* stream)
 	}
 
 	auto pipeGet = pipe.get();
-	bool stopped = false;
+	// bool stopped = false;
 
-	std::future<void> future = std::async([stream, pipeGet, stopped] {
-		// Buffer to read into and then put into stream.
-		std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE> *buffer =
-			new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
+	// Buffer to read into and then put into stream.
+	std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE> *buffer =
+		new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
 
-		// Amount of data read, is less then bufferSize if output ends.
-		size_t bytesRead;
+	// Amount of data read, is less then bufferSize if output ends.
+	size_t bytesRead;
 
-		// Read until there is nothing more to read, insert chunks into stream.
-		while (!stopped && (bytesRead = fread(buffer->data(), 1, SEARCHSECOPARSER_SRCML_BUFFER_SIZE, pipeGet)) > 0)
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+	// Read until there is nothing more to read, insert chunks into stream.
+	while (!stopped && (bytesRead = fread(buffer->data(), 1, SEARCHSECOPARSER_SRCML_BUFFER_SIZE, pipeGet)) > 0 &&
+		   !stopped)
+	{
+		stream->addBuffer(buffer->data(), bytesRead);
+		buffer = new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
+	}
+#else
+	fd_set set;
+	struct timeval selectTimeout;
+
+	FD_ZERO(&set);
+	FD_SET(fd, &set);
+
+	selectTimeout.tv_sec = 5;
+	selectTimeout.tv_usec = 0;
+
+	while (!stopped && feof(pipeGet) == 0)
+	{
+		int ret = select(fd + 1, &set, NULL, NULL, &selectTimeout);
+
+		selectTimeout.tv_sec = 5;
+
+		// If the select operation timed out,
+		if (ret == 0)
 		{
-			Logger::logDebug(("Read " + std::to_string(bytesRead) + " from srcml.").c_str(), __FILE__, __LINE__);
+			// simply continue to re-check if the operation was externally stopped.
+			continue;
+		}
+		// If ret < 0, an error occured in the select call.
+		else if (ret < 0)
+		{
+			// Stop listening for additional data.
+			break;
+		}
+		// Else, there was activity on the fd.
+		else
+		{
+			bytesRead = fread(buffer->data(), 1, SEARCHSECOPARSER_SRCML_BUFFER_SIZE, pipeGet);
 			stream->addBuffer(buffer->data(), bytesRead);
 			buffer = new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
 		}
-	});
+	}
+#endif
 
-	std::future_status result = future.wait_for(std::chrono::milliseconds(timeout));
-
-	if (result == std::future_status::timeout)
+	if (stopped)
 	{
 		errno = EDOM;
-		stopped = true;
-		Logger::logWarn(("Parsing timed out after " + std::to_string(timeout/1000) + " seconds.").c_str(), __FILE__,
-						__LINE__);
 		stream->setFailed();
 		std::fclose(pipe.get());
 	}

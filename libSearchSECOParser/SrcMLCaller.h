@@ -21,7 +21,7 @@ public:
 	/// <param name="timeout">Allowed time before parser is forcibly exited.</param>
 	/// <param name="numberThreads">Maximum number of threads the parser may use.</param>
 	/// <returns>StringStream object to which the output of srcML is written.</returns>
-	static StringStream* startSrcML(std::string path, long long timeout, int numberThreads = -1);
+	static StringStream* startSrcML(std::string path, int numberThreads = -1);
 
 private:
 	/// <summary>
@@ -30,5 +30,5 @@ private:
 	/// <param name="cmd">Command to execute.</param>
 	/// <param name="timeout">Allowed time before parser is forcibly exited.</param>
 	/// <param name="stream">StringStream which the output will be written to.</param>
-	static void exec(std::string cmd, long long timeout, StringStream* stream);
+	static void exec(std::string cmd, StringStream* stream);
 };

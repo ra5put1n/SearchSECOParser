@@ -16,15 +16,15 @@ Utrecht University within the Software Project course.
 #include "XmlParser.h"
 #include "AntlrParser.h"
 
-std::vector<HashData> Parser::parse(long long timeout, std::string path, int numberThreads)
+std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {
 	loguru::set_thread_name("parser");
 	
 	Logger::logInfo("Starting Parser", __FILE__, __LINE__);
 
 
-	Logger::logDebug("Sending files to SrcML", __FILE__, __LINE__);
-	StringStream* stream = SrcMLCaller::startSrcML(path.c_str(), timeout, numberThreads);
+	Logger::logDebug("Sending files to srcML", __FILE__, __LINE__);
+	StringStream* stream = SrcMLCaller::startSrcML(path.c_str(), numberThreads);
 
 	Logger::logDebug("Received stream from srcML", __FILE__, __LINE__);
 
