@@ -13,6 +13,7 @@ Utrecht University within the Software Project course.
 #include <codecvt>
 #include <cstring>
 #include <sstream>
+#include "loguru/loguru.hpp"
 
 #include "Logger.h"
 #include "AntlrParser.h"
@@ -70,6 +71,7 @@ std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfT
 void AntlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &outputLock, 
 	std::queue<std::string> &files,	std::mutex &queueLock, std::string path)
 {
+	loguru::set_thread_name("AntlrParser");
 	while (!stopped)
 	{
 		// Lock the queue.

@@ -20,7 +20,7 @@ Utrecht University within the Software Project course.
 #include "SrcMLCaller.h"
 #include <future>
 
-extern bool stopped = false;
+extern bool stopped;
 
 StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 {
