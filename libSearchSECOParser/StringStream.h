@@ -90,6 +90,11 @@ public:
 	/// <param name="b">True if the input has ended, false otherwise.</param>
 	void setInputEnded(bool b);
 
+	/// <summary>
+	/// Set that the Stringstream has failed.
+	/// </summary>
+	void setFailed();
+
 private:
 	// Stream currently being written to.
 	StringBuffer* writeStream;
@@ -99,6 +104,9 @@ private:
 
 	// Whether the data input has ended.
 	bool dataEnded = false;
+
+	// Whether the data input has failed.
+	bool failed = false;
 
 	// Lock for swapping buffers.
 	std::mutex lock;

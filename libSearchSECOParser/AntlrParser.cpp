@@ -13,12 +13,15 @@ Utrecht University within the Software Project course.
 #include <codecvt>
 #include <cstring>
 #include <sstream>
+#include "loguru/loguru.hpp"
 
 #include "Logger.h"
 #include "AntlrParser.h"
 #include "languages/LanguageBase.h"
 #include "languages/py3/Python3AntlrImplementation.h"
 #include "languages/js/JavaScriptAntlrImplementation.h"
+
+extern bool stopped;
 
 std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfThreads)
 {
@@ -68,7 +71,8 @@ std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfT
 void AntlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &outputLock, 
 	std::queue<std::string> &files,	std::mutex &queueLock, std::string path)
 {
-	while (true)
+	loguru::set_thread_name("AntlrParser");
+	while (!stopped)
 	{
 		// Lock the queue.
 		queueLock.lock();
@@ -141,6 +145,7 @@ std::string AntlrParsing::toUtf8(std::string& str, const std::locale& loc)
 void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &meths, 
 	std::mutex &outputLock, std::string path)
 {
+	Logger::logDebug(("Parsing: " + filepath).c_str(), __FILE__, __LINE__);
 	std::ifstream file(filepath);
 	if (file.is_open())
 	{
@@ -187,6 +192,7 @@ void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		outputLock.unlock();
 
 		file.close();
+		Logger::logDebug(("Finished parsing: " + filepath).c_str(), __FILE__, __LINE__);
 	}
 	else
 	{

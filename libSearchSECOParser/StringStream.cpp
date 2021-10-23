@@ -5,6 +5,7 @@ Utrecht University within the Software Project course.
 */
 
 #include "StringStream.h"
+#include "Logger.h"
 
 StringStream::StringStream(int bufferSize)
 {
@@ -22,6 +23,10 @@ void StringStream::addBuffer(char* buffer, int length)
 
 char StringStream::nextChar()
 {
+	if (failed)
+	{
+		return ' ';
+	}
 	// If there is something to read, read and return the value.
 	if (sizeRead > 0)
 	{
@@ -40,7 +45,7 @@ char StringStream::nextChar()
 	while (s <= 0)
 	{
 		std::unique_lock<std::mutex> l(lock);
-		if (dataEnded && sizeWrite <= 0)
+		if (failed || (dataEnded && sizeWrite <= 0))
 		{
 			return '\0';
 		}
@@ -60,6 +65,11 @@ char StringStream::nextChar()
 
 bool StringStream::stop()
 {
+	if (failed)
+	{
+		errno = EDOM;
+		return true;
+	}
 	// We want to make sure we don't lock the thread if it is not necessary,
 	// so we check this first.
 	if (sizeRead > 0)
@@ -75,6 +85,12 @@ void StringStream::setInputEnded(bool b)
 {
 	std::unique_lock<std::mutex> l(lock);
 	dataEnded = b;
+}
+
+void StringStream::setFailed()
+{
+	std::unique_lock<std::mutex> l(lock);
+	failed = true;
 }
 
 StringBuffer::StringBuffer(int bufferSize)
