@@ -7,6 +7,8 @@ Utrecht University within the Software Project course.
 #include <iostream>
 #include "Parser.h"
 
+bool stopped = false;
+
 // To be called when invalid arguments are given.
 void wrongArgs()
 {
