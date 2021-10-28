@@ -192,7 +192,6 @@ void AntlrParsing::parseSingleFile(std::string filepath, std::vector<HashData> &
 		outputLock.unlock();
 
 		file.close();
-		Logger::logDebug(("Finished parsing: " + filepath).c_str(), __FILE__, __LINE__);
 	}
 	else
 	{
