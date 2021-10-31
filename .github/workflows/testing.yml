@@ -1,0 +1,63 @@
+name: Testing pipeline
+on: [push]
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+             sudo apt-get -qq update
+             sudo apt-get -y -qq install gcc g++ cmake autoconf git libantlr4-runtime-dev libantlr4-runtime4.8
+      - name: Build
+        run: |
+             mkdir build
+             cd build
+             cmake ../
+             cmake --build .
+      - name: Create artefacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_install
+          path: |
+                build/SearchSECOParser/SearchSECOParserStandalone
+                build/tests/parser_tests
+                build/tests/Integration/parser_tests_integration
+                build/tests/Integration/data
+          retention-days: 1
+
+  Unit-tests:
+    runs-on: ubuntu-latest
+    needs: [build_install]
+    steps:
+      - name: Tests
+        run: build/tests/parser_tests --gtest_output="xml:report.xml"
+             
+  Integration-tests:
+    runs-on: ubuntu-latest
+    needs: [build_install]
+    steps:
+      - name: Install dependencies
+        run: |
+             sudo apt-get -qq update
+             sudo apt-get -y -qq install wget g++ cmake libantlr4-runtime-dev libantlr4-runtime4.8
+             wget http://131.123.42.38/lmcrs/v1.0.0/srcml_1.0.0-1_ubuntu18.04.deb
+             sudo apt-get -y -qq install ./srcml_1.0.0-1_ubuntu18.04.deb
+      - name: Tests
+        run: |
+             cd build/tests/Integration
+             ./parser_tests_integration --gtest_output="xml:report.xml"
+             
+  Linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+             sudo apt-get -qq update
+             sudo apt-get -y -qq install clang clang-tidy clang-format
+      - name: Run linting
+        run: |
+             cd libSearchSECOParser
+             clang-tidy *.cpp -- -I../external/antlr/src
+             clang *.cpp -I../external/antlr/src -fsyntax-only -Werror
