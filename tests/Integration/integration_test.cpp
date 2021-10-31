@@ -14,7 +14,7 @@ bool stopped = false;
 #if defined(WIN32) || defined(_WIN32)
 std::string dataLoc = "../data";
 #else
-std::string dataLoc = "data";
+std::string dataLoc = "./data";
 #endif // WIN32 OR _WIN32
 
 // GetTag function
