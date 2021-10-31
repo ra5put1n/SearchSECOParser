@@ -35,7 +35,9 @@ jobs:
         with:
           name: build_install
       - name: Tests
-        run: sudo tests/parser_tests --gtest_output="xml:report.xml"
+        run: |
+             sudo chmod +x tests/parser_tests
+             tests/parser_tests --gtest_output="xml:report.xml"
              
   Integration-tests:
     runs-on: ubuntu-latest
@@ -54,7 +56,8 @@ jobs:
       - name: Tests
         run: |
              cd tests/Integration
-             sudo ./parser_tests_integration --gtest_output="xml:report.xml"
+             sudo chmod +x ./parser_tests_integration
+             ./parser_tests_integration --gtest_output="xml:report.xml"
              
   Linting:
     runs-on: ubuntu-latest
