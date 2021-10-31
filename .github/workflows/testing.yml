@@ -56,7 +56,7 @@ jobs:
       - name: Tests
         run: |
              cd tests/Integration
-             sudo chmod +x ./parser_tests_integration
+             sudo chmod +x -R .
              ./parser_tests_integration --gtest_output="xml:report.xml"
              
   Linting:
