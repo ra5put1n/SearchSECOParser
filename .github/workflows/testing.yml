@@ -53,6 +53,8 @@ jobs:
              sudo apt-get -y -qq install ./srcml_1.0.0-1_ubuntu18.04.deb
       - name: Tests
         run: |
+             ls
+             pwd
              cd build/tests/Integration
              ./parser_tests_integration --gtest_output="xml:report.xml"
              
@@ -71,6 +73,8 @@ jobs:
              sudo apt-get -y -qq install clang clang-tidy clang-format
       - name: Run linting
         run: |
+             ls
+             pwd
              cd libSearchSECOParser
              clang-tidy *.cpp -- -I../external/antlr/src
              clang *.cpp -I../external/antlr/src -fsyntax-only -Werror
