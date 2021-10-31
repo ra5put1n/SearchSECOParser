@@ -6,6 +6,7 @@ Utrecht University within the Software Project course.
 
 #include "../pch.h"
 #include "Parser.h"
+#include <iostream>
 
 #include <map>
 
@@ -21,6 +22,8 @@ std::string dataLoc = "./data";
 TEST(integrationCpp, integrationCppBase)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/cpp");
+	
+	std::cout << "Hashes: " << hds.size() << std::endl;
 
 	HashData hd1 = hds[0];
 	ASSERT_EQ(hd1.functionName, "main");
