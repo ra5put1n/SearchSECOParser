@@ -35,7 +35,7 @@ jobs:
         with:
           name: build_install
       - name: Tests
-        run: tests/parser_tests --gtest_output="xml:report.xml"
+        run: sudo tests/parser_tests --gtest_output="xml:report.xml"
              
   Integration-tests:
     runs-on: ubuntu-latest
@@ -53,10 +53,8 @@ jobs:
              sudo apt-get -y -qq install ./srcml_1.0.0-1_ubuntu18.04.deb
       - name: Tests
         run: |
-             ls tests
-             pwd
              cd tests/Integration
-             ./parser_tests_integration --gtest_output="xml:report.xml"
+             sudo ./parser_tests_integration --gtest_output="xml:report.xml"
              
   Linting:
     runs-on: ubuntu-latest
