@@ -28,15 +28,23 @@ jobs:
 
   Unit-tests:
     runs-on: ubuntu-latest
-    needs: [build_install]
+    needs: [Build]    
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build_install
       - name: Tests
         run: build/tests/parser_tests --gtest_output="xml:report.xml"
              
   Integration-tests:
     runs-on: ubuntu-latest
-    needs: [build_install]
+    needs: [Build]
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build_install
       - name: Install dependencies
         run: |
              sudo apt-get -qq update
@@ -50,7 +58,12 @@ jobs:
              
   Linting:
     runs-on: ubuntu-latest
+    needs: [Build]
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build_install
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
