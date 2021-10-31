@@ -184,6 +184,7 @@ void XmlParser::handleUnitTag(TagData tagData)
 		currentFileName = tagData.textInTag.substr(filenamePosition + filenameBuffer, filenameEnd - filenamePosition - filenameBuffer);
 		lineNumber = 1;
 		functionCount = 0;
+		Logger::logDebug(("Parsing file: " + currentFileName + ".").c_str(), __FILE__, __LINE__);
 	}
 }
 

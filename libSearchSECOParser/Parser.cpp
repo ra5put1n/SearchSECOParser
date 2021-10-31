@@ -37,6 +37,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 
 	if (errno != 0){
 		// If an error occured, discard parsed data and return.
+		Logger::logDebug("An error occured in the srcML parser. Returning empty.", __FILE__, __LINE__);
 		return std::vector<HashData>();
 	}
 
