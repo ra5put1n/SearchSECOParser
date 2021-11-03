@@ -57,7 +57,7 @@ jobs:
         run: |
              cd tests/Integration
              ls
-             ls data
+             ls data/cpp
              sudo chmod +x -R .
              ./parser_tests_integration --gtest_output="xml:report.xml"
              
