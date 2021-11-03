@@ -24,6 +24,10 @@ TEST(integrationCpp, integrationCppBase)
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/cpp");
 	
 	std::cout << "Hashes: " << hds.size() << std::endl;
+	
+	char tmp[256];
+    getcwd(tmp, 256);
+    std::cout << "Current working directory: " << tmp << std::endl;
 
 	ASSERT_EQ(hds.size(), 3);
 
