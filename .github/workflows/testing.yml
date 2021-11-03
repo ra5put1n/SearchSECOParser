@@ -58,7 +58,7 @@ jobs:
              cd tests/Integration
              ls
              ls data/cpp
-             sudo chmod +x -R .
+             sudo chmod +xr -R .
              ./parser_tests_integration --gtest_output="xml:report.xml"
              
   Linting:
