@@ -49,6 +49,8 @@ TEST(integrationCpp, integrationCppBase)
 TEST(integrationCpp, integrationCppHash)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/cpp");
+	
+	ASSERT_EQ(hds.size(), 3);
 
 	HashData hd1 = hds[0];
 	ASSERT_EQ(hd1.hash, "35b09a79e9280726c0795e2079ba6e05");
@@ -112,6 +114,8 @@ TEST(integrationJava, integrationJavaBase)
 TEST(integrationJava, integrationJavaHash)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/java");
+	
+	ASSERT_EQ(hds.size(), 18);
 
 	HashData hd1 = hds[0];
 	ASSERT_EQ(hd1.hash, "9ffab3f3813d9de8cbd90d779c286713");
@@ -193,6 +197,8 @@ TEST(integrationCSharp, integrationCSharpBase)
 TEST(integrationCSharp, integrationCSharpHash)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/csharp");
+	
+	ASSERT_EQ(hds.size(), 25);
 
 	HashData hd1 = hds[0];
 	ASSERT_EQ(hd1.hash, "685624834b651e79f6fce1edf416d381");
@@ -252,6 +258,8 @@ TEST(integrationPython3, integrationPython3Base)
 TEST(integrationPython3, integrationPython3Hash)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/python3");
+	
+	ASSERT_EQ(hds.size(), 11);
 
 	// Check regardless of permutation because of multithreading.
 	std::map<std::string, int> hm;
@@ -278,6 +286,8 @@ TEST(integrationPython3, integrationPython3Hash)
 TEST(integrationJavaScript, integrationJavaScriptBase)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/javascript");
+	
+	ASSERT_EQ(hds.size(), 6);
 
 	// Ignore hashes.
 	for (int i = 0; i < hds.size(); i++)
@@ -313,6 +323,8 @@ TEST(integrationJavaScript, integrationJavaScriptBase)
 TEST(integrationJavaScript, integrationJavaScriptAbstraction)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/javascript");
+	
+	ASSERT_EQ(hds.size(), 6);
 
 	// Test if similar functions are abstracted the same.
 	std::string hash = "";
