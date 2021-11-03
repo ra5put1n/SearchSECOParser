@@ -23,27 +23,6 @@ std::string dataLoc = "data";
 TEST(integrationCpp, integrationCppBase)
 {
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/cpp");
-	
-	std::cout << "Hashes: " << hds.size() << std::endl;
-	
-	char tmp[256];
-    getcwd(tmp, 256);
-    std::cout << "Current working directory: " << tmp << std::endl;
-	
-	DIR *dir; struct dirent *diread;
-    std::vector<char *> files;
-
-    if ((dir = opendir("./data/cpp/tools")) != nullptr) {
-        while ((diread = readdir(dir)) != nullptr) {
-            files.push_back(diread->d_name);
-        }
-        closedir (dir);
-    } else {
-        perror ("opendir");
-    }
-
-    for (auto file : files) std::cout << file << "| ";
-    std::cout << std::endl;
 
 	ASSERT_EQ(hds.size(), 3);
 
