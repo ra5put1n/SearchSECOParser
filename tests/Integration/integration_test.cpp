@@ -15,7 +15,7 @@ bool stopped = false;
 #if defined(WIN32) || defined(_WIN32)
 std::string dataLoc = "../data";
 #else
-std::string dataLoc = "./data";
+std::string dataLoc = "data";
 #endif // WIN32 OR _WIN32
 
 // GetTag function
@@ -24,6 +24,8 @@ TEST(integrationCpp, integrationCppBase)
 	std::vector<HashData> hds = Parser::parse(dataLoc + "/cpp");
 	
 	std::cout << "Hashes: " << hds.size() << std::endl;
+
+	ASSERT_EQ(hds.size(), 3);
 
 	HashData hd1 = hds[0];
 	ASSERT_EQ(hd1.functionName, "main");
