@@ -16,6 +16,8 @@ Utrecht University within the Software Project course.
 #include "XmlParser.h"
 #include "AntlrParser.h"
 
+extern std::atomic<bool> stopped;
+
 std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 {
 	loguru::set_thread_name("parser");
@@ -35,7 +37,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 
 	std::vector<HashData> hashes = xmlParser.parseXML(stream);
 
-	if (errno != 0){
+	if (errno != 0 || stopped){
 		// If an error occured, discard parsed data and return.
 		Logger::logDebug("An error occured in the srcML parser. Returning empty.", __FILE__, __LINE__);
 		return std::vector<HashData>();

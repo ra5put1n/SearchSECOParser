@@ -63,7 +63,6 @@ void SrcMLCaller::exec(std::string cmd, StringStream *stream)
 	}
 
 	auto pipeGet = pipe.get();
-	// bool stopped = false;
 
 	// Buffer to read into and then put into stream.
 	std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE> *buffer =
@@ -122,7 +121,10 @@ void SrcMLCaller::exec(std::string cmd, StringStream *stream)
 	{
 		errno = EDOM;
 		stream->setFailed();
-		std::fclose(pipe.get());
+		if (pipe.get() != NULL)
+		{
+			std::fclose(pipe.get());
+		}
 	}
 
 	// Let stream know there won't be more data.

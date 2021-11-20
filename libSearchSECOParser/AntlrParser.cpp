@@ -21,7 +21,7 @@ Utrecht University within the Software Project course.
 #include "languages/py3/Python3AntlrImplementation.h"
 #include "languages/js/JavaScriptAntlrImplementation.h"
 
-extern bool stopped;
+extern std::atomic<bool> stopped;
 
 std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfThreads)
 {
