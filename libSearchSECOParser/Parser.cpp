@@ -25,10 +25,9 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	
 	Logger::logInfo("Starting Parser", __FILE__, __LINE__);
 
-
 	Logger::logDebug("Sending files to srcML", __FILE__, __LINE__);
-	StringStream *stream;
-	std::thread *srcmlThread = SrcMLCaller::startSrcML(path.c_str(), stream, numberThreads);
+	std::thread *srcmlThread;
+	StringStream *stream = SrcMLCaller::startSrcML(path.c_str(), srcmlThread, numberThreads);
 
 	Logger::logDebug("Received stream from srcML", __FILE__, __LINE__);
 
