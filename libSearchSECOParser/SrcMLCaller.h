@@ -20,7 +20,7 @@ public:
 	/// <param name="path">Path to send to srcML.</param>
 	/// <param name="numberThreads">Maximum number of threads the parser may use.</param>
 	/// <returns>StringStream object to which the output of srcML is written.</returns>
-	static StringStream* startSrcML(std::string path, int numberThreads = -1);
+  static std::thread *startSrcML(std::string path, StringStream *stream, int numberThreads = -1);
 
 private:
 	/// <summary>

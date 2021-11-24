@@ -26,7 +26,8 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 
 
 	Logger::logDebug("Sending files to srcML", __FILE__, __LINE__);
-	StringStream* stream = SrcMLCaller::startSrcML(path.c_str(), numberThreads);
+	StringStream *stream;
+	std::thread *srcmlThread = SrcMLCaller::startSrcML(path.c_str(), stream, numberThreads);
 
 	Logger::logDebug("Received stream from srcML", __FILE__, __LINE__);
 
@@ -40,6 +41,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	if (errno != 0 || stopped){
 		// If an error occured, discard parsed data and return.
 		Logger::logDebug("An error occured in the srcML parser. Returning empty.", __FILE__, __LINE__);
+		srcmlThread->join();
 		return std::vector<HashData>();
 	}
 

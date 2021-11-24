@@ -22,9 +22,9 @@ Utrecht University within the Software Project course.
 
 extern std::atomic<bool> stopped;
 
-StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
+std::thread *SrcMLCaller::startSrcML(std::string cmd, StringStream *stream, int numberThreads)
 {
-	StringStream *stream = new StringStream(SEARCHSECOPARSER_SRCML_BUFFER_SIZE);
+	stream = new StringStream(SEARCHSECOPARSER_SRCML_BUFFER_SIZE);
 
 	std::string threads = "";
 	if (numberThreads != -1)
@@ -33,9 +33,9 @@ StringStream* SrcMLCaller::startSrcML(std::string cmd, int numberThreads)
 	}
 
 	// Start srcML in new thread so the output can be read while it is being made.
-	new std::thread(exec, "srcml " + threads + cmd, stream);
+	std::thread* srcmlThread = new std::thread(exec, "srcml " + threads + cmd, stream);
 
-	return stream;
+	return srcmlThread;
 }
 
 /*
