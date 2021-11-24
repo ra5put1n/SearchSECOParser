@@ -6,6 +6,7 @@ Utrecht University within the Software Project course.
 #pragma once
 
 #include <string>
+#include <thread>
  
 #include "StringStream.h"
 

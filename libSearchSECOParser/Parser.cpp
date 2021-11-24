@@ -6,6 +6,7 @@ Utrecht University within the Software Project course.
 
 #include <iostream>
 #include <algorithm>
+#include <thread>
 
 #include "loguru/loguru.hpp"
 
