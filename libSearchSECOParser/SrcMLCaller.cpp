@@ -120,7 +120,6 @@ void SrcMLCaller::exec(std::string cmd, StringStream *stream)
 	if (stopped)
 	{
 		errno = EDOM;
-		stream->setFailed();
 		if (pipe.get() != NULL)
 		{
 			std::fclose(pipe.get());

@@ -6,6 +6,9 @@ Utrecht University within the Software Project course.
 
 #include "StringStream.h"
 #include "Logger.h"
+#include <atomic>
+
+extern std::atomic<bool> stopped;
 
 StringStream::StringStream(int bufferSize)
 {
@@ -23,7 +26,7 @@ void StringStream::addBuffer(char* buffer, int length)
 
 char StringStream::nextChar()
 {
-	if (failed)
+	if (stopped)
 	{
 		return ' ';
 	}
@@ -45,7 +48,7 @@ char StringStream::nextChar()
 	while (s <= 0)
 	{
 		std::unique_lock<std::mutex> l(lock);
-		if (failed || (dataEnded && sizeWrite <= 0))
+		if (stopped || (dataEnded && sizeWrite <= 0))
 		{
 			return '\0';
 		}
@@ -65,7 +68,7 @@ char StringStream::nextChar()
 
 bool StringStream::stop()
 {
-	if (failed)
+	if (stopped)
 	{
 		errno = EDOM;
 		return true;
@@ -85,12 +88,6 @@ void StringStream::setInputEnded(bool b)
 {
 	std::unique_lock<std::mutex> l(lock);
 	dataEnded = b;
-}
-
-void StringStream::setFailed()
-{
-	std::unique_lock<std::mutex> l(lock);
-	failed = true;
 }
 
 StringBuffer::StringBuffer(int bufferSize)
