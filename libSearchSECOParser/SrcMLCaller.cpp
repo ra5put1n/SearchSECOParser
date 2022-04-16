@@ -13,6 +13,7 @@ Utrecht University within the Software Project course.
 #include <stdio.h>
 #if !defined(WIN32) && !defined(_WIN32) && !defined(__WIN32) || defined(__CYGWIN__)
 #include <sys/select.h>
+#include <unistd.h>
 #endif
 
 
@@ -110,9 +111,11 @@ void SrcMLCaller::exec(std::string cmd, StringStream *stream)
 		// Else, there was activity on the fd.
 		else
 		{
+			alarm(10);
 			bytesRead = fread(buffer->data(), 1, SEARCHSECOPARSER_SRCML_BUFFER_SIZE, pipeGet);
 			stream->addBuffer(buffer->data(), bytesRead);
 			buffer = new std::array<char, SEARCHSECOPARSER_SRCML_BUFFER_SIZE>();
+			alarm(0);
 		}
 	}
 #endif
