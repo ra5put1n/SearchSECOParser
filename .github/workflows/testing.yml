@@ -53,5 +53,5 @@ jobs:
       - name: Run linting
         run: |
              cd libSearchSECOParser
-             clang-tidy *.cpp --extra-arg=-std=c++20 -- -I../external/antlr/src
-             clang *.cpp -I../external/antlr/src -fsyntax-only -Werror
+             clang-tidy *.cpp -- -I../external/antlr/src -std=c++20
+             clang *.cpp -I../external/antlr/src -fsyntax-only -Werror -std=c++20
