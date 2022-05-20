@@ -10,9 +10,10 @@ Utrecht University within the Software Project course.
 #include "md5/md5.h"
 #include "Logger.h"
 
-XmlParser::XmlParser(std::string path)
+XmlParser::XmlParser(std::string path, int filesCount)
 {
 	this->path = path;
+	this->filesCount = filesCount;
 }
 
 std::vector<HashData> XmlParser::parseXML(StringStream *stringStream, bool parseFurther)
@@ -168,6 +169,11 @@ void XmlParser::handleUnitTag(TagData tagData)
 		std::string log = "Finished parsing file: " + currentFileName + 
 			", number of functions found: " + std::to_string(functionCount);
 		Logger::logDebug(log.c_str(), __FILE__, __LINE__);
+		currentFile++;
+		if (filesCount > 10 && currentFile % (filesCount / 10) == 0)
+		{
+			Logger::logInfo(("Parsing: " + std::to_string((100 * currentFile) / filesCount) + "%.").c_str(), __FILE__, __LINE__);
+		}
 	}
 
 	size_t filenamePosition = tagData.textInTag.find("filename=") + SEARCHSECOPARSER_SRCML_FILENAME_OFFSET;

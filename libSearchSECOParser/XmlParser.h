@@ -40,7 +40,7 @@ public:
 	/// Constructor.
 	/// </summary>
 	/// <param name="pathPrefixLength">Path to parse.</param>
-	XmlParser(std::string pathPrefixLength);
+	XmlParser(std::string pathPrefixLength, int filesCount);
 
 	/// <summary>
 	/// Find methods in XML, abstract, and hash them.
@@ -125,4 +125,6 @@ private:
 	// Some vars for keeping track of found hashes/number of methods.
 	std::vector<HashData> hashes;
 	int functionCount = 0;
+	int filesCount;
+	int currentFile = 0;
 };

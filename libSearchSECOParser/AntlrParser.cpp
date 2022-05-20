@@ -4,10 +4,7 @@ Utrecht University within the Software Project course.
 © Copyright Utrecht University(Department of Information and Computing Sciences)
 */
 
-// NOLINTNEXTLINE
-#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
-
-#include <experimental/filesystem>
+#include <filesystem>
 #include <fstream>
 #include <thread>
 #include <codecvt>
@@ -23,7 +20,7 @@ Utrecht University within the Software Project course.
 
 extern std::atomic<bool> stopped;
 
-std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfThreads)
+std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfThreads, int filesCount)
 {
 	std::vector<HashData> meths;
 	std::mutex outputLock;
@@ -37,7 +34,7 @@ std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfT
 	// Thread-safe queue (with lock).
 	std::queue<std::string> files;
 	std::mutex queueLock;
-	auto dirIter = std::experimental::filesystem::recursive_directory_iterator(repoPath);
+	auto dirIter = std::filesystem::recursive_directory_iterator(repoPath);
 
 	// Loop over all files.
 	for (const auto &path : dirIter)
@@ -49,11 +46,13 @@ std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfT
 		}
 	}
 
+	std::atomic<int> currentFile = filesCount - files.size();
+
 	// Construct threads to process the queue.
 	for (int i = 0; i < numberOfThreads; i++)
 	{
 		threads.push_back(std::thread(&AntlrParsing::singleThread, std::ref(meths), std::ref(outputLock),
-									  std::ref(files), std::ref(queueLock), std::ref(repoPath)));
+									  std::ref(files), std::ref(queueLock), std::ref(currentFile), std::ref(repoPath), filesCount));
 	}
 
 	// Wait on threads to finish.
@@ -62,14 +61,14 @@ std::vector<HashData> AntlrParsing::parseDir(std::string repoPath, int numberOfT
 		th.join();
 	}
 
-	getFacade(".py")->ClearCache();
-	getFacade(".js")->ClearCache();
+	getFacade("proxy.py")->ClearCache();
+	getFacade("proxy.js")->ClearCache();
 
 	return meths;
 }
 
 void AntlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &outputLock, 
-	std::queue<std::string> &files,	std::mutex &queueLock, std::string path)
+	std::queue<std::string> &files,	std::mutex &queueLock, std::atomic<int> &currentFile, std::string path, int filesCount)
 {
 	loguru::set_thread_name("AntlrParser");
 	while (!stopped)
@@ -85,13 +84,19 @@ void AntlrParsing::singleThread(std::vector<HashData> &meths, std::mutex &output
 		files.pop();
 		queueLock.unlock();
 		parseSingleFile(file, meths, outputLock, path);
+		currentFile = currentFile + 1;
+		if (filesCount > 10 && currentFile % (filesCount / 10) == 0)
+		{
+			Logger::logInfo(("Parsing: " + std::to_string((100 * currentFile) / filesCount) + "%.").c_str(), __FILE__,
+							__LINE__);
+		}
 	}
 }
 
 
 LanguageBase* AntlrParsing::getFacade(std::string fileName)
 {
-	std::experimental::filesystem::path path = std::experimental::filesystem::path(fileName);
+	std::filesystem::path path = std::filesystem::path(fileName);
 	if (path.extension() == ".py")
 	{
 		return new Python3AntlrImplementation();

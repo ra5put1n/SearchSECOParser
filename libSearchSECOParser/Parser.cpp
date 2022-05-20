@@ -7,6 +7,7 @@ Utrecht University within the Software Project course.
 #include <iostream>
 #include <algorithm>
 #include <thread>
+#include <filesystem>
 
 #include "loguru/loguru.hpp"
 
@@ -25,8 +26,17 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	
 	Logger::logInfo("Starting Parser", __FILE__, __LINE__);
 
+	/*int filesCount = std::distance(std::filesystem::recursive_directory_iterator(path),
+								   std::filesystem::recursive_directory_iterator{}) -
+					 std::distance(std::filesystem::recursive_directory_iterator(path + "/.git"),
+								   std::filesystem::recursive_directory_iterator{});*/
+	auto dirIter = std::filesystem::recursive_directory_iterator(path);
+	int filesCount = std::count_if(begin(dirIter), end(dirIter),
+								   [](auto &entry) { return entry.is_regular_file() && entry.path().string().find(".git") == std::string::npos; });
+	std::cout << "Number of files found: " << std::to_string(filesCount) << std::endl;
+
 	Logger::logDebug("Sending files to srcML", __FILE__, __LINE__);
-	std::thread *srcmlThread;
+	std::thread *srcmlThread = {};
 	StringStream *stream = SrcMLCaller::startSrcML(path.c_str(), srcmlThread, numberThreads);
 
 	Logger::logDebug("Received stream from srcML", __FILE__, __LINE__);
@@ -34,7 +44,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 	Logger::logDebug("Sending stream to Xml Parser", __FILE__, __LINE__);
 	// Give XmlParser the path with / instead of \ for finding files.
 	std::replace(path.begin(), path.end(), '\\', '/');
-	XmlParser xmlParser = XmlParser(path);
+	XmlParser xmlParser = XmlParser(path, filesCount);
 
 	std::vector<HashData> hashes = xmlParser.parseXML(stream);
 
@@ -55,7 +65,7 @@ std::vector<HashData> Parser::parse(std::string path, int numberThreads)
 
 	Logger::logDebug("Starting custom parser ", __FILE__, __LINE__);
 
-	std::vector<HashData> hashes2 = pser.parseDir(path, numberThreads);
+	std::vector<HashData> hashes2 = pser.parseDir(path, numberThreads, filesCount);
 
 	log = "Custom parser parsing finished, number of methods found: " + std::to_string(hashes2.size());
 	Logger::logDebug(log.c_str(), __FILE__, __LINE__);
