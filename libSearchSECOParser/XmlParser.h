@@ -40,7 +40,7 @@ public:
 	/// Constructor.
 	/// </summary>
 	/// <param name="pathPrefixLength">Path to parse.</param>
-	XmlParser(std::string pathPrefixLength, int filesCount);
+	XmlParser(std::string pathPrefixLength, int filesCount = 0);
 
 	/// <summary>
 	/// Find methods in XML, abstract, and hash them.
