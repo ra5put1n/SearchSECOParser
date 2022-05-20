@@ -50,5 +50,6 @@ CheckOptions:
     - { key: readability-identifier-naming.ValueTemplateParameterCase, value: camelBack }
     - { key: readability-identifier-naming.VariableCase, value: camelBack }
     - { key: readability-identifier-naming.VirtualMethodCase, value: camelBack }
+	- { key: readability-identifier-naming.TypeTemplateParameterIgnoredRegexp, value: expr-type}
     - { key: readability-function-size.LineThreshold, value: 35}
 WarningsAsErrors: '-*, readability-identifier-naming, cppcoreguidelines-avoid-goto, readability-braces-around-statements'
