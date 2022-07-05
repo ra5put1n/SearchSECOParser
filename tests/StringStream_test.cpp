@@ -6,7 +6,10 @@ Utrecht University within the Software Project course.
 
 #include "pch.h"
 #include <gtest/gtest.h>
+#include <atomic>
 #include "StringStream.h"
+
+std::atomic<bool> stopped(false);
 
 class ParameterizedStringStreamTests :public ::testing::TestWithParam<std::string> {
 protected:

@@ -3,6 +3,7 @@
 # © Copyright Utrecht University (Department of Information and Computing Sciences)
 
 project(libSearchSECOParser)
+set(CMAKE_CXX_STANDARD 17)
 
 message("Building the parser...")
 if(NOT DEFINED LOGURU_INCLUDED)

@@ -6,6 +6,7 @@ Utrecht University within the Software Project course.
 #pragma once
 
 #include <string>
+#include <thread>
  
 #include "StringStream.h"
 
@@ -20,7 +21,7 @@ public:
 	/// <param name="path">Path to send to srcML.</param>
 	/// <param name="numberThreads">Maximum number of threads the parser may use.</param>
 	/// <returns>StringStream object to which the output of srcML is written.</returns>
-	static StringStream* startSrcML(std::string path, int numberThreads = -1);
+  static StringStream *startSrcML(std::string path, std::thread *srcmlThread, int numberThreads = -1);
 
 private:
 	/// <summary>

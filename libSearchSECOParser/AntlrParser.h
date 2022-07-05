@@ -23,8 +23,9 @@ public:
 	/// </summary>
 	/// <param name = "repoPath"> The directory to be parsed. </param>
 	/// <param name="numberOfThreads"> Max amount of threads to use. </param>
+	/// <param name="filesCount"> Total number of files. </param>
 	/// <returns> A vector of hashes found in the files in the directory. </returns>
-	static std::vector<HashData> parseDir(std::string repoPath, int numberOfThreads);
+	static std::vector<HashData> parseDir(std::string repoPath, int numberOfThreads, int filseCount);
 
 private:
 	/// <summary>
@@ -34,9 +35,11 @@ private:
 	/// <param name = "outputLock"> Mutex that restricts access to meths. </param>
 	/// <param name = "files"> The queue of files to parse. </param>
 	/// <param name = "queueLock"> Mutex that restricts access to files queue. </param>
+	/// <param name = "currentFile"> Files parsed. </param>
 	/// <param name = "path"> Root path the thread is working in. </param>
+	/// <param name = "filesCount"> Total number of files. </param>
 	static void singleThread(std::vector<HashData> &meths, std::mutex &outputLock, 
-		std::queue<std::string> &files, std::mutex &queueLock, std::string path);
+		std::queue<std::string> &files, std::mutex &queueLock, std::atomic<int> &currentFile, std::string path, int filesCount);
 
 	/// <summary>
 	/// Parses a single file.

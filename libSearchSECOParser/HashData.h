@@ -28,12 +28,12 @@ public:
 	};
 
 	// Hash of method, and metadata for method.
-	std::string hash, fileName, functionName;
+	std::string hash, fileName, functionName, vulnCode;
 	int lineNumber, lineNumberEnd;
 
 	friend bool operator==(const HashData &lhs, const HashData &rhs)
 	{
 		return (lhs.hash == rhs.hash) && (lhs.fileName == rhs.fileName) && (lhs.functionName == rhs.functionName) &&
-			(lhs.lineNumber == rhs.lineNumber) && (lhs.lineNumberEnd == rhs.lineNumberEnd);
+			(lhs.lineNumber == rhs.lineNumber) && (lhs.lineNumberEnd == rhs.lineNumberEnd) && (lhs.vulnCode == rhs.vulnCode);
 	}
 };
