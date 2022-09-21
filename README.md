@@ -19,8 +19,18 @@ Make sure srcML is installed and registered in your path.
 ### Stand-alone
 #### Visual-Studio
 Open the solution and simply build the project, copy and past the ANTLR dll file in the external/(debug/release)/antlr folder to the appropriate location (where you build the executable).
-#### Cmake
-Use the Cmake file in the main directory to build both the library and the executable, or use the one in the SearchSECOParser folder to only build the executable.
+
+#### CMake
+The project can be build using CMake. To do this first make sure [CMake](https://cmake.org/download) is installed and you have cloned the git repository. After this you can run the following commands in the root folder of the project to build it:
+```
+mkdir build && cd build
+cmake ..
+cmake --build .
+```
+You can then run the tests using:
+```
+./tests/parser_tests
+```
 
 ### Library
 Use Cmake to include the libSearchSECOParser folder, link the libSearchSECOParser library, and reference the header files in the folder. Or use the cmake file in libSearchSECOParser folder to build the library.
