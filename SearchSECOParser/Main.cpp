@@ -6,6 +6,7 @@ Utrecht University within the Software Project course.
 
 #include <iostream>
 #include "Parser.h"
+#include <atomic>
 
 std::atomic<bool> stopped(false);
 
